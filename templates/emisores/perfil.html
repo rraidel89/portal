@@ -1,0 +1,122 @@
+{% extends 'emisores/baseEmisor.html' %}
+{% block titulo_page %}Perfiles habilitados{% endblock%}
+{% block body %}
+
+<!-- First grid -->
+<h3 class="margin-none pull-left pestana">Perfiles habilitados</h3>
+<div class="clearfix"></div>	
+<div class="tablaBCK">
+
+	<div class="clearfix"></div>
+	<div class="separator-h"></div>
+
+	
+	<!-- Widget -->
+	<div class="widget widget-body-white">
+		
+			<div class="widget-body">
+
+				
+				<!-- Table -->
+				<table class="table table-condensed table-striped table-primary table-vertical-center checkboxs">
+					<thead>
+						<tr>
+							<th class="center">Nombre</th>
+							<th class="center">Apellido</th>
+							<th class="center">email</th>
+							<th class="center">Cédula</th>
+							<th class="center">Estado</th>
+							<th class="center">Editar perfil</th>
+						</tr>
+					</thead>
+					<tbody>
+									
+					 {% for p in perfiles_habilitados %}							
+						<!-- Item -->
+						<tr class="selectable">
+							<td class="center lightblue">{{p.nombres}}</td>
+							<td class="center">{{p.apellidos}}</td>
+							<td class="center lightblue">{{p.email_principal}}</td>
+							<td class="center">{{p.identificacion}}</td>
+							<td class="center">{{p.estado}}</td>
+							<td class="center">
+								<div class="btn-group btn-group-sm">
+									<a href="/editar-persona/{{p.identificacion}}/" class="btn btn-success">Editar</a>
+								</div>
+							</td>
+						</tr>
+						{% endfor %}
+						<!-- // Item END -->
+									
+					</tbody>
+				</table>
+                {% if is_paginated %}
+                <div class="pagination margin-none pull-right">
+                    <span class="page-links">
+                        {% if page_obj.has_previous %}
+                            <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                        {% endif %}
+                        <span class="page-current">
+                            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                        </span>
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                        {% endif %}
+                    </span>
+                </div>
+                {% endif %}
+				<!-- // Table END -->
+				
+				
+				<div class="clearfix"></div>
+				<!-- With selected actions -->
+                <a target="_blank" href="export_xls_perfiles">
+                    <button class="btn btn-success"><i
+                            class="fa fa-download"></i> Descargar resultados a
+                        XLS
+                    </button>
+                </a>
+				<!-- // With selected actions END -->
+				<div class="clearfix"></div>
+				<!-- // Pagination END -->
+			</div>
+		</div>
+	<!-- // Widget -->
+	
+
+	
+</div>
+<!-- First grid -->
+{% endblock %}
+{% block bottom_javascripts %}
+
+	<!-- Global -->
+	<script data-id="App.Config">
+	var App = {};	var basePath = '',
+		commonPath = '{{ STATIC_URL }}',
+		rootPath = '../',
+		DEV = false,
+		componentsPath = '{{ STATIC_URL }}components/';
+	
+	var primaryColor = '#3695d5',
+		dangerColor = '#b55151',
+		successColor = '#609450',
+		infoColor = '#4a8bc2',
+		warningColor = '#ab7a4b',
+		inverseColor = '#45484d';
+	
+	var themerPrimaryColor = primaryColor;
+
+		</script>
+	
+	<script src="{{ STATIC_URL }}components/library/bootstrap/js/bootstrap.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/nicescroll/jquery.nicescroll.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/breakpoints/breakpoints.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/preload/pace/pace.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/preload/pace/preload.pace.init.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/core/js/animations.init.js?v=v1.0.2"></script>
+
+<script src="{{ STATIC_URL }}components/core/js/sidebar.main.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/core/js/sidebar.discover.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/core/js/core.init.js?v=v1.0.2"></script>	
+{% endblock %}

@@ -1,0 +1,11 @@
+@media print
+{
+    body {width:1200px;}
+    div[class|=col-]{float:left !important;}
+    .col-sm-6{width:50 !important%}
+    .non-printable { display: none !important; }
+    .printable { display: block !important; }
+    .container {
+        width: auto !important;
+    }
+}

@@ -1,0 +1,33 @@
+<a id="notificaciones_button" href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-exclamation-circle"></i>
+    {% if nro_notificaciones > 0 %}
+    <span id="notificaciones_count" class="label label-danger">{{ nro_notificaciones }}</span>
+    {% else %}
+    <span id="notificaciones_count" class="label label-default">{{ nro_notificaciones }}</span>
+    {% endif %}
+</a>
+
+<ul id="notificaciones_display" class="dropdown-menu chat media-list pull-right">
+    {% for item in notificaciones %}
+                        <li class="media" onclick="check_watch(); return true;">
+                                <a class="pull-left" href="#"><img class="media-object thumb" src="../media/{{ item.logotipo }}" alt="img" width="40" height="40"/></a>
+                                <div class="media-body">
+                                        <span class="label label-default pull-right">{{ item.fecha_actualizacion|date:"Y-m-d H:i" }}</span>
+                                        <h5 class="media-heading">{{ item.razon_social_emisor }}</h5>
+            {% if item.tipo_comprobante == 'CR' %}
+                                        <p class="margin-none">Comprobante de Retención</p>
+            {% elif item.tipo_comprobante == 'FE' %}
+                <p class="margin-none">Factura Electrónica</p>
+            {% elif item.tipo_comprobante == 'ND' %}
+                <p class="margin-none">Nota de Débito</p>
+            {% elif item.tipo_comprobante == 'NC' %}
+                <p class="margin-none">Nota de Crédito</p>
+            {% elif item.tipo_comprobante == 'GR' %}
+                <p class="margin-none">Guía de Remision</p>
+            {% else %}
+                <p class="margin-none">--</p>
+            {% endif %}
+                                </div>
+                        </li>
+    {% endfor %}
+    <li><a href="/comprobantes-recibidos" class="btn btn-primary"><i class="fa fa-list"></i> <span>Ir a los comprobantes recibidos</span></a></li>
+</ul>

@@ -1,0 +1,18 @@
+{% load emisoreceptor %}
+{% for campania in resultado_campania %}
+<!-- Item -->
+<tr class="selectable">
+     <td class="center lightblue">{{ campania.nombre }}</td>
+     <td class="center">{{ campania.fecha_creacion|date:'Y-m-d' }}</td>
+     <td class="center lightblue"> {{ campania.fecha_publicacion|date:'Y-m-d' }}</td>
+     <td class="center">
+        {% if campania.tipo_campania == 'sms' %}
+        Campania SMS
+        {% else %}
+        Campania Email
+        {% endif %}
+     </td>
+     <td class="center lightblue">{% if campania.estado == 1 %}ACTIVO{% else %}INACTIVO{% endif %} </td>
+</tr>
+<!-- // Item END -->
+{% endfor %}

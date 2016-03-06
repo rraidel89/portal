@@ -1,0 +1,7 @@
+{% if docs_list.has_previous %}
+    <a href="#" onclick="return paginar('{{ docs_list.previous_page_number }}', '{{p_type}}')">Anterior</a>
+{% endif %}
+<span class="disabled">Pág. {{ docs_list.number }} de {{ docs_list.paginator.num_pages }}.</span>
+{% if docs_list.has_next %}
+    <a href="#" onclick="return paginar('{{ docs_list.next_page_number }}', '{{p_type}}')">Siguiente</a>
+{% endif %}

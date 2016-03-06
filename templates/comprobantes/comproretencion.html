@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<comprobanteRetencion id="comprobante" version="1.0.0">
+	<infoTributaria>
+		<razonSocial>{{entity.ruc_empresa.razon_social}}</razonSocial>
+		<nombreComercial>{{entity.ruc_empresa.nombre_comercial}}</nombreComercial>
+		<ruc>{{entity.ruc_empresa}}</ruc>
+		<estab>{{entity.id_configuracion.establecimiento}}</estab>
+		<ptoEmi>{{entity.id_configuracion.punto_emision}}</ptoEmi>
+		<secuencial>{{entity.secuencial}}</secuencial>
+		<dirMatriz>{{entity.ruc_empresa.direccion_matriz}}</dirMatriz>
+	</infoTributaria>
+	<infoCompRetencion>
+		<fechaEmision>{{entity.fecha_emision|date:'d/m/Y'}}</fechaEmision>
+		<dirEstablecimiento>{{entity.ruc_empresa.direccion_matriz}}</dirEstablecimiento>
+		{% if entity.ruc_empresa.codigo_contribuyente_especial %}
+		<contribuyenteEspecial>{{entity.ruc_empresa.codigo_contribuyente_especial}}</contribuyenteEspecial>
+		{% endif %}
+		<obligadoContabilidad>{{entity.ruc_empresa.obligado_contabilidad}}</obligadoContabilidad>
+		<tipoIdentificacionSujetoRetenido>{{entity.id_cliente.tipo_identificacion}}</tipoIdentificacionSujetoRetenido>
+		<razonSocialSujetoRetenido>{{entity.id_cliente.razon_social}}</razonSocialSujetoRetenido>
+		<identificacionSujetoRetenido>{{entity.id_cliente.identificacion}}</identificacionSujetoRetenido>
+		<periodoFiscal>{{entity.periodo_fiscal}}</periodoFiscal>
+	</infoCompRetencion>
+	<impuestos>
+		{% for imp in entity.get_impuestos %}
+		<impuesto>
+			<codigo>{{imp.codigo_impuesto}}</codigo>
+			<codigoRetencion>{{imp.codigo_retencion}}</codigoRetencion>
+			<baseImponible>{{imp.base_imponible|stringformat:".2f"}}</baseImponible>
+			<porcentajeRetener>{{imp.porcentaje_retener_tmp}}</porcentajeRetener>
+			<valorRetenido>{{imp.valor_retenido|stringformat:".2f"}}</valorRetenido>
+			<codDocSustento>{{imp.codigo_documento_sustento}}</codDocSustento>
+			<numDocSustento>{{imp.numero_documento_sustento}}</numDocSustento>
+			<fechaEmisionDocSustento>{{imp.fecha_emi_docum_sustento|date:'d/m/Y'}}</fechaEmisionDocSustento>
+		</impuesto>
+		{% endfor %}
+	</impuestos>
+	<infoAdicional>
+		<campoAdicional nombre="Email">{{entity.id_cliente.email_principal}}{% if entity.id_cliente.email_secundario %},{{entity.id_cliente.email_secundario}}{% endif %}</campoAdicional>
+		{% for info_adicional in entity.impdcretinformacionadicional_set.all %}
+		<campoAdicional nombre="{{ info_adicional.nombre }}">{{ info_adicional.valor }}</campoAdicional>
+		{% endfor %}
+	</infoAdicional>
+</comprobanteRetencion>

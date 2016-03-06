@@ -1,0 +1,21 @@
+<div class="modal fade" id="modal-crear-impuestos-reembolso">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="button-cerrar-modal-imp-reem" type="button" class="close" data-dismiss="modal"
+                    aria-hidden="true">&times;</button>
+                <h3 class="modal-title"><i class="fa fa-shopping-cart fa-lg"></i>&nbsp;IMPUESTOS DE REEMBOLSO</h3>
+            </div>
+            <div class="modal-body" id="impuestos-reembolso">
+                {% include "emisores/imprenta_digital/factura/impuestos-reembolso.html" %}
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:void(0)" data-dismiss="modal"
+                class="btn btn-danger"><i class="fa fa-exit"></i>&nbsp;Cancelar</a>
+                <a href="javascript:void(0)" class="btn btn-success" onclick="save_detalle_imp_reemb()">
+                <i class="fa fa-save"></i>&nbsp;Guardar</a>
+            </div>
+        </div>
+    </div>    
+</div>
+

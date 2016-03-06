@@ -1,0 +1,187 @@
+{% extends 'emisores/baseEmisor.html' %}
+{% block titulo_page %}Reportes cupones{% endblock%}
+{% block body %}
+
+
+<!-- Second grid -->
+<h4 class="margin-none pull-left pestana">Reporte de uso de cupones</h4>
+<div class="clearfix"></div>	
+<div class="tablaBCK">
+
+	<div class="clearfix"></div>
+	<div class="separator-h"></div>
+
+	<!-- Filters -->
+	<div class="filter-bar">
+		<form class="margin-none form-inline">
+			
+			<!-- Calendar From -->
+			<div class="form-group col-md-4">
+				<label>Inicio:</label>
+				<div class="input-group date  col-md-6" id="datepicker03">
+				    <input class="form-control" type="text" value="Seleccione" />
+				    <span class="input-group-addon"><i class="fa fa-th"></i></span>
+				</div>
+			</div>
+			<!-- // Calendar From END -->
+			
+			<!-- Calendar To -->
+			<div class="form-group col-md-4">
+				<label>Fin:</label>
+				<div class="input-group date  col-md-6" id="datepicker04">
+				    <input class="form-control" type="text" value="Seleccione" />
+				    <span class="input-group-addon"><i class="fa fa-th"></i></span>
+				</div>
+			</div>
+			<!-- // Calendar To END -->
+            
+            <!-- Select -->
+			<div class="col-md-4">
+				<div class="row">
+					<label>Nombre</label>
+					<select class="selectpicker col-md-6">
+						<option>Seleccione</option>
+					</select> 
+				</div>
+			</div>
+			<!-- // Select END -->
+            
+            <!-- Select -->
+            <div class="col-md-4">
+            	<div class="row">
+            		<label>Estado</label>
+            		<select class="selectpicker col-md-6">
+            			<option>Seleccione</option>
+            		</select> 
+            	</div>
+            </div>
+            <!-- // Select END -->
+
+			<div class="clearfix"></div>
+		</form>
+	</div>
+	<!-- // Filters END -->
+	
+	<!-- Widget -->
+	<div class="widget widget-body-white">
+			
+			<div class="widget-body">
+			
+				<!-- Total bookings & sort by options -->
+				<div class="separator bottom">
+					Total resultados: 26
+					<span class="pull-right">
+						<label class="strong">Organizados por:</label>
+						<select class="selectpicker margin-none" data-style="btn-default btn-xs">
+							<option>5</option>
+							<option>50</option>
+							<option>100</option>
+						</select>
+					</span>
+					<div class="clearfix"></div>
+				</div>
+				<!-- // Total bookings & sort by options END -->
+				
+				<!-- Table -->
+				<table class="table table-condensed table-striped table-primary table-vertical-center checkboxs">
+					<thead>
+						<tr>
+							<th class="center">Fecha inicio</th>
+							<th class="center">Fecha fin</th>
+							<th class="center">Nombre del cupon</th>
+							<th class="center">Estado del cupon</th>
+						</tr>
+					</thead>
+					<tbody>
+																
+						<!-- Item -->
+						<tr class="selectable">
+							<td class="center lightblue">20/13/2014</td>
+							<td class="center">30/13/2014</td>
+							<td class="center lightblue">Doble promoción en camisetas</td>
+							<td class="center">Activo</td>
+						</tr>
+						<!-- // Item END -->
+                        
+                        <!-- Item -->
+                        <tr class="selectable">
+                        	<td class="center lightblue">20/13/2014</td>
+                        	<td class="center">30/13/2014</td>
+                        	<td class="center lightblue">Doble promoción en camisetas</td>
+                        	<td class="center">Activo</td>
+                        </tr>
+                        <!-- // Item END -->
+                        <!-- Item -->
+                        <tr class="selectable">
+                        	<td class="center lightblue">20/13/2014</td>
+                        	<td class="center">30/13/2014</td>
+                        	<td class="center lightblue">Doble promoción en camisetas</td>
+                        	<td class="center">Activo</td>
+                        </tr>
+                        <!-- // Item END -->											
+					</tbody>
+				</table>
+				<!-- // Table END -->
+				
+				
+				
+				<!-- Pagination -->
+				<ul class="pagination pull-right margin-none">
+					<li class="disabled"><a href="#">&laquo;</a></li>
+					<li class="active"><a href="#">1</a></li>
+					<li><a href="#">2</a></li>
+					<li><a href="#">3</a></li>
+					<li><a href="#">&raquo;</a></li>
+				</ul>
+				<div class="clearfix"></div>
+				
+			</div>
+		</div>
+	<!-- // Widget -->
+	
+
+	
+</div>
+<!-- Second grid -->
+
+<!-- Spacer -->
+<div><br /><br /></div>
+<!-- Spacer -->
+
+
+{% endblock %}
+{% block bottom_javascripts %}
+
+	<!-- Global -->
+	<script data-id="App.Config">
+	var App = {};	var basePath = '',
+		commonPath = '{{ STATIC_URL }}',
+		rootPath = '../',
+		DEV = false,
+		componentsPath = '{{ STATIC_URL }}components/';
+	
+	var primaryColor = '#3695d5',
+		dangerColor = '#b55151',
+		successColor = '#609450',
+		infoColor = '#4a8bc2',
+		warningColor = '#ab7a4b',
+		inverseColor = '#45484d';
+	
+	var themerPrimaryColor = primaryColor;
+
+		</script>
+	
+	<script src="{{ STATIC_URL }}components/library/bootstrap/js/bootstrap.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/nicescroll/jquery.nicescroll.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/breakpoints/breakpoints.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/preload/pace/pace.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/preload/pace/preload.pace.init.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/core/js/animations.init.js?v=v1.0.2"></script>
+
+<script src="{{ STATIC_URL }}components/core/js/sidebar.main.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/core/js/sidebar.discover.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/core/js/core.init.js?v=v1.0.2"></script>
+
+<script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-select/assets/lib/js/bootstrap-select.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-select/assets/custom/js/bootstrap-select.init.js?v=v1.0.2&sv=v0.0.1"></script>
+{% endblock %}

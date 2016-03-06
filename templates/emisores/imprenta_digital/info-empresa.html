@@ -1,0 +1,44 @@
+<div class="widget-head visible-print-block">
+    <h3>{{empresa.nombre_comercial}}</h3>
+</div>
+<div class="widget-body">
+    {% if empresa.logotipo.url %}
+    <div style="text-align: center"><img height="auto" width="50%" src="{{ empresa.logotipo.url }}"/></div>
+    {% endif %}
+    <br>
+    <table width="100%" cellpadding="2" cellspacing="2">
+        <tr>
+            <th>Razón Social:</th><td>{{empresa.razon_social}}</td>
+        </tr>
+        <tr>
+            <th>RUC:</th><td>{{empresa.ruc}}</td>
+        </tr>
+        <tr>
+            <th>Dirección Matriz:</th><td>{{empresa.direccion_matriz}}</td>
+        </tr>
+        <tr>
+            <th>Teléfono:</th><td>{{empresa.telefono_principal}}</td>
+        </tr>
+        <tr>
+            <th>Obligado a llevar contabilidad:</th><td>{{empresa.obligado_contabilidad}}</td>
+        </tr>
+        {% if empresa.codigo_contribuyente_especial %}
+        <tr>
+            <th>Contribuyente especial:</th><td>{{empresa.codigo_contribuyente_especial}}</td>
+        </tr>
+        {% else  %}
+        <tr>
+            <th>Contribuyente especial:</th><td>NO</td>
+        </tr>
+        {% endif %}
+        {%if empresa.codigo_direccion_sucursal%}
+        <tr>
+            <th>Direccion sucursal:</th><td>{{empresa.codigo_direccion_sucursal}}</td>
+        </tr>
+        {%else%}
+        <tr>
+            <th>Direccion sucursal:</th><td>------</td>
+        </tr>
+        {%endif%}
+    </table>
+</div>

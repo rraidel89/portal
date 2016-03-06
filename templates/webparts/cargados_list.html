@@ -1,0 +1,20 @@
+{% load emisoreceptor %}
+<table class="table table-condensed table-striped table-primary table-vertical-center checkboxs">
+    <thead>
+        <tr>
+            <th class="center">Fecha</th>
+            <th class="center">Tipo</th>
+            <th class="center">Número</th>
+            <th class="center">Emisor</th>
+            <th class="center">Ciudad</th>
+            <th class="center">Monto</th>
+            <th class="center">Aprobado por</th>
+            <th class="center">Estado</th>
+            <th class="center">Ver</th>
+            <th class="center">Editar</th>
+        </tr>
+    </thead>
+    <tbody id="comprobantes-cargados">
+    {% include "webparts/cargados_list_items.html" %}
+    </tbody>
+</table>

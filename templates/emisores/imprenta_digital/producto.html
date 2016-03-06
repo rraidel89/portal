@@ -1,0 +1,142 @@
+<script language="JavaScript">
+function preguntaprod(this_for,info_adicional_form_prefix,item_info_adi,item_info_adi_,form_ia_instance_id){
+ 
+   var formCount = parseInt($('#id_' + info_adicional_form_prefix + '-TOTAL_FORMS').val());
+    
+     if (formCount>1) {
+        if (form_ia_instance_id=="None") {
+            
+      deleteForm(this_for,info_adicional_form_prefix ,item_info_adi);
+     }else{
+      if(confirm('¿Estas seguro de Eliminar?')){
+         deleteForm(this_for, info_adicional_form_prefix , item_info_adi);
+         delete_entity(item_info_adi_,form_ia_instance_id);
+       }
+      }
+    }
+  
+}
+</script> 
+
+<form id="form_crear_producto" action="." method="post">
+    <div class="filter-bar">
+        <div class="widget widget-body-white" style="height: auto;">
+            <div class="widget-head">
+                <h4>Datos Producto</h4>
+            </div>
+            <div class="widget-body">
+                {{ producto_form.as_p }}
+            </div>
+        </div>
+    </div>
+    <div class="filter-bar">
+        <div class="widget widget-body-white" style="height: auto;">
+            <div class="widget-head">
+                <h4>Detalles Adicionales
+                    <a href="#" data-toggle="tooltip" data-placement="left" class="pull-right"
+                        data-original-title="Información extra acerca del producto."><i class="fa fa-question"></i></a>
+                </h4>
+            </div>
+            <div class="widget-body">
+                {{ detalle_adicional_producto_form.management_form }}
+                <table class="form-custom">
+                    {% for form in detalle_adicional_producto_form.forms %}
+                      {% if forloop.first %}
+                      <thead><tr>
+                        {% for field in form.visible_fields %}
+                            {% if not forloop.last %}
+                            <th class="{% cycle col1,col2 %}">{{ field.label|capfirst }}</th>
+                            {% endif %}
+                        {% endfor %}
+                        <th class="col1">Eliminar</th>
+                      </tr></thead>
+                      {% endif %}
+                      <tr class="{% cycle row1,row2 %} item_det_prod">
+                      {% for field in form.visible_fields %}
+                        {% if not forloop.last %}
+                        <td class="{% cycle col1,col2 %}">
+                        {# Include the hidden fields in the form #}
+                        {% if forloop.first %}
+                          {% for hidden in form.hidden_fields %}
+                          {{ hidden }}
+                          {% endfor %}
+                        {% endif %}
+                          {{ field.errors.as_ul }}
+                          {{ field }}
+                        </td>
+                        {% endif %}
+                      {% endfor %}
+                      <td class="col1"><p style=""><a id="delete_detalles_adicional_producto" class="delete-detalle-adicional btn btn-danger" onclick="return preguntaprod(this, 'impdproductodetalleadicional_set', 'item_det_prod','item_det_prod_detalles_adicionales','{{form.instance.id}}');" href="#">X</a></p></td>
+                       </tr>
+                    {% endfor %}
+                        <tr>
+                            <td colspan="2"></td>
+                            <td><input type="button" id="add_more_detalles_producto" class="btn btn-primary" value="Agregar"/></td>
+                        </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="filter-bar">
+        <div class="widget widget-body-white" style="height: auto;">
+            <div class="widget-head">
+                <h4>Impuestos
+                    <a href="#" data-toggle="tooltip" data-placement="left" class="pull-right"
+                        data-original-title="Impuestos marcados para el producto."><i class="fa fa-question"></i></a>
+                </h4>
+            </div>
+            <div class="widget-body">
+                {{ impuestos_producto_form.management_form }}
+        
+                <table class="form-custom">
+                    {% for form in impuestos_producto_form.forms %}
+                      {% if forloop.first %}
+                      <thead><tr>
+                        {% for field in form.visible_fields %}
+                            {% if not forloop.last %}
+                            <th class="{% cycle col1,col2 %}">{{ field.label|capfirst }}</th>
+                            {% endif %}
+                        {% endfor %}
+                        <th class="col2">Eliminar</th>
+                      </tr></thead>
+                      {% endif %}
+                      <tr class="{% cycle row1,row2 %} item_imp_prod">
+                      {% for field in form.visible_fields %}
+                        {% if not forloop.last %}
+                        <td class="{% cycle col1,col2 %}">
+                        {# Include the hidden fields in the form #}
+                        {% if forloop.first %}
+                          {% for hidden in form.hidden_fields %}
+                          {{ hidden }}
+                          {% endfor %}
+                        {% endif %}
+                          {{ field.errors.as_ul }}
+                          {{ field }}
+                        </td>
+                        {% endif %}
+                      {% endfor %}
+                      <td class="col2"><p style=""><a id="delete_impuesto_producto"class="delete-impuesto-producto btn btn-danger" onclick="return preguntaprod(this, 'impdproductoimpuesto_set', 'item_imp_prod','item_imp_prod_impuestos','{{form.instance.id}}');" href="#">X</a></p></td>
+                       </tr>
+                    {% endfor %}
+                        <tr>
+                            <td colspan="3"></td>
+                            <td><input type="button" id="add_more_impuestos_producto" class="btn btn-primary" value="Agregar"/></td>
+                        </tr>
+                </table>
+                <br>
+                <div id="crear_producto_error_list"></div>
+            </div>   
+        </div>
+    </div>
+</form>
+<script>
+    $('#add_more_detalles_producto').click(function() {
+        
+        cloneMore('tr.item_det_prod:last', 'impdproductodetalleadicional_set');
+    });
+    
+    $('#add_more_impuestos_producto').click(function() {
+        
+        cloneMore('tr.item_imp_prod:last', 'impdproductoimpuesto_set');
+    });
+</script>

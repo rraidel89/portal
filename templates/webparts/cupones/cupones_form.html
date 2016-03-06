@@ -1,0 +1,61 @@
+<form id="filtro_cupones_form" class="margin-none form-inline" method="POST" action="" onsubmit="filter_cupones_form();return false;">
+    <div class="filter-bar">
+        {% csrf_token %}
+        <!-- Calendar From -->
+        <div class="form-group col-md-4">
+           <label>Inicio:</label>
+           <div class="input-group date" id="datepicker03">
+              {{ frm_cupon.cup_fecha_inicio }}
+              <span class="input-group-addon"><i class="fa fa-th"></i></span>
+           </div>
+        </div>
+        <!-- // Calendar From END -->
+        <!-- Calendar To -->
+        <div class="form-group col-md-4">
+           <label>Fin:</label>
+           <div class="input-group date" id="datepicker04">
+              {{ frm_cupon.cup_fecha_fin }}
+              <span class="input-group-addon"><i class="fa fa-th"></i></span>
+           </div>
+        </div>
+        <!-- // Calendar To END -->
+        <!-- Input -->
+        <div class="form-group col-md-4">
+           <label>Tipo:</label>
+           <div class="input-group">
+              {{ frm_cupon.cup_tipo }}
+           </div>
+        </div>
+        {% if perms.core.add_cupon%}
+        <div class="form-group col-md-4">
+           <label>Estado:</label>
+           <div class="input-group">
+              {{ frm_cupon.cup_estado }}
+           </div>
+        </div>
+        {% endif %}
+        <!-- // Input END -->
+        <!-- Select -->
+        <div class="form-group col-md-4">
+           <label>Categoria:</label>
+           <div class="row">
+              {{ frm_cupon.cup_categoria }}
+           </div>
+        </div>
+        <div class="form-group col-md-4">
+           <label>Subcategoria:</label>
+           <div class="row">
+              {{ frm_cupon.cup_sub_categoria }}
+           </div>
+        </div>
+          <div class="form-group col-md-4">
+             <button id="filter_cupones_button" type="button" onclick="filter_cupones_form();" class="btn btn-primary btn-sm">
+               <span class="glyphicon glyphicon-search"></span>Buscar
+             </button>
+          </div>
+        <div class="clearfix"></div>
+    </div>
+    
+    <div class="separator bottom">Total Cupones Registrados: <span id="cantidad-cupones">{{ cant_cupones }}</span>
+    <span class="pull-right"><label class="strong">Organizados por:</label> {{ frm_cupon.cup_filas_cupones }}</span>   
+</form>

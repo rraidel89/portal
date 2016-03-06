@@ -1,0 +1,55 @@
+{% load emisoreceptor %}
+<script type="text/javascript">
+function Mensaje(msg, nom) {
+ nom = "<B><u>Nombre del Comprobante: " + nom + "</u></B><BR><BR>";
+ aux=msg.replace('"', ' ');
+ PosX=screen.width/2-300;
+ PosY=screen.height/2-100;
+ n=window.open('', 'Motivo de rechazo', 'toolbar=no,directories=no, location=0, menubar=no, scrollbars=yes, statusbar=no, tittlebar=no, width=600, height=200, left=' + PosX + ', top=' + PosY);
+ n.document.write("<font face='Arial'><P align='center'>" + nom + aux + "</P></font>");
+
+}
+</script>
+{% for de in result %}
+    <tr>
+        <td class="center">{{ de.0 }}</td>
+        <td class="center">{{ de.1 }}</td>
+        <td class="center">{{ de.2 }}</td>
+        <td class="center">{{ de.3 }}</td>
+        <td class="center">{{ de.4 }}</td>
+        <td class="center">
+            {% if de.5 = '0' %}
+              {% if de.7 = 'A' %}
+                AUTORIZADO
+              {% else %}
+                Enviado al SRI
+              {% endif %}
+            {% elif de.5 = '7' or de.5 = '3' or de.5 = '2' %}
+              Rechazado por Innobee
+            {% elif de.5 = '9' or de.5 = '1' or de.5 = '6' or de.5 = '5' %}
+              Rechazado por SRI
+            {% else %}
+              En Proceso
+            {% endif %}
+        </td>
+        <td class="center">
+            <!--<div class="btn-group btn-group-sm"> -->
+
+                    <a href='JavaScript:Mensaje("{{ de.6 }}","{{ de.8 }}")' style="height:30px;" class="btn btn-success" title="{{ de.6 }}">Ver</a>
+
+            <!--</div> target="blank"   class="btn btn-success"  -->
+            <div class="btn-group btn-group-sm">
+                {% if de.ruta_documento_xml %}
+                    <!--
+                    <form action="/docs/xml/" id="em_form_xml_{{de.id}}" method="post">
+                        {% csrf_token %}
+                        <input name="id" value="{{ de.id }}" type="hidden">
+                        <a href="javascript:void(0)" onclick="document.getElementById('em_form_xml_{{de.id}}').submit();" class="btn btn-success" rel="tooltip" title="Ver archivo XML Autorizado">XML</a>
+                    </form>
+                    -->
+                    <a href="/docs/xml/{{ de.codigo_original }}/" target="blank" style="height: 20px;" class="btn btn-success" rel="tooltip" title="Ver archivo XML Autorizado">XML</a>
+                {% endif %}
+            </div>
+        </td>
+    </tr>
+{% endfor %}

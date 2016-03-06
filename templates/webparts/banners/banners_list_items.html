@@ -1,0 +1,67 @@
+{% load emisoreceptor %}
+{% for banner in banners_empresa %}
+<tr class="selectable">
+    <td class="center lightblue">{{ banner.fecha_creacion|date:'Y-m-d'}}</td>
+    <td class="center">{{ banner.fecha_publicacion|date:'Y-m-d'}}</td>
+    <td class="center lightblue">{{ banner.nombre }}</td>
+    <td class="center">{{ banner.estado }}</td>
+    <td class="center lightblue">{{ banner.nro_clicks|default_if_none:"0" }}</td>
+    <td class="center">{{ banner.impresiones }}</td>
+    <td class="center">{{ banner.impresiones_restantes }}</td>
+    <td class="center lightblue">
+        <div class="btn-group btn-group-sm edit">
+            <a href="/campania-publicidad/editar-banner/{{banner.id_banner}}/" class="btn btn-default link"><i class="fa fa-pencil"></i></a>
+        </div>
+    </td>
+    <td class="center">
+        <div class="btn-group btn-group-sm">
+            <a href="#modal-banner-preview{{banner.id_banner}}"
+               data-toggle="modal" data-backdrop="static">
+                <button 
+                        class="banner_preview btn btn-default">
+                    <i class="fa fa-eye"></i>
+                </button>
+            </a>
+            
+            
+            
+             
+            
+            			<div class="modal fade" id="modal-banner-preview{{banner.id_banner}}">
+				
+				<div class="modal-dialog">
+					<div class="modal-content">
+			
+						<!-- Modal heading -->
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h3 class="modal-title"> Vista previa del banner {{banner.nombre}}</h3>
+						</div>
+						<!-- // Modal heading END -->
+						
+						<!-- Modal body -->
+						<div class="modal-body">
+							<p align="center"><img id="prev_banner" width="100%" height="20%" src="{{ banner.imagen.url }}"/>
+						</div>
+						<!-- // Modal body END -->
+						
+						<!-- Modal footer -->
+						<div class="modal-footer">
+							
+							<a href="#" data-dismiss="modal" class="btn btn-success">Aceptar</a>
+						</div>
+						<!-- // Modal footer END -->
+			
+					</div>
+				</div>
+				
+			</div>
+            
+            
+            
+            
+        </div>
+    </td>
+</tr>
+
+{% endfor %}

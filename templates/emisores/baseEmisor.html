@@ -1,0 +1,266 @@
+{% load dajaxice_templatetags %}
+<html class="sidebar sidebar-discover">
+   <head>
+      <title>{% block titulo_page %}Inicio{% endblock %} | Innobee</title>
+      <!--{% dajaxice_js_import %}-->
+      <!-- Meta -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+      <link rel="stylesheet" href="{{ STATIC_URL }}css/admin/module.admin.stylesheet-complete.min.css" />
+      <link rel="stylesheet" href="{{ STATIC_URL }}css/admin/innobee.css" />
+      <!--
+         <script src="{{ STATIC_URL }}components/library/jquery/jquery.min.js?v=v1.0.2&sv=v0.0.1"></script>
+         <script src="{{ STATIC_URL }}components/library/jquery/jquery-migrate.min.js?v=v1.0.2&sv=v0.0.1"></script>
+         -->
+      <script src="{{ STATIC_URL }}components/library/jquery/jquery-1.9.1.min.js"></script>
+      <script src="{{ STATIC_URL }}components/library/modernizr/modernizr.js?v=v1.0.2&sv=v0.0.1"></script>
+      <script src="{{ STATIC_URL }}components/plugins/less-js/less.min.js?v=v1.0.2&sv=v0.0.1"></script>
+      <!-- TODO REACTIVAR -->
+      <!--<script src="http://code.jquery.com/jquery-2.1.1-rc2.js"></script>-->
+      {% block top_javascripts %}{% endblock%}
+   </head>
+   <body>
+      <!-- Main Container Fluid -->
+      <div class="container-fluid menu-hidden">
+         <!-- Sidebar Menu -->
+	 {% block left_menu %}
+         <div id="menu" class="hidden-print hidden-xs">
+	    {% if logotipo_empresa.logotipo %}
+	       <img src="{{ logotipo_empresa.logotipo.url }}" style="width: 100%;max-height: 50%; height: auto" id='logotipo' border="1">
+	    {% endif %}
+            <div id="sidebar-discover-wrapper">	       
+               <!-- Start of the main navigation -->
+               <ul class="list-unstyled">
+	          {% for m2 in menus2 %}
+		     {%comment%} Para determinar la pestaña que esta usada {%endcomment%}
+		     {% if m2.name == "Dashboard" %}
+		     {% if esta_logueado %}
+		     <li class="active"><a href="{{m2.url}}" class="fa fa-home"><i></i><span class="activo">{{m2.name}}</span></a></li>
+		     {% else %}
+		     <li class="active"><a href="{{m2.url}}" class="fa fa-sign-in"><i></i><span class="activo">Login</span></a></li>
+		     {% endif %}
+		     {% endif %}
+		     {% if esta_logueado %}
+		     {% if m2.name == "Comprobantes Emitidos" %}
+		     {% if perms.core.listar_doc_emit %}
+		     <li><a href="{{m2.url}}" class="fa fa-pencil-square-o"><i></i><span>{{m2.name}}</span></a></li>
+		     {% endif %}
+		     {% endif%}
+		     {% if m2.name == "Comprobantes Recibidos" %}
+		     {% if perms.core.listar_doc_rec %}
+		     <li><a href="{{m2.url}}" class="fa fa-check-square-o"><i></i><span>{{m2.name}}</span></a></li>
+		     {% endif %}
+		     {% endif%}
+		     {% if m2.name == "Servicios" %}
+		     <li>
+			<a href="#sidebar-discover-servicios" class="fa fa-thumb-tack" data-toggle="sidebar-discover"><i></i><span>{{m2.name}}</span></a>
+			<div id="sidebar-discover-servicios" class="sidebar-discover-menu">
+			   <div class="innerAll text-center border-bottom text-muted-dark">
+			      <strong>{{m2.name}}</strong>
+			      <button class="btn btn-xs btn-default close-discover">
+			      <i class="fa fa-fw fa-times"></i></button>
+			   </div>
+			   <ul class="animated fadeIn">
+			      {% for s2 in m2.childs %}
+			      {% if s2.name == 'Productos de interés' and perms.core.listar_productos %}
+			      <li><a href="{{s2.url}}"><i
+				 class="fa fa-play-circle-o">
+				 </i> {{s2.name}}</a>
+			      </li>
+			      {% endif %}
+			      {% if s2.name == 'Campañas de publicidad' and perms.core.listar_campania_sms and perms.core.listar_campania_email %}
+			      <li><a href="{{s2.url}}"><i
+				 class="fa fa-play-circle-o">
+				 </i> {{s2.name}}</a>
+			      </li>
+			      {% endif %}
+			      {% if s2.name == 'Cupones de descuento' and perms.core.listar_cupones %}
+			      <li><a href="{{s2.url}}"><i
+				 class="fa fa-play-circle-o">
+				 </i> {{s2.name}}</a>
+			      </li>
+			      {% endif %}
+			      {% if s2.name == 'Comprobantes cargados' and perms.core.listar_comp_cargados %}
+			      <li><a href="{{s2.url}}"><i
+				 class="fa fa-play-circle-o">
+				 </i> {{s2.name}}</a>
+			      </li>
+			      {% endif%}
+			      {% endfor %}
+			   </ul>
+			</div>
+			{% endif%}
+		     {% if m2.name == "Imprenta Digital" %}
+		     <li>
+			<a href="#sidebar-discover-imprenta" class="fa fa-tasks" data-toggle="sidebar-discover"><i></i><span>{{m2.name}}</span></a>
+			<div id="sidebar-discover-imprenta" class="sidebar-discover-menu">
+			   <div class="innerAll text-center border-bottom text-muted-dark">
+			      <strong>{{m2.name}}</strong>
+			      <button class="btn btn-xs btn-default close-discover">
+			      <i class="fa fa-fw fa-times"></i></button>
+			   </div>
+			   <ul class="animated fadeIn">
+			      {% for s2 in m2.childs %}
+			      {% if s2.name == 'Facturas' and perms.core.change_impdfactura %}
+			      <li><a href="{{s2.url}}"><i
+				 class="fa fa-play-circle-o">
+				 </i> {{s2.name}}</a>
+			      </li>
+			      {% endif %}
+			      {% if s2.name == 'Guías de Remisión' and perms.imprenta_digital.change_impdgrdestinatario %}
+			      <li><a href="{{s2.url}}"><i
+				 class="fa fa-play-circle-o">
+				 </i> {{s2.name}}</a>
+			      </li>
+			      {% endif %}
+			      {% if s2.name == 'Retenciones' and perms.imprenta_digital.change_impdcomproretencion %}
+			      <li><a href="{{s2.url}}"><i
+				 class="fa fa-play-circle-o">
+				 </i> {{s2.name}}</a>
+			      </li>
+			      {% endif %}
+			      {% if s2.name == 'Notas de Crédito' and perms.imprenta_digital.change_impdnotacredito %}
+			      <li><a href="{{s2.url}}"><i
+				 class="fa fa-play-circle-o">
+				 </i> {{s2.name}}</a>
+			      </li>
+			      {% endif %}
+			      {% if s2.name == 'Notas de Débito' and perms.imprenta_digital.change_impdnotadebito %}
+			      <li><a href="{{s2.url}}"><i
+				 class="fa fa-play-circle-o">
+				 </i> {{s2.name}}</a>
+			      </li>
+   			      {% endif %}
+			      {% endfor %}
+			   </ul>
+			</div>
+		     </li>
+		     {% endif%}
+		     {% if m2.name == "Reportes" %}
+		     {% if perms.core.reportes %}
+		     <li><a href="{{m2.url}}" class="fa fa-check-square-o"><i></i><span>{{m2.name}}</span></a></li>
+		     {% endif %}
+		     {% endif%}
+
+		     {% endif %}
+                  {% endfor %}
+
+                   {% if perms.core.reporte_estados %}
+                     <li><a href="/reportes-estado/"><i class="fa fa-check-square-o"></i><span>Reportes Estado</span></a></li>
+                   {% endif %}
+                   {% if perms.core.reporte_innobee %}
+                     <li><a href="/reportes-innobee/"><i class="fa fa-check-square-o"></i><span>Reportes Innobee</span></a></li>
+                   {% endif %}
+                   {% if m2.name == "Salir" %}
+                     <li><a href="{{m2.url}}" class="fa fa-sign-out"><i></i><span>{{m2.name}}</span></a></li>
+                   {% endif%}
+
+               </ul>
+               <!-- End of the main navigation -->
+            </div>
+         </div>
+	 {% endblock%}
+         <!-- // Sidebar Menu END -->
+         <!-- Content -->
+         <div id="content">
+            <div class="navbar hidden-print main" role="navigation">
+               <div class="user-action user-action-btn-navbar pull-left border-right">
+                  <button class="btn btn-sm btn-navbar btn-inverse btn-stroke"><i class="fa fa-bars fa-2x"></i></button>
+               </div>
+               <div class="container_12">                  
+                  <ul id="nav_main" class="main pull-left hidden-xs">
+			<li class="dropdown">
+			   <a class="dropdown-toggle" href="."><img src="{{ STATIC_URL }}images/innobee.png" height="100%" border="0"> </a>
+			</li>
+			{% block top_menu %}
+			{% for m in  menus1 %}
+			{%comment%} muestra el menu horizontal {%endcomment%}
+			<li> {% if m.is_selected %} class="dropdown" {% endif %}
+			   {% if m.name == 'Empresa' %}
+			   {% if perms.core.editar_perfil_empresa %}
+			   <a href="{{m.url}}" class="dropdown-toggle LineSeparator" > {{ m.name }}</a>
+			   {% endif %}
+			   {% else %}
+			   <a href="{{m.url}}" class="dropdown-toggle LineSeparator" > {{ m.name }}</a>
+			   {% endif %}
+			</li>
+			{% endfor %}
+			{% endblock%}
+                  </ul>
+                  <!-- End of the main navigation -->
+               </div>
+               {% if esta_logueado %}
+               <!-- onclick="Dajaxice.emisor_receptor.check_watch(Dajax.process)" -->
+               <ul class="main pull-right">
+		  <li id="small_wait_spinner" class="hidden">
+		     <a href="javascript:void(0)"><i class="fa fa-spin fa-spinner fa-lg"></i>&nbsp;</a>
+		  </li>
+		  {% block notifications_menu %}
+                  <li id="notifications_section" class="dropdown notif notifications hidden-xs">
+                     {% include "webparts/notificaciones.html" %}
+                  </li>
+		  {% endblock%}
+                  <li class="dropdown username">
+                     <a href="" class="dropdown-toggle" data-toggle="dropdown"><img src="{{ STATIC_URL }}images/people/35/2.jpg" class="img-circle" width="30"/> {{user.get_full_name}} <span class="caret"></span></a>
+                     <ul class="dropdown-menu pull-right">
+			{% block right_top_menu %}
+                        {% if grupo == 'ADMINISTRADOR' %}
+                        <li><a href="/perfil/"><i class="fa fa-user"></i> Perfil</a></li>
+                        {% else %}
+                        <li><a href="/perfil-persona/"><i class="fa fa-user"></i> Perfil </a></li>
+                        {% endif %}
+                        {% if esta_logueado %}
+                        <li><a href="/password/change/"><i class="glyphicon glyphicon-cog"></i> Cambiar clave</a></li>
+                        {% endif %}
+                        <li><a href="/bandeja-impresion"><i class="fa fa-print"></i> Mi Bandeja de Impresión</a></li>
+			{% endblock%}
+                        <li><a href="/logout/"><i class="fa fa-dot-circle-o"></i> Salir</a></li>
+                     </ul>
+                  </li>
+               </ul>
+               {% endif %}
+            </div>
+            <!-- // END navbar -->
+            <div class="innerLR">
+               <div style="width: 50%; margin:auto; height:auto;">
+                  {% if messages %}
+                  <ul class="alert alert-success">
+                     {% for message in messages %}
+                     <li>
+                        {{ message }}
+                     </li>
+                     {% endfor %}
+                  </ul>
+                  {% endif %}
+               </div>
+               {% block body %} {% endblock %}
+            </div>
+            <!-- END innerLR-->
+         </div>
+         <!-- // Content END -->
+         <div class="clearfix"></div>
+         <!-- // Sidebar menu & content wrapper END -->
+         {% block footer %}
+         <div id="footer" class="hidden-print">
+            <!--  Copyright Line -->
+            <div class="copy">
+               Powered by NIMBUS Soft technology Cía. Ltda.
+               <br>
+               &copy; 2014 - Todos los derechos reservados <a href="#">Terminos de uso</a> - <a href="#">Políticas de privacidad</a>
+            </div>
+            <!--  End Copyright Line -->
+         </div>
+         <!-- // Footer END -->
+         {% endblock %}
+         {% include "webparts/print_modal.html" %}	
+      </div>
+      {% block inb_modals %}{% endblock %}
+      <!-- // Main Container Fluid END -->
+      {% block bottom_javascripts %}{% endblock%}
+      {% block dajaxice_block %}
+      <script src="{{ STATIC_URL }}dajaxicecore/dajaxice.core.js"></script>
+      <script src="{{ STATIC_URL }}dajax/jquery.dajax.core.js" type="text/javascript"></script>
+      {% endblock%}
+   </body>
+</html>

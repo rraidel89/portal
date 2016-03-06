@@ -1,0 +1,17 @@
+{% load emisoreceptor %}
+<table class="table table-condensed table-striped table-primary table-vertical-center checkboxs">
+    <thead>
+    <tr>
+        <th class="center">Registro</th>
+        <th class="center">Tipo</th>
+        <th class="center">Sucursal</th>
+        <th class="center">PtoEmision</th>
+        <th class="center">Secuencial</th>
+        <th class="center">Estado</th>
+        <th class="center">Motivo</th>
+    </tr>
+    </thead>
+    <tbody id="comprobantes-emitidos">
+    {% include "webparts/reporte_estados_list_items.html" %}
+    </tbody>
+</table>

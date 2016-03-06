@@ -1,0 +1,90 @@
+{% load dajaxice_templatetags %}
+
+<html>
+  <head>
+    <title>My base template</title>
+    {% dajaxice_js_import %}
+ 
+    <script src="http://code.jquery.com/jquery-2.1.1-rc2.js"></script>
+    <script type="text/javascript" src="/static/dajax/jquery.dajax.core.js"></script>
+
+ <style type="text/css">
+   body{
+    margin-top:40px;
+   }
+ </style>
+</head>
+
+<body>
+
+    
+<div class="container">
+
+    <div class="row example">
+
+      <div class="span9">
+
+<script type="text/javascript" charset="utf-8">
+    function calculate(){
+        Dajaxice.emisor_receptor.multiply(Dajax.process,{'a':$('#a').val(),'b':$('#b').val()})
+    }
+</script>
+
+<hr/>
+<form class="form-inline" action="#">
+<input type="text" value="5" id="a" class="input-small"> x <input type="text" value="6" id="b" class="input-small"> = <input type="text" value="" id="result" class="input-small">
+<input type="button" class="btn" value="Multiply!" onclick="calculate();">
+</form>
+<hr/>
+
+
+
+
+
+
+
+     </div>
+    </div>
+
+   </div> <!-- /container -->
+<script>
+function my_js_callback(data){
+                alert(data.message);
+            }
+            function js_callback_asignar(data){
+                document.getElementById('texto').innerHTML= data;
+                alert(data.message);
+            }
+      </script>
+      <input type="button" value="Hola" onclick="Dajaxice.emisor_receptor.decir_hola(my_js_callback);" />
+      <input type="button" value="Clic" onclick="Dajaxice.emisor_receptor.decir_hola(js_callback_asignar);" />
+      <div id="texto"></div>
+      
+      
+      <select onchange="Dajaxice.emisor_receptor.updatecombo(Dajax.process, {'option':this.value})" size="1">
+    <option value="0">Select...</option>
+    <option value="0">Spain</option>
+    <option value="1">France</option>
+    <option value="2">United Kingdom</option>
+</select>
+<select id="combo2" onchange="" size="1"></select>
+      <button onclick="Dajaxice.emisor_receptor.cargarFacturasRecibidas(Dajax.process)">clic aqui</button>
+      <table id="tabla2">
+          
+          
+      </table>
+
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-10253304-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+
+  </body>
+</html>

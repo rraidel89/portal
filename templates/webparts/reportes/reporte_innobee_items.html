@@ -1,0 +1,79 @@
+<div class="row row-app">
+    <div class="col-table">
+        <div class="col-app" style="text-align: center">
+        {% for r in results %}
+        <div class="col-md-12">
+            <div class="widget widget-body-white" style="height: auto;">
+                <div class="widget-head visible-print-block">
+                    <h4>{{r.empresa.nombre_comercial}}</h4>
+                </div>
+                <div class="widget-body">
+                    <div class="col-md-6">
+                        <h5>Emitidos:</h5>
+                        {% if r.emitidos %}
+                        <table class="table table-condensed table-striped table-primary table-vertical-center checkboxs">
+                            <thead>
+                                <tr>
+                                    <th class="center">Tipo</th>
+                                    <th class="center">Cantidad</th>
+                                    <th class="center">Monto</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for obj in r.emitidos %}
+                                <tr>
+                                    <td class="center">{{obj.tipo_comprobante}}</td>
+                                    <td class="center">{{obj.tipo_comprobante__count}}</td>
+                                    <td class="center">{{obj.monto_total__sum}}</td>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <td class="center"><b>TOTAL:</b></td>
+                                <td class="center">{{r.total_emitidos}}</td>
+                                <td class="center">{{r.monto_total_emitido}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Recibidos:</h5>
+                        {% if r.recibidos %}
+                        <table class="table table-condensed table-striped table-primary table-vertical-center checkboxs">
+                            <thead>
+                                <tr>
+                                    <th class="center">Tipo</th>
+                                    <th class="center">Cantidad</th>
+                                    <th class="center">Monto</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for obj in r.recibidos %}
+                                <tr>
+                                    <td class="center">{{obj.tipo_comprobante}}</td>
+                                    <td class="center">{{obj.tipo_comprobante__count}}</td>
+                                    <td class="center">{{obj.monto_total__sum}}</td>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <td class="center"><b>TOTAL:</b></td>
+                                <td class="center">{{r.total_recibidos}}</td>
+                                <td class="center">{{r.monto_total_recibido}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        {% endif %}
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="col-md-3"><b>Total Emitido:</b> {{total_emitido}}</div>
+        <div class="col-md-3"><b>Monto Emitido:</b> {{monto_total_emitido}}</div>
+        <div class="col-md-3"><b>Total Recibido:</b> {{total_recibido}}</div>
+        <div class="col-md-3"><b>Monto Recibido:</b> {{monto_total_recibido}}</div>
+        <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

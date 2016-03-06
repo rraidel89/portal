@@ -1,0 +1,50 @@
+{% load emisoreceptor %}
+{% for cupon in cupones_empresa %}
+    {% if cupon.pk %}
+    <span style="display: inline-block;">
+       <div class="bck_cupon">
+            <div class="imagen"><img src="{{ cupon.ruta_imagen_cupon.url }}"/></div>
+            <div class="contenido_logos">
+               <ul>
+                  <li class="texto-logo">{{ cupon.titular_cupon|truncatechars:20 }}</li>
+               </ul>
+            </div>
+            <div class="ver_mas"><a href="/cupones-descuento/detalle-cupon/{{ cupon.codigo }}/" data-toggle="modal">Ver más>></a>
+            </div>
+            <div class="redes_sociales">
+               <ul>
+                  <li class="compartir">Compartir:</li>
+                  <li class="iconos_pequenios">
+                     <a target="_blank"
+                        href="http://www.facebook.com/sharer.php?u={{DOMAIN_INNOBEE}}/cupones-descuento/detalle-cupon/{{ cupon.codigo }}&t={{ cupon.titular_cupon}}">
+                     <img src="{{ STATIC_URL }}images/coupons/img_noticias_facebook.png"/></a>
+                  </li>
+                  <li class="iconos_pequenios">
+                     <a target="_blank"
+                        href="javascript:var dir='{{ cupon.titular_cupon }}';var tit='{{ cupon.detalles_cupon }}';var tit2='{{DOMAIN_INNOBEE}}/cupones-descuento/detalle-cupon/{{ cupon.codigo }}';window.location.href=('http://twitter.com/?status='+dir+'%20 -- '+tit+'%20 '+tit2+'');">
+                     <img src="{{ STATIC_URL }}images/coupons/img_noticias_twitter.png"/></a>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="clearfix"><br/></div>
+         <div class="clearfix"><br/></div>
+         <div class="separator bottom">
+            <div class="pull-left" style="margin: 10px 10px 0 0">
+                <small><b>Hasta:</b>&nbsp;{{cupon.fecha_final_publicacion}}</small>
+            </div>
+            <div class="pull-right" style="margin: 0 10px 0 0">
+                {% if perms.core.add_cupon %}
+                <a href="/cupones-descuento/editar-cupon/{{ cupon.id }}/" class="btn btn-success">
+                    <i class="fa fa-pencil"></i>
+                </a>
+                {% endif %}
+               <a href="javascript:agregar_bandeja_impresion('{{cupon.id}}','cupon')" class="btn btn-success">
+                    <i class="fa fa-print"></i>
+               </a>
+            </div>  
+         </div>
+         <div class="clearfix"></div>
+    </span>
+    {% endif %}
+{% endfor %}

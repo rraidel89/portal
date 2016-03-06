@@ -1,0 +1,59 @@
+<script language="JavaScript">
+function preguntapago(this_for, info_adicional_form_prefix, item_info_adi, item_info_adi_, form_ia_instance_id){
+   var formCount = parseInt($('#id_' + info_adicional_form_prefix + '-TOTAL_FORMS').val());
+   if (formCount>1) {
+        if (form_ia_instance_id=="None") {
+            deleteForm(this_for,info_adicional_form_prefix ,item_info_adi);
+        }else{
+            if(confirm('¿Estas seguro de Eliminar?')){
+                deleteForm(this_for, info_adicional_form_prefix , item_info_adi);
+                delete_entity(item_info_adi_,form_ia_instance_id);
+            }
+        }
+   }
+}
+</script>
+
+<fieldset>
+  {{ pago_factura_form.management_form }}
+  <table class="form-custom">
+     {% for form in pago_factura_form.forms %}
+     {% if forloop.first %}
+     <thead>
+        <tr>
+           {% for field in form.visible_fields %}
+           {% if not forloop.last %}
+           <th class="{% cycle col1,col2 %}">{{ field.label|capfirst }}</th>
+           {% endif %}
+           {% endfor %}
+           <th class="col1">Eliminar</th>
+        </tr>
+     </thead>
+     {% endif %}
+     <tr class="{% cycle row1,row2 %} item-pago">
+        {% for field in form.visible_fields %}
+        {% if not forloop.last %}
+        <td class="{% cycle col1,col2 %}">
+           {# Include the hidden fields in the form #}
+           {% if forloop.first %}
+           {% for hidden in form.hidden_fields %}
+           {{ hidden }}
+           {% endfor %}
+           {% endif %}
+           {{ field.errors.as_ul }}
+           {{ field }}
+        </td>
+        {% endif %}
+        {% endfor %}
+        <td class="col1" >
+           <a class="delete btn btn-danger delete_pago_factura" href="javascript:void(0)"
+                onclick="preguntapago(this,'{{ pago_factura_form.prefix }}','item-pago','item-pago','{{form.instance.id}}');">X</a>
+        </td>
+     </tr>
+     {% endfor %}
+     <tr>
+        <td colspan="4"></td>
+        <td><input type="button" id="add_more_pago" class="btn btn-primary" value="Agregar"/></td>
+     </tr>
+  </table>
+</fieldset>

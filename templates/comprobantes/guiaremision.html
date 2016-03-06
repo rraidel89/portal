@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<guiaRemision id="comprobante" version="1.0.0">
+	<infoTributaria>
+		<razonSocial>{{entity.ruc_empresa.razon_social}}</razonSocial>
+		<nombreComercial>{{entity.ruc_empresa.nombre_comercial}}</nombreComercial>
+		<ruc>{{entity.ruc_empresa}}</ruc>
+		<estab>{{entity.id_configuracion.establecimiento}}</estab>
+		<ptoEmi>{{entity.id_configuracion.punto_emision}}</ptoEmi>
+		<secuencial>{{entity.secuencial}}</secuencial>
+		<dirMatriz>{{entity.ruc_empresa.direccion_matriz}}</dirMatriz>
+	</infoTributaria>
+	<infoGuiaRemision>
+		<dirEstablecimiento>{{entity.ruc_empresa.direccion_matriz}}</dirEstablecimiento>
+		<dirPartida>{{entity.direccion_partida}}</dirPartida>
+		<razonSocialTransportista>{{entity.razon_social_transportista}}</razonSocialTransportista>
+		<tipoIdentificacionTransportista>{{entity.tipo_identif_transportista}}</tipoIdentificacionTransportista>
+		<rucTransportista>{{entity.ruc_transportista}}</rucTransportista>
+		{% if entity.rise %} <rise>{{entity.rise}}</rise> {% endif %}
+		<obligadoContabilidad>{{entity.ruc_empresa.obligado_contabilidad}}</obligadoContabilidad>
+		{% if entity.ruc_empresa.codigo_contribuyente_especial %}
+		<contribuyenteEspecial>{{entity.ruc_empresa.codigo_contribuyente_especial}}</contribuyenteEspecial>
+		{% endif %}
+		<fechaIniTransporte>{{entity.fecha_inicio_transporte|date:'d/m/Y'}}</fechaIniTransporte>
+		<fechaFinTransporte>{{entity.fecha_fin_transporte|date:'d/m/Y'}}</fechaFinTransporte>
+		<placa>{{entity.placa}}</placa>
+	</infoGuiaRemision>
+	<destinatarios>
+	    {% for dest in entity.get_destinatarios %}
+	    <destinatario>
+		<identificacionDestinatario>{{dest.destinatario.identificacion_destinatario}}</identificacionDestinatario>
+		<razonSocialDestinatario>{{dest.destinatario.razon_social_destinatario}}</razonSocialDestinatario>
+		<dirDestinatario>{{dest.destinatario.direccion_destinatario}}</dirDestinatario>
+		<motivoTraslado>{{dest.motivo_traslado}}</motivoTraslado>
+		{% if dest.documento_aduanero_unico %}
+		<docAduaneroUnico>{{dest.documento_aduanero_unico}}</docAduaneroUnico>
+		{% endif %}
+		{% if dest.documento_aduanero_unico %}
+		<codEstabDestino>{{dest.codigo_establecimiento_destino}}</codEstabDestino>
+		{% endif %}
+		{% if dest.ruta %}
+		<ruta>{{dest.ruta}}</ruta>
+		{% endif %}
+		{% if dest.codigo_documento_sustento %}
+		<codDocSustento>{{dest.codigo_documento_sustento}}</codDocSustento>
+		{% endif %}
+		{% if dest.num_documento_sustento %}
+		<numDocSustento>{{dest.num_documento_sustento}}</numDocSustento>
+		{% endif %}
+		{% if dest.num_autori_docum_sustento %}
+		<numAutDocSustento>{{dest.num_autori_docum_sustento}}</numAutDocSustento>
+		{% endif %}
+		{% if dest.fecha_emi_docum_sustento %}
+		<fechaEmisionDocSustento>{{dest.fecha_emi_docum_sustento|date:'d/m/Y'}}</fechaEmisionDocSustento>
+		{% endif %}
+		<detalles>
+		    {% for det in dest.get_productos_destinatario %}
+		    <detalle>
+			<codigoInterno>{{det.producto.codigo_principal}}</codigoInterno>
+			<codigoAdicional>{{det.producto.codigo_secundario}}</codigoAdicional>
+			<descripcion>{{det.producto.descripcion}}</descripcion>
+			<cantidad>{{det.cantidad|stringformat:".6f"}}</cantidad>
+			{% if det.producto.impdproductodetalleadicional_set.all|length > 0 %}
+			<detallesAdicionales>
+			{% for det_adi in det.producto.impdproductodetalleadicional_set.all %}
+			    <detAdicional nombre="{{det_adi.nombre}}" valor="{{det_adi.descripcion}}"/>
+			{% endfor %}
+			</detallesAdicionales>
+			{% endif %}
+		    </detalle>
+		    {% endfor %}
+		</detalles>
+	    </destinatario>
+	    {% endfor %}
+	</destinatarios>
+	<infoAdicional>
+		{% for info_adicional in entity.impdgrinformacionadicional_set.all %}
+		<campoAdicional nombre="{{ info_adicional.nombre }}">{{ info_adicional.valor }}</campoAdicional>
+		{% endfor %}
+	</infoAdicional>
+
+</guiaRemision>

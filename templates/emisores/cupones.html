@@ -1,0 +1,83 @@
+{% extends 'emisores/baseEmisor.html' %}
+{% block titulo_page %}Cupones{% endblock %}
+{% load static from staticfiles %}
+{% block top_javascripts %}
+<script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="{% static  'util/util.js' %}"></script>
+<link rel="stylesheet/less"
+      href="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/less/datepicker.less"/>
+<link rel="stylesheet"
+      href="{{ STATIC_URL }}css/admin/datepicker/datepicker.css"/>
+
+<link rel="stylesheet" href="{{ STATIC_URL }}css/admin/coupons.css"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/table/demo_table.css"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}components/library/jquery-ui/css/jquery-ui-1.10.3.custom.min.css"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}selectable/css/dj.selectable.css"/>
+{% endblock %}
+{% block body %}
+<script> utilidades(); </script>
+<!-- First grid -->
+<div class="row">
+
+<h3 class="margin-none pull-left pestana">Cupones de descuento</h3>
+<div class="clearfix"></div>
+<div class="tablaBCK">
+        <div class="clearfix"></div>
+        <div class="separator-h"></div>
+        {% include "webparts/cupones/cupones_form.html" %}
+        {% include "webparts/cupones/cupones_list.html" %}
+        {% if perms.core.add_cupon%}
+                <br>
+        <div class="pull-left">
+            <a href="/cupones-descuento/crear-nuevo-cupon" class="btn btn-success">
+                <i class="fa fa-pencil"></i>&nbsp;Crear un nuevo cupón
+            </a>
+        </div>
+        <div class="clearfix"></div>
+        {% endif %}
+</div>
+
+</div>
+{% endblock %}
+
+{% block bottom_javascripts %}
+<!-- Global -->
+<script data-id="App.Config">
+    var App = {};
+    var basePath = '',
+            commonPath = '{{ STATIC_URL }}',
+            rootPath = '../',
+            DEV = false,
+            componentsPath = '{{ STATIC_URL }}components/';
+
+    var primaryColor = '#3695d5',
+            dangerColor = '#b55151',
+            successColor = '#609450',
+            infoColor = '#4a8bc2',
+            warningColor = '#ab7a4b',
+            inverseColor = '#45484d';
+
+    var themerPrimaryColor = primaryColor;
+</script>
+
+<script src="{{ STATIC_URL }}components/library/bootstrap/js/bootstrap.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script>$.fn.bootstrapBtn = $.fn.button.noConflict();</script>
+<script src="{{ STATIC_URL }}components/library/jquery-ui/js/jquery-ui-1.10.3.custom.min.js"></script>
+
+<script src="{{ STATIC_URL }}components/plugins/nicescroll/jquery.nicescroll.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/breakpoints/breakpoints.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/preload/pace/pace.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/preload/pace/preload.pace.init.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/core/js/animations.init.js?v=v1.0.2"></script>
+
+<script src="{{ STATIC_URL }}components/core/js/sidebar.main.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/core/js/sidebar.discover.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/core/js/core.init.js?v=v1.0.2"></script>
+
+<script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/assets/lib/js/bootstrap-datepicker.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/assets/custom/js/bootstrap-datepicker.init.js?v=v1.0.2&sv=v0.0.1"></script>
+
+<script src="{{ STATIC_URL }}components/core/modules/commons.js"></script>
+<script src="{{ STATIC_URL }}components/core/modules/productos.js"></script>
+
+{% endblock %}

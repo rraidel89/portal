@@ -1,0 +1,20 @@
+{% for comp in comprobantes %}
+    {# Each "comp" is a comp model object. #}
+    {{ comp.razon_social_emisor|upper }}<br />
+{% endfor %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if comprobantes.has_previous %}
+            <a href="?page={{ comprobantes.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ comprobantes.number }} of {{ comprobantes.paginator.num_pages }}.
+        </span>
+
+        {% if comprobantes.has_next %}
+            <a href="?page={{ comprobantes.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>

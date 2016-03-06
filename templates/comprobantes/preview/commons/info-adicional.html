@@ -1,0 +1,16 @@
+{% with entity.get_info_adicional as info_adicional %}
+{% if info_adicional %}
+<table width="100%" cellpadding="2" cellspacing="2">
+        <tr>
+                <th class="small_col">Descripci&oacute;n</th>
+                <th class="small_col">Valor</th>
+        </tr>
+        {% for info in info_adicional %}
+        <tr>
+                <td>{{info.nombre}}</td>
+                <td>{{info.valor}}</td>
+        </tr>
+        {% endfor %}
+</table>
+{% endif %}
+{% endwith %}

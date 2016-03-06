@@ -1,0 +1,6 @@
+<form id="form_crear_cliente" action="." method="post">
+    {% csrf_token %}
+    <div>
+        {{ cliente_form.as_p }}
+    </div>
+</form>

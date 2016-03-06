@@ -1,0 +1,42 @@
+
+sudo apt-get install postgresql-9.4
+sudo apt-get install libpq-dev
+sudo apt-get install  python-xlrd
+
+sudo pip install mailchimp
+sudo pip install django-imagekit==2.0.3
+sudo pip install reportlab
+sudo pip install pisa==3.0.33
+sudo pip install django-ckeditor
+sudo pip install django-facebook-comments
+sudo pip install django-visits
+sudo pip install django-validated-file
+sudo pip install django-wkhtmltopdf
+sudo pip install django-selectable
+sudo pip install django-dajaxice
+sudo pip install django-dajax
+sudo pip install django-grappelli
+sudo pip install xlid
+sudo pip install SOAPpy
+sudo pip install pysftp
+sudo pip install pisa
+
+nano /usr/local/lib/python2.7/dist-packages/sx/pisa3/pisa_util.py
+
+in file edit the following lines:
+
+if not (reportlab.Version[0] == "2" and reportlab.Version[2] >= "1"):
+    raise ImportError("Reportlab Version 2.1+ is needed!")
+
+REPORTLAB22 = (reportlab.Version[0] == "2" and reportlab.Version[2] >= "2")
+
+And set to:
+
+if not (reportlab.Version[:3] >="2.1"):
+    raise ImportError("Reportlab Version 2.1+ is needed!")
+
+REPORTLAB22 = (reportlab.Version[:3] >="2.1")
+
+sudo pip install html5lib
+
+

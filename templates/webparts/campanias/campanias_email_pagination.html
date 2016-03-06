@@ -1,0 +1,13 @@
+<ul class="pagination pull-right margin-none">
+    {% if campania_email.has_previous %}
+       <a href="?page_banner={{ campania_email.previous_page_number }}">Anterior</a>
+    {% endif %}
+    <span class="disabled">
+       Pág. {{ campania_email.number }} de {{ campania_email.paginator.num_pages }}.
+    </span>
+    {% if campania_email.has_next %}
+    <a href="?page_email={{ campania_email.next_page_number }}">Siguiente</a>
+    {% endif %}
+</ul>
+<!-- // With selected actions END -->
+<div class="clearfix"></div>

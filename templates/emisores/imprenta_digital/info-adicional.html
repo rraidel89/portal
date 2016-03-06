@@ -1,0 +1,70 @@
+<script language="JavaScript">
+function preguntainfo(this_for,info_adicional_form_prefix,item_info_adi,item_info_adi_,form_ia_instance_id){
+ 
+   var formCount = parseInt($('#id_' + info_adicional_form_prefix + '-TOTAL_FORMS').val());
+     
+     if (formCount>1) {
+        if (form_ia_instance_id=="None") {
+            
+      deleteForm(this_for,info_adicional_form_prefix ,item_info_adi);
+     }else{
+      if(confirm('¿Estas seguro de Eliminar?')){
+         deleteForm(this_for, info_adicional_form_prefix , item_info_adi);
+         delete_entity(item_info_adi_,form_ia_instance_id);
+       }
+      }
+     }
+  
+}
+</script> 
+<div class="widget widget-body-white" style="height: auto;">
+    <div class="widget-head">
+        <h4>Información Adicional
+        <a href="#" data-toggle="tooltip" data-placement="left" class="pull-right"
+            data-original-title="Información extra acerca del comprobante electrónico. Ejemplo: la dirección del cliente."><i class="fa fa-question"></i></a>
+        </h4>
+    </div>
+    <div class="widget-body">
+        <fieldset>
+            {{ info_adicional_form.management_form }}
+            <table class="form-custom">
+            {% for form_ia in info_adicional_form.forms %}
+                
+              {% if forloop.first %}
+              <thead><tr>
+                {% for field in form_ia.visible_fields %}
+                    {% if not forloop.last %}
+                    <th class="{% cycle col1,col2 %}">{{ field.label|capfirst }}</th>
+                    {% endif %}
+                {% endfor %}
+                <th class="col1">Eliminar</th>
+              </tr></thead>
+              {% endif %}
+              <tr class="{% cycle row1,row2 %} item-info-adi">
+              {% for field in form_ia.visible_fields %}
+                    {% if not forloop.last %}
+                    <td class="{% cycle col1,col2 %}">
+                    {# Include the hidden fields in the form #}
+                    {% if forloop.first %}
+                      {% for hidden in form_ia.hidden_fields %}
+                      {{ hidden }}
+                      {% endfor %}
+                    {% endif %}
+                      {{ field.errors.as_ul }}
+                      {{ field }}
+                    </td>
+                    {% endif %}
+              {% endfor %}
+                <td class="col1"><p style=""><a class="delete-info-adi btn btn-danger delete_info_adicional" onclick=" return preguntainfo(this,'{{ info_adicional_form.prefix }}','item-info-adi','item-info-adi_'+'{{ info_adicional_form.prefix }}','{{form_ia.instance.id}}');" href="javascript:void(0)">X</a></p></td>
+               
+              </tr>
+            {% endfor %}
+                 <tr>
+                    <td ></td>
+                    <td ></td>
+                        <td><input type="button" id="add_more_info_adi" class="btn btn-primary" value="Agregar"/></td>
+                 </tr>
+            </table>
+        </fieldset>
+    </div>
+</div>

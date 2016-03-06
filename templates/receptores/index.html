@@ -1,0 +1,1070 @@
+{% extends 'receptores/baseReceptor.html' %}
+{% block titulo_page %}Inicio receptor{% endblock%}
+{% block top_javascripts %}
+    <script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="{{ STATIC_URL }}util/util.js" ></script>
+    <link rel="stylesheet/less" href="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/less/datepicker.less" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/admin/datepicker/datepicker.css" />    
+    <script src="{{ STATIC_URL }}util/jquery.dajax.core.js" type="text/javascript" charset="utf-8"></script>
+     
+{% endblock%}
+
+{% block body %}
+
+<!-- Second grid -->
+<script> utilidades(); </script>
+<h3 class="margin-none pull-left pestana">Comprobantes recibidos</h3>
+<div class="clearfix"></div>	
+<div class="tablaBCK">
+	<div class="clearfix"></div>
+	<div class="separator-h"></div>
+
+	<!-- Filters -->
+	<div class="filter-bar">
+		<form class="margin-none form-inline">
+			
+			<!-- Calendar From -->
+			<div class="form-group col-md-3">
+				<label>Inicio:</label>
+				<div class="input-group date" id="datepicker01">
+				    <input class="form-control datepicker" id="txtFechaInicio" type="text" value="Seleccione" readonly />
+				    <span class="input-group-addon"><i class="fa fa-th"></i></span>
+				</div>
+			</div>
+			<!-- // Calendar From END -->
+			
+			<!-- Calendar To -->
+			<div class="form-group col-md-3">
+				<label>Fin:</label>
+				<div class="input-group date" id="datepicker02">
+				    <input class="form-control datepicker" id="txtFechaFin" type="text" value="Seleccione" readonly/>
+				    <span class="input-group-addon"><i class="fa fa-th"></i></span>
+				</div>
+			</div>
+			<!-- // Calendar To END -->
+			
+			<!-- Input -->
+			<div class="form-group col-md-3">
+				<label>Número:</label>
+				<div class="input-group">
+					<input type="text" name="from" id="txtNumero" class="form-control" value="" placeholder="123456789" />
+				</div>
+			</div>
+			<!-- // Input END -->
+			
+			<!-- Select -->
+				<div class="form-group col-md-3">
+					<label>Documento:</label>
+					<div class="row">
+						<select class="selectpicker col-md-6" id="selectDocumento">
+							<option>Seleccione:</option>
+							<option>Opción 01</option>
+						</select> 
+					</div>
+				</div>
+			<!-- // Select END -->
+			
+			<!-- Select -->
+				<div class="form-group col-md-3">
+					<label>Emisor:</label>
+					<div class="row">
+						<select class="selectpicker col-md-6" id="selectEmisor">
+							<option>Seleccione:</option>
+							<option>Opción 01</option>
+						</select> 
+					</div>
+				</div>
+			<!-- // Select END -->
+			
+			<!-- Input -->
+			<div class="form-group col-md-3">
+				<label>Aprobado por:</label>
+				<div class="input-group">
+					<input type="text" id="txtAprobadoPor" name="txtAprobadoPor" class="form-control" placeholder="123456789" value="" />
+				</div>
+			</div>
+			<!-- // Input END -->
+			
+			<!-- Select -->
+				<div class="form-group col-md-3">
+					<label>Estado:</label>
+					<div class="row">
+						<select class="selectpicker col-md-6" id="selectEstado">
+							<option>Seleccione:</option>
+							<option>Opción 01</option>
+						</select> 
+					</div>
+				</div>
+			<!-- // Select END -->
+			
+			<!-- Select -->
+				<div class="form-group col-md-3">
+					<label>Fuente:</label>
+					<div class="row">
+						<select class="selectpicker col-md-6" id="selectFuente">
+							<option>Seleccione:</option>
+							<option>Opción 01</option>
+						</select> 
+					</div>
+				</div>
+			<!-- // Select END -->
+			
+			
+			<div class="clearfix"></div>
+		</form>
+	</div>
+	
+	<!-- // Filters END -->
+	
+	<!-- Widget -->
+	<div class="widget widget-body-white">
+		
+			<!-- Widget heading -->
+			<div class="widget-head">
+				<h4 class="heading"><i class="fa fa-arrow-circle-right"></i> Resultado: Cantidad de comprobantes = 85 (FE:70, RE:15, ND:0, GR:0) Total Facturas: $98.550,00 </h4>
+			</div>
+			<!-- // Widget heading END -->
+			
+			<div class="widget-body">
+			
+				<!-- Total bookings & sort by options -->
+				<div class="separator bottom">
+					Total resultados: 26
+					<span class="pull-right">
+						<label class="strong">Organizados por:</label>
+						<select class="selectpicker margin-none" data-style="btn-default btn-xs">
+							<option>5</option>
+							<option>50</option>
+							<option>100</option>
+						</select>
+					</span>
+					<div class="clearfix"></div>
+				</div>
+				<!-- // Total bookings & sort by options END -->
+				
+				<!-- Table -->
+				<table class="table table-condensed table-striped table-primary table-vertical-center checkboxs">
+					<thead>
+						<tr>
+							<th class="center">Fecha</th>
+							<th class="center">Tipo</th>
+							<th class="center">Número</th>
+							<th class="center">Emisor</th>
+							<th class="center">Ciudad</th>
+							<th class="center">Monto</th>
+							<th class="center">Aprobado por</th>
+							<th class="center">Estado</th>
+							<th class="center">Fuente</th>
+							<th class="center" style="width: 250px;">Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+																
+						<!-- Item -->
+						<tr class="selectable">
+							<td class="center lightblue">20/13/2014</td>
+							<td class="center">FE</td>
+							<td class="center lightblue">ASP123456789</td>
+							<td class="center">Marathon Sports</td>
+							<td class="lightblue"><strong>Quito</strong><br/><small>Provincia: Pichincha</small></td>
+							<td class="center">$ 500,oo USD</td>
+							<td class="center lightblue">Edgar Flores</td>
+							<td class="center">Entregado</td>
+							<td class="center lightblue">InnoBee</td>
+							<td class="center">
+								<div class="btn-group btn-group-sm">
+									<a href="#" class="btn btn-default"><i class="fa fa-eye"></i></a>
+									<a href="#" class="btn btn-success">SAP</a>
+									<a href="#" class="btn btn-success">TXT</a>
+									<a href="#" class="btn btn-success">CSV</a>
+									<a href="#" class="btn btn-success">XLS</a>
+								</div>
+							</td>
+						</tr>
+						<!-- // Item END -->
+						
+						<!-- Item -->
+						<tr class="selectable">
+							<td class="center lightblue">20/13/2014</td>
+							<td class="center">FE</td>
+							<td class="center lightblue">ASP123456789</td>
+							<td class="center">Marathon Sports</td>
+							<td class="lightblue"><strong>Quito</strong><br/><small>Provincia: Pichincha</small></td>
+							<td class="center">$ 500,oo USD</td>
+							<td class="center lightblue">Edgar Flores</td>
+							<td class="center">Entregado</td>
+							<td class="center lightblue">InnoBee</td>
+							<td class="center">
+								<div class="btn-group btn-group-sm">
+									<a href="#" class="btn btn-default"><i class="fa fa-eye"></i></a>
+									<a href="#" class="btn btn-success">SAP</a>
+									<a href="#" class="btn btn-success">TXT</a>
+									<a href="#" class="btn btn-success">CSV</a>
+									<a href="#" class="btn btn-success">XLS</a>
+								</div>
+							</td>
+						</tr>
+						<!-- // Item END -->
+											
+						<!-- Item -->
+						<tr class="selectable">
+							<td class="center lightblue">20/13/2014</td>
+							<td class="center">FE</td>
+							<td class="center lightblue">ASP123456789</td>
+							<td class="center">Marathon Sports</td>
+							<td class="lightblue"><strong>Quito</strong><br/><small>Provincia: Pichincha</small></td>
+							<td class="center">$ 500,oo USD</td>
+							<td class="center lightblue">Edgar Flores</td>
+							<td class="center">Entregado</td>
+							<td class="center lightblue">InnoBee</td>
+							<td class="center">
+								<div class="btn-group btn-group-sm">
+									<a href="#" class="btn btn-default"><i class="fa fa-eye"></i></a>
+									<a href="#" class="btn btn-success">SAP</a>
+									<a href="#" class="btn btn-success">TXT</a>
+									<a href="#" class="btn btn-success">CSV</a>
+									<a href="#" class="btn btn-success">XLS</a>
+								</div>
+							</td>
+						</tr>
+						<!-- // Item END -->
+										
+					</tbody>
+				</table>
+				<!-- // Table END -->
+				
+				<!-- With selected actions -->
+				<div class="pull-left">
+					<label class="strong">FE: Factura Electrónica | RE: Retención | ND: Nota Debito | NC: Nota Crédito | GR: Guía Remisión</label>
+				</div>
+				<!-- // With selected actions END -->
+				
+				<!-- Pagination -->
+				<ul class="pagination pull-right margin-none">
+					<li class="disabled"><a href="#">&laquo;</a></li>
+					<li class="active"><a href="#">1</a></li>
+					<li><a href="#">2</a></li>
+					<li><a href="#">3</a></li>
+					<li><a href="#">&raquo;</a></li>
+				</ul>
+				<div class="clearfix"></div>
+				<!-- With selected actions -->
+				<div class="pull-left">
+					<button class="btn btn-success"><i class="fa fa-download"></i> Descargar resultados a XLSX</button>
+				</div>
+				<!-- // With selected actions END -->
+				<div class="clearfix"></div>
+				<!-- // Pagination END -->
+			</div>
+		</div>
+	<!-- // Widget -->
+	
+
+	
+</div>
+<!-- Second grid -->
+
+<!-- Spacer -->
+<div><br /><br /></div>
+<!-- Spacer -->
+
+
+<!-- First grid -->
+<h3 class="margin-none pull-left pestana">Cupones de descuento</h3>
+<div class="clearfix"></div>	
+<div class="tablaBCK">
+
+	<div class="clearfix"></div>
+	<div class="separator-h"></div>
+
+	<!-- Filters -->
+	<div class="filter-bar">
+		<form class="margin-none form-inline">
+			
+			<!-- Calendar From -->
+			<div class="form-group col-md-4">
+				<label>Inicio:</label>
+				<div class="input-group date" id="datepicker03">
+				    <input class="form-control datepicker" type="text" value="Seleccione" />
+				    <span class="input-group-addon"><i class="fa fa-th"></i></span>
+				</div>
+			</div>
+			<!-- // Calendar From END -->
+			
+			<!-- Calendar To -->
+			<div class="form-group col-md-4">
+				<label>Fin:</label>
+				<div class="input-group date" id="datepicker04">
+				    <input class="form-control datepicker" type="text" value="Seleccione" />
+				    <span class="input-group-addon"><i class="fa fa-th"></i></span>
+				</div>
+			</div>
+			<!-- // Calendar To END -->
+			
+			<!-- Input -->
+			<div class="form-group col-md-4">
+				<label>Tipo:</label>
+				<div class="input-group">
+					<input type="text" name="from" class="form-control" value="123456789" />
+				</div>
+			</div>
+			<!-- // Input END -->
+			
+			<!-- Input -->
+			<div class="form-group col-md-4">
+				<label>Código:</label>
+				<div class="input-group">
+					<input type="text" name="from" class="form-control" value="123456789" />
+				</div>
+			</div>
+			<!-- // Input END -->
+			
+			<!-- Select -->
+				<div class="form-group col-md-3">
+					<label>Ciudad:</label>
+					<div class="row">
+						<select class="selectpicker col-md-6">
+							<option>Seleccione:</option>
+							<option>Opción 01</option>
+						</select> 
+					</div>
+				</div>
+			<!-- // Select END -->
+			
+			<!-- Input -->
+			<div class="form-group col-md-4">
+				<label>Código:</label>
+				<div class="input-group">
+					<input type="text" name="from" class="form-control" value="123456789" />
+				</div>
+			</div>
+			<!-- // Input END -->
+			
+			<!-- Select -->
+				<div class="form-group col-md-3">
+					<label>Estado:</label>
+					<div class="row">
+						<select class="selectpicker col-md-6">
+							<option>Seleccione:</option>
+							<option>Opción 01</option>
+						</select> 
+					</div>
+				</div>
+			<!-- // Select END -->
+			
+			
+			<div class="clearfix"></div>
+		</form>
+	</div>
+	<!-- // Filters END -->
+	
+	<!-- Widget -->
+	<div class="widget widget-body-white">
+		
+			<!-- Widget heading -->
+			<div class="widget-head">
+				<h4><i class="heading fa fa-arrow-circle-right"></i> Resultado: Cantidad de cupones = 15 (DES:5, REG:10) </h4>
+			</div>
+			<!-- // Widget heading END -->
+			<div class="widget-body">
+							<!-- Total bookings & sort by options -->
+							<div class="separator bottom">
+								Total resultados: 26
+								<span class="pull-right">
+									<label class="strong">Organizados por:</label>
+									<select class="selectpicker margin-none" data-style="btn-default btn-xs">
+										<option>Más impresos</option>
+										<option>Más vistos</option>
+									</select>
+								</span>
+								<div class="clearfix"></div>
+							</div>
+							<!-- // Total bookings & sort by options END -->
+							<!-- Cupon -->
+							<span style="display: inline-block;">
+							<!-- Item -->
+							<div class="bck_cupon">
+								<div class="imagen"><img src="{{ STATIC_URL }}images/coupons/img_cupon1.png"/></div>
+								<div class="contenido_logos">
+									<ul>
+										<li class="logos"><img src="{{ STATIC_URL }}images/coupons/logo_puma.png" /></li>
+										<li class="texto-logo">Camiseta evoSPEED<br /> Graphic Tee</li>
+									</ul>
+								</div>
+								<div class="ver_mas"><a href="#modal-cupon-01" data-toggle="modal">Ver más>></a></div>
+								<div class="redes_sociales">
+								<ul>
+								<li class="compartir">Compartir:</li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_noticias_facebook.png" /></li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_noticias_twitter.png" /></li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_icono_pinterest.png" /></li>
+								</ul>
+								</div>
+							</div>							
+							<!-- Modal -->
+							<div class="modal fade" id="modal-cupon-01">
+									
+									<div class="modal-dialog">
+										<div class="modal-content">
+								
+											<!-- Modal heading -->
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+												<h3 class="modal-title">Vista del cupon</h3>
+											</div>
+											<!-- // Modal heading END -->
+											
+											<!-- Modal body -->
+											<div class="modal-body">
+												<p><i class="fa fa-eye"></i> Para hacer uso de este cupón, debe presionar el botón imprimir y este será enviado a su dirección de correo electrónica registrada en el sistema.</p>
+												<p align="center"><img src="{{ STATIC_URL }}images/cupon01.jpg" alt="Cupon" /></p>
+											</div>
+											<!-- // Modal body END -->
+											
+											<!-- Modal footer -->
+											<div class="modal-footer">
+												
+												<a href="#" data-dismiss="modal" class="btn btn-success">Imprimir</a>
+											</div>
+											<!-- // Modal footer END -->
+								
+										</div>
+									</div>
+									
+							</div>
+							<!-- // Modal END -->
+							<!-- Total bookings & sort by options -->
+							<div class="clearfix"><br /></div>
+							<div class="clearfix"><br /></div>
+							
+							<div class="clearfix"></div>
+							<!-- // Total bookings & sort by options END -->
+							</span>
+							<!-- Cupon END -->
+							
+							<!-- Cupon -->
+							<span style="display: inline-block;">
+							<!-- Item -->
+							<div class="bck_cupon">
+								<div class="imagen"><img src="{{ STATIC_URL }}images/coupons/img_cupon1.png"/></div>
+								<div class="contenido_logos">
+									<ul>
+										<li class="logos"><img src="{{ STATIC_URL }}images/coupons/logo_puma.png" /></li>
+										<li class="texto-logo">Camiseta evoSPEED<br /> Graphic Tee</li>
+									</ul>
+								</div>
+								<div class="ver_mas"><a href="#modal-cupon-01" data-toggle="modal">Ver más>></a></div>
+								<div class="redes_sociales">
+								<ul>
+								<li class="compartir">Compartir:</li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_noticias_facebook.png" /></li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_noticias_twitter.png" /></li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_icono_pinterest.png" /></li>
+								</ul>
+								</div>
+							</div>							
+							<!-- Modal -->
+							<div class="modal fade" id="modal-cupon-01">
+									
+									<div class="modal-dialog">
+										<div class="modal-content">
+								
+											<!-- Modal heading -->
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+												<h3 class="modal-title">Vista del cupon</h3>
+											</div>
+											<!-- // Modal heading END -->
+											
+											<!-- Modal body -->
+											<div class="modal-body">
+												<p><i class="fa fa-eye"></i> Para hacer uso de este cupón, debe presionar el botón imprimir y este será enviado a su dirección de correo electrónica registrada en el sistema.</p>
+												<p align="center"><img src="{{ STATIC_URL }}images/cupon01.jpg" alt="Cupon" /></p>
+											</div>
+											<!-- // Modal body END -->
+											
+											<!-- Modal footer -->
+											<div class="modal-footer">
+												
+												<a href="#" data-dismiss="modal" class="btn btn-success">Imprimir</a>
+											</div>
+											<!-- // Modal footer END -->
+								
+										</div>
+									</div>
+									
+							</div>
+							<!-- // Modal END -->
+							<!-- Total bookings & sort by options -->
+							<div class="clearfix"><br /></div>
+							<div class="clearfix"><br /></div>
+							
+							<div class="clearfix"></div>
+							<!-- // Total bookings & sort by options END -->
+							</span>
+							<!-- Cupon END -->
+							
+							<!-- Cupon -->
+							<span style="display: inline-block;">
+							<!-- Item -->
+							<div class="bck_cupon">
+								<div class="imagen"><img src="{{ STATIC_URL }}images/coupons/img_cupon1.png"/></div>
+								<div class="contenido_logos">
+									<ul>
+										<li class="logos"><img src="{{ STATIC_URL }}images/coupons/logo_puma.png" /></li>
+										<li class="texto-logo">Camiseta evoSPEED<br /> Graphic Tee</li>
+									</ul>
+								</div>
+								<div class="ver_mas"><a href="#modal-cupon-01" data-toggle="modal">Ver más>></a></div>
+								<div class="redes_sociales">
+								<ul>
+								<li class="compartir">Compartir:</li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_noticias_facebook.png" /></li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_noticias_twitter.png" /></li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_icono_pinterest.png" /></li>
+								</ul>
+								</div>
+							</div>							
+							<!-- Modal -->
+							<div class="modal fade" id="modal-cupon-01">
+									
+									<div class="modal-dialog">
+										<div class="modal-content">
+								
+											<!-- Modal heading -->
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+												<h3 class="modal-title">Vista del cupon</h3>
+											</div>
+											<!-- // Modal heading END -->
+											
+											<!-- Modal body -->
+											<div class="modal-body">
+												<p><i class="fa fa-eye"></i> Para hacer uso de este cupón, debe presionar el botón imprimir y este será enviado a su dirección de correo electrónica registrada en el sistema.</p>
+												<p align="center"><img src="{{ STATIC_URL }}images/cupon01.jpg" alt="Cupon" /></p>
+											</div>
+											<!-- // Modal body END -->
+											
+											<!-- Modal footer -->
+											<div class="modal-footer">
+												
+												<a href="#" data-dismiss="modal" class="btn btn-success">Imprimir</a>
+											</div>
+											<!-- // Modal footer END -->
+								
+										</div>
+									</div>
+									
+							</div>
+							<!-- // Modal END -->
+							<!-- Total bookings & sort by options -->
+							<div class="clearfix"><br /></div>
+							<div class="clearfix"><br /></div>
+							
+							<div class="clearfix"></div>
+							<!-- // Total bookings & sort by options END -->
+							</span>
+							<!-- Cupon END -->
+							
+							<!-- Cupon -->
+							<span style="display: inline-block;">
+							<!-- Item -->
+							<div class="bck_cupon">
+								<div class="imagen"><img src="{{ STATIC_URL }}images/coupons/img_cupon1.png"/></div>
+								<div class="contenido_logos">
+									<ul>
+										<li class="logos"><img src="{{ STATIC_URL }}images/coupons/logo_puma.png" /></li>
+										<li class="texto-logo">Camiseta evoSPEED<br /> Graphic Tee</li>
+									</ul>
+								</div>
+								<div class="ver_mas"><a href="#modal-cupon-01" data-toggle="modal">Ver más>></a></div>
+								<div class="redes_sociales">
+								<ul>
+								<li class="compartir">Compartir:</li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_noticias_facebook.png" /></li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_noticias_twitter.png" /></li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_icono_pinterest.png" /></li>
+								</ul>
+								</div>
+							</div>							
+							<!-- Modal -->
+							<div class="modal fade" id="modal-cupon-01">
+									
+									<div class="modal-dialog">
+										<div class="modal-content">
+								
+											<!-- Modal heading -->
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+												<h3 class="modal-title">Vista del cupon</h3>
+											</div>
+											<!-- // Modal heading END -->
+											
+											<!-- Modal body -->
+											<div class="modal-body">
+												<p><i class="fa fa-eye"></i> Para hacer uso de este cupón, debe presionar el botón imprimir y este será enviado a su dirección de correo electrónica registrada en el sistema.</p>
+												<p align="center"><img src="{{ STATIC_URL }}images/cupon01.jpg" alt="Cupon" /></p>
+											</div>
+											<!-- // Modal body END -->
+											
+											<!-- Modal footer -->
+											<div class="modal-footer">
+												
+												<a href="#" data-dismiss="modal" class="btn btn-success">Imprimir</a>
+											</div>
+											<!-- // Modal footer END -->
+								
+										</div>
+									</div>
+									
+							</div>
+							<!-- // Modal END -->
+							<!-- Total bookings & sort by options -->
+							<div class="clearfix"><br /></div>
+							<div class="clearfix"><br /></div>
+							
+							<div class="clearfix"></div>
+							<!-- // Total bookings & sort by options END -->
+							</span>
+							<!-- Cupon END -->
+							
+							<!-- Cupon -->
+							<span style="display: inline-block;">
+							<!-- Item -->
+							<div class="bck_cupon">
+								<div class="imagen"><img src="{{ STATIC_URL }}images/coupons/img_cupon1.png"/></div>
+								<div class="contenido_logos">
+									<ul>
+										<li class="logos"><img src="{{ STATIC_URL }}images/coupons/logo_puma.png" /></li>
+										<li class="texto-logo">Camiseta evoSPEED<br /> Graphic Tee</li>
+									</ul>
+								</div>
+								<div class="ver_mas"><a href="#modal-cupon-01" data-toggle="modal">Ver más>></a></div>
+								<div class="redes_sociales">
+								<ul>
+								<li class="compartir">Compartir:</li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_noticias_facebook.png" /></li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_noticias_twitter.png" /></li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_icono_pinterest.png" /></li>
+								</ul>
+								</div>
+							</div>							
+							<!-- Modal -->
+							<div class="modal fade" id="modal-cupon-01">
+									
+									<div class="modal-dialog">
+										<div class="modal-content">
+								
+											<!-- Modal heading -->
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+												<h3 class="modal-title">Vista del cupon</h3>
+											</div>
+											<!-- // Modal heading END -->
+											
+											<!-- Modal body -->
+											<div class="modal-body">
+												<p><i class="fa fa-eye"></i> Para hacer uso de este cupón, debe presionar el botón imprimir y este será enviado a su dirección de correo electrónica registrada en el sistema.</p>
+												<p align="center"><img src="{{ STATIC_URL }}images/cupon01.jpg" alt="Cupon" /></p>
+											</div>
+											<!-- // Modal body END -->
+											
+											<!-- Modal footer -->
+											<div class="modal-footer">
+												
+												<a href="#" data-dismiss="modal" class="btn btn-success">Imprimir</a>
+											</div>
+											<!-- // Modal footer END -->
+								
+										</div>
+									</div>
+									
+							</div>
+							<!-- // Modal END -->
+							<!-- Total bookings & sort by options -->
+							<div class="clearfix"><br /></div>
+							<div class="clearfix"><br /></div>
+							
+							<div class="clearfix"></div>
+							<!-- // Total bookings & sort by options END -->
+							</span>
+							<!-- Cupon END -->
+						</div>
+	</div>
+	<!-- // Widget -->
+	<!-- Pagination -->
+	<ul class="pagination pull-right margin-none">
+	<li class="disabled"><a href="#">&laquo;</a></li>
+	<li class="active"><a href="#">1</a></li>
+	<li><a href="#">2</a></li>
+	<li><a href="#">3</a></li>
+	<li><a href="#">&raquo;</a></li>
+	</ul>
+	<!-- // Pagination END -->
+	<div class="clearfix"><br /></div>
+	<div class="clearfix"><br /></div>
+</div>
+	
+<!-- First grid -->
+<div class="clearfix"><br><br></div>	
+<!-- First grid -->
+<h3 class="margin-none pull-left pestana">Productos de interés</h3>
+<div class="clearfix"></div>	
+<div class="tablaBCK">
+
+	<div class="clearfix"></div>
+	<div class="separator-h"></div>
+
+	<!-- Filters -->
+	<div class="filter-bar">
+		<form class="margin-none form-inline">
+			
+			<!-- Calendar From -->
+			<div class="form-group col-md-4">
+				<label>Inicio:</label>
+				<div class="input-group date" id="datepicker05">
+				    <input class="form-control datepicker" type="text" value="Seleccione" />
+				    <span class="input-group-addon"><i class="fa fa-th"></i></span>
+				</div>
+			</div>
+			<!-- // Calendar From END -->
+			
+			<!-- Calendar To -->
+			<div class="form-group col-md-4">
+				<label>Fin:</label>
+				<div class="input-group date" id="datepicker06">
+				    <input class="form-control datepicker" type="text" value="Seleccione" />
+				    <span class="input-group-addon"><i class="fa fa-th"></i></span>
+				</div>
+			</div>
+			<!-- // Calendar To END -->
+			
+			<!-- Input -->
+			<div class="form-group col-md-4">
+				<label>Tipo:</label>
+				<div class="input-group">
+					<input type="text" name="from" class="form-control" value="123456789" />
+				</div>
+			</div>
+			<!-- // Input END -->
+			
+			<!-- Input -->
+			<div class="form-group col-md-4">
+				<label>Código:</label>
+				<div class="input-group">
+					<input type="text" name="from" class="form-control" value="123456789" />
+				</div>
+			</div>
+			<!-- // Input END -->
+			
+			<!-- Select -->
+				<div class="form-group col-md-4">
+					<label>Ciudad:</label>
+					<div class="row">
+						<select class="selectpicker col-md-6">
+							<option>Escoja:</option>
+							<option>Opción 01</option>
+						</select> 
+					</div>
+				</div>
+			<!-- // Select END -->
+			
+			
+			<!-- Input -->
+			<div class="form-group col-md-4">
+				<label>Producto:</label>
+				<div class="input-group">
+					<input type="text" name="from" class="form-control" value="123456789" />
+				</div>
+			</div>
+			<!-- // Input END -->
+			
+			<!-- Select -->
+				<div class="form-group col-md-4">
+					<label>Estado:</label>
+					<div class="row">
+						<select class="selectpicker col-md-6">
+							<option>Escoja:</option>
+							<option>Opción 01</option>
+						</select> 
+					</div>
+				</div>
+			<!-- // Select END -->
+			
+			
+			<div class="clearfix"></div>
+		</form>
+	</div>
+	
+	<!-- // Filters END -->
+	
+	<!-- Widget -->
+	<div class="widget widget-body-white">
+		
+			<!-- Widget heading -->
+			<div class="widget-head">
+				<h4><i class="heading fa fa-arrow-circle-right"></i> Resultado: Cantidad de cupones = 15 (DES:5, REG:10) </h4>
+			</div>
+			<!-- // Widget heading END -->
+			<div class="widget-body">
+							<!-- Total bookings & sort by options -->
+							<div class="separator bottom">
+								Total resultados: 26
+								<span class="pull-right">
+									<label class="strong">Organizados por:</label>
+									<select class="selectpicker margin-none" data-style="btn-default btn-xs">
+										<option>Más impresos</option>
+										<option>Más vistos</option>
+									</select>
+								</span>
+								<div class="clearfix"></div>
+							</div>
+							<!-- // Total bookings & sort by options END -->
+							
+							<!-- Cupon -->
+							<span style="display: inline-block;">
+							<!-- Item -->
+							<div class="bck_cupon">
+								<div class="imagen"><img src="{{ STATIC_URL }}images/coupons/img_cupon1.png"/></div>
+								<div class="contenido_logos">
+									<ul>
+										<li class="logos"><img src="{{ STATIC_URL }}images/coupons/logo_puma.png" /></li>
+										<li class="texto-logo">Camiseta evoSPEED<br /> Graphic Tee</li>
+									</ul>
+								</div>
+								<div class="ver_mas"><a href="#" data-toggle="modal">Ver más>></a></div>
+								<div class="redes_sociales">
+								<ul>
+								<li class="compartir">Compartir:</li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_noticias_facebook.png" /></li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_noticias_twitter.png" /></li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_icono_pinterest.png" /></li>
+								</ul>
+								</div>
+							</div>							
+							<!-- Total bookings & sort by options -->
+							<div class="clearfix"><br /></div>
+							<div class="clearfix"><br /></div>
+							
+							<div class="clearfix"></div>
+							<!-- // Total bookings & sort by options END -->
+							</span>
+							<!-- Cupon END -->
+							
+							<!-- Cupon -->
+							<span style="display: inline-block;">
+							<!-- Item -->
+							<div class="bck_cupon">
+								<div class="imagen"><img src="{{ STATIC_URL }}images/coupons/img_cupon1.png"/></div>
+								<div class="contenido_logos">
+									<ul>
+										<li class="logos"><img src="{{ STATIC_URL }}images/coupons/logo_puma.png" /></li>
+										<li class="texto-logo">Camiseta evoSPEED<br /> Graphic Tee</li>
+									</ul>
+								</div>
+								<div class="ver_mas"><a href="#" data-toggle="modal">Ver más>></a></div>
+								<div class="redes_sociales">
+								<ul>
+								<li class="compartir">Compartir:</li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_noticias_facebook.png" /></li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_noticias_twitter.png" /></li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_icono_pinterest.png" /></li>
+								</ul>
+								</div>
+							</div>							
+							<!-- Total bookings & sort by options -->
+							<div class="clearfix"><br /></div>
+							<div class="clearfix"><br /></div>
+							
+							<div class="clearfix"></div>
+							<!-- // Total bookings & sort by options END -->
+							</span>
+							<!-- Cupon END -->
+							
+							<!-- Cupon -->
+							<span style="display: inline-block;">
+							<!-- Item -->
+							<div class="bck_cupon">
+								<div class="imagen"><img src="{{ STATIC_URL }}images/coupons/img_cupon1.png"/></div>
+								<div class="contenido_logos">
+									<ul>
+										<li class="logos"><img src="{{ STATIC_URL }}images/coupons/logo_puma.png" /></li>
+										<li class="texto-logo">Camiseta evoSPEED<br /> Graphic Tee</li>
+									</ul>
+								</div>
+								<div class="ver_mas"><a href="#" data-toggle="modal">Ver más>></a></div>
+								<div class="redes_sociales">
+								<ul>
+								<li class="compartir">Compartir:</li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_noticias_facebook.png" /></li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_noticias_twitter.png" /></li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_icono_pinterest.png" /></li>
+								</ul>
+								</div>
+							</div>							
+							<!-- Total bookings & sort by options -->
+							<div class="clearfix"><br /></div>
+							<div class="clearfix"><br /></div>
+							
+							<div class="clearfix"></div>
+							<!-- // Total bookings & sort by options END -->
+							</span>
+							<!-- Cupon END -->
+							
+							<!-- Cupon -->
+							<span style="display: inline-block;">
+							<!-- Item -->
+							<div class="bck_cupon">
+								<div class="imagen"><img src="{{ STATIC_URL }}images/coupons/img_cupon1.png"/></div>
+								<div class="contenido_logos">
+									<ul>
+										<li class="logos"><img src="{{ STATIC_URL }}images/coupons/logo_puma.png" /></li>
+										<li class="texto-logo">Camiseta evoSPEED<br /> Graphic Tee</li>
+									</ul>
+								</div>
+								<div class="ver_mas"><a href="#" data-toggle="modal">Ver más>></a></div>
+								<div class="redes_sociales">
+								<ul>
+								<li class="compartir">Compartir:</li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_noticias_facebook.png" /></li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_noticias_twitter.png" /></li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_icono_pinterest.png" /></li>
+								</ul>
+								</div>
+							</div>							
+							<!-- Total bookings & sort by options -->
+							<div class="clearfix"><br /></div>
+							<div class="clearfix"><br /></div>
+							
+							<div class="clearfix"></div>
+							<!-- // Total bookings & sort by options END -->
+							</span>
+							<!-- Cupon END -->
+							
+							<!-- Cupon -->
+							<span style="display: inline-block;">
+							<!-- Item -->
+							<div class="bck_cupon">
+								<div class="imagen"><img src="{{ STATIC_URL }}images/coupons/img_cupon1.png"/></div>
+								<div class="contenido_logos">
+									<ul>
+										<li class="logos"><img src="{{ STATIC_URL }}images/coupons/logo_puma.png" /></li>
+										<li class="texto-logo">Camiseta evoSPEED<br /> Graphic Tee</li>
+									</ul>
+								</div>
+								<div class="ver_mas"><a href="#" data-toggle="modal">Ver más>></a></div>
+								<div class="redes_sociales">
+								<ul>
+								<li class="compartir">Compartir:</li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_noticias_facebook.png" /></li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_noticias_twitter.png" /></li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_icono_pinterest.png" /></li>
+								</ul>
+								</div>
+							</div>							
+							<!-- Total bookings & sort by options -->
+							<div class="clearfix"><br /></div>
+							<div class="clearfix"><br /></div>
+							
+							<div class="clearfix"></div>
+							<!-- // Total bookings & sort by options END -->
+							</span>
+							<!-- Cupon END -->
+							
+							<!-- Cupon -->
+							<span style="display: inline-block;">
+							<!-- Item -->
+							<div class="bck_cupon">
+								<div class="imagen"><img src="{{ STATIC_URL }}images/coupons/img_cupon1.png"/></div>
+								<div class="contenido_logos">
+									<ul>
+										<li class="logos"><img src="{{ STATIC_URL }}images/coupons/logo_puma.png" /></li>
+										<li class="texto-logo">Camiseta evoSPEED<br /> Graphic Tee</li>
+									</ul>
+								</div>
+								<div class="ver_mas"><a href="#" data-toggle="modal">Ver más>></a></div>
+								<div class="redes_sociales">
+								<ul>
+								<li class="compartir">Compartir:</li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_noticias_facebook.png" /></li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_noticias_twitter.png" /></li>
+								<li class="iconos_pequenios"><img src="{{ STATIC_URL }}images/coupons/img_icono_pinterest.png" /></li>
+								</ul>
+								</div>
+							</div>							
+							<!-- Total bookings & sort by options -->
+							<div class="clearfix"><br /></div>
+							<div class="clearfix"><br /></div>
+							
+							<div class="clearfix"></div>
+							<!-- // Total bookings & sort by options END -->
+							</span>
+							<!-- Cupon END -->
+						</div>
+	</div>
+	<!-- // Widget -->
+	<!-- Pagination -->
+	<ul class="pagination pull-right margin-none">
+	<li class="disabled"><a href="#">&laquo;</a></li>
+	<li class="active"><a href="#">1</a></li>
+	<li><a href="#">2</a></li>
+	<li><a href="#">3</a></li>
+	<li><a href="#">&raquo;</a></li>
+	</ul>
+	<!-- // Pagination END -->
+	<div class="clearfix"><br /></div>
+	<div class="clearfix"><br /></div>
+	
+
+	
+</div>
+<!-- First grid -->
+
+{% endblock %}
+{% block bottom_javascripts %}  
+
+	<!-- Global -->
+	<script data-id="App.Config">
+	var App = {};	var basePath = '',
+		commonPath = '{{ STATIC_URL }}',
+		rootPath = '../',
+		DEV = false,
+		componentsPath = '{{ STATIC_URL }}components/';
+	
+	var primaryColor = '#3695d5',
+		dangerColor = '#b55151',
+		successColor = '#609450',
+		infoColor = '#4a8bc2',
+		warningColor = '#ab7a4b',
+		inverseColor = '#45484d';
+	
+	var themerPrimaryColor = primaryColor;
+
+		</script>
+	
+	<script src="{{ STATIC_URL }}components/library/bootstrap/js/bootstrap.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/nicescroll/jquery.nicescroll.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/breakpoints/breakpoints.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/preload/pace/pace.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/preload/pace/preload.pace.init.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/core/js/animations.init.js?v=v1.0.2"></script>
+
+<script src="{{ STATIC_URL }}components/core/js/sidebar.main.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/core/js/sidebar.discover.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/core/js/core.init.js?v=v1.0.2"></script>	
+
+<script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/assets/lib/js/bootstrap-datepicker.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/assets/custom/js/bootstrap-datepicker.init.js?v=v1.0.2&sv=v0.0.1"></script>
+
+<script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-select/assets/lib/js/bootstrap-select.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-select/assets/custom/js/bootstrap-select.init.js?v=v1.0.2&sv=v0.0.1"></script>
+
+<script src="{{ STATIC_URL }}components/common/forms/validator/assets/lib/jquery-validation/dist/jquery.validate.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/common/forms/validator/assets/custom/form-validator.init.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/common/forms/elements/fuelux-checkbox/fuelux-checkbox.js?v=v1.0.2&sv=v0.0.1"></script>
+
+<script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/bootbox.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/modals.init.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/modules/admin/notifications/gritter/assets/lib/js/jquery.gritter.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/modules/admin/notifications/gritter/assets/custom/js/gritter.init.js?v=v1.0.2&sv=v0.0.1"></script>
+{% endblock %}

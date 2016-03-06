@@ -1,0 +1,337 @@
+{% extends 'emisores/baseEmisor.html' %}
+{% block titulo_page %}Soporte{% endblock%}
+{% block body %}
+
+<!-- First grid -->
+<h3 class="margin-none pull-left pestana">Requerimientos de soporte</h3>
+<div class="clearfix"></div>	
+<div class="tablaBCK">
+
+	<div class="clearfix"></div>
+	<div class="separator-h"></div>
+
+	<!-- Filters -->
+	<div class="filter-bar">
+		<form class="margin-none form-inline">
+			
+			<!-- From -->
+			<div class="form-group col-md-3">
+				<label>Inicio:</label>
+				<div class="input-group date" id="datepicker01">
+				    <input class="form-control" type="text" value="14 February 2013" />
+				    <span class="input-group-addon"><i class="fa fa-th"></i></span>
+				</div>
+			</div>
+			<!-- // From END -->
+			
+			<!-- To -->
+			<div class="form-group col-md-3">
+				<label>Fin:</label>
+				<div class="input-group date" id="datepicker02">
+				    <input class="form-control" type="text" value="14 February 2013" />
+				    <span class="input-group-addon"><i class="fa fa-th"></i></span>
+				</div>
+			</div>
+			<!-- // To END -->
+			
+			<!-- Select -->
+				<div class="form-group col-md-3">
+					<label>Estado</label>
+					<div class="row">
+						<select class="selectpicker col-md-6">
+							<option>Atendido</option>
+						</select> 
+					</div>
+				</div>
+			<!-- // Select END -->
+			
+			<!-- Min -->
+			<div class="form-group col-md-3">
+				<label>Número de ticket:</label>
+				<div class="input-group">
+					<input type="text" name="from" class="form-control" value="123456789" />
+				</div>
+			</div>
+			<!-- // Min END -->
+			
+			
+			
+			<div class="clearfix"></div>
+		</form>
+	</div>
+
+	<!-- // Filters END -->
+	
+	<!-- Widget -->
+	<div class="widget widget-body-white">
+		
+			<!-- Widget heading -->
+			<div class="widget-head">
+				<h4><i class="heading fa fa-arrow-circle-right"></i> Cantidad de tickets = 10 </h4>
+			</div>
+			<!-- // Widget heading END -->
+			
+			<div class="widget-body">
+			
+				<!-- Total bookings & sort by options -->
+				<div class="separator bottom">
+					Total resultados: 26
+					<span class="pull-right">
+						<label class="strong">Organizados por:</label>
+						<select class="selectpicker margin-none" data-style="btn-default btn-xs">
+							<option>5</option>
+							<option>50</option>
+							<option>100</option>
+						</select>
+					</span>
+					<div class="clearfix"></div>
+				</div>
+				<!-- // Total bookings & sort by options END -->
+				
+				<!-- Table -->
+				<table class="table table-condensed table-striped table-primary table-vertical-center checkboxs">
+					<thead>
+						<tr>
+							<th class="center">Ticket</th>
+							<th class="center">Motivo de contacto</th>
+							<th class="center">Empresa</th>
+							<th class="center">Ultima actualización</th>
+							<th class="center">Estado</th>
+							<th class="center">Ver ticket</th>
+						</tr>
+					</thead>
+					<tbody>
+																
+						<!-- Item -->
+						<tr class="selectable">
+							<td class="center lightblue">123345677</td>
+							<td class="center">Infraestructura</td>
+							<td class="center lightblue">Nestle</td>
+							<td class="center">31/01/2014</td>
+							<td class="center lightblue">Abierto</td>
+							<td class="center">
+								<div class="btn-group btn-group-sm">
+									<a href="#" class="btn btn-default"><i class="fa fa-eye"></i></a>
+								</div>
+							</td>
+						</tr>
+						<!-- // Item END -->
+						
+						<!-- Item -->
+						<tr class="selectable">
+							<td class="center lightblue">123345677</td>
+							<td class="center">Infraestructura</td>
+							<td class="center lightblue">Nestle</td>
+							<td class="center">31/01/2014</td>
+							<td class="center lightblue">Abierto</td>
+							<td class="center">
+								<div class="btn-group btn-group-sm">
+									<a href="#" class="btn btn-default"><i class="fa fa-eye"></i></a>
+								</div>
+							</td>
+						</tr>
+						<!-- // Item END -->
+											
+					</tbody>
+				</table>
+				<!-- // Table END -->
+				
+				<!-- Pagination -->
+				<ul class="pagination pull-right margin-none">
+					<li class="disabled"><a href="#">&laquo;</a></li>
+					<li class="active"><a href="#">1</a></li>
+					<li><a href="#">2</a></li>
+					<li><a href="#">3</a></li>
+					<li><a href="#">&raquo;</a></li>
+				</ul>
+				<div class="clearfix"></div>
+				<!-- // Pagination END -->
+			</div>
+		</div>
+	<!-- // Widget -->
+	
+
+	
+</div>
+<!-- First grid -->
+<div><br /><br /></div>
+<!-- First grid -->
+<h3 class="margin-none pull-left pestana">Generar un nuevo ticket</h3>
+<div class="clearfix"></div>	
+<div class="tablaBCK">
+
+	<div class="clearfix"></div>
+	<div class="separator-h"></div>
+	<h4>Datos generales del ticket</h4>
+	<div class="separator-h"></div>
+
+	<!-- Filters -->
+	<div class="filter-bar">
+		<form class="margin-none form-inline">
+			
+			<!-- Select -->
+				<div class="form-group col-md-4">
+					<label>Seleccione el tipo de ticket</label>
+					<div class="row">
+						<select class="selectpicker col-md-6">
+							<option>Infraestructura</option>
+						</select> 
+					</div>
+				</div>
+			<!-- // Select END -->
+			
+			<!-- Select -->
+				<div class="form-group col-md-4">
+					<label>Seleccione el tipo de error</label>
+					<div class="row">
+						<select class="selectpicker col-md-6">
+							<option>Infraestructura</option>
+						</select> 
+					</div>
+				</div>
+			<!-- // Select END -->
+			
+			<div class="clearfix"></div>
+		</form>
+	</div>
+
+	<!-- // Filters END -->
+	
+	<div class="clearfix"></div>
+		<div class="separator-h"></div>
+		<h4>Datos esecificos del ticket</h4>
+		<div class="separator-h"></div>
+	
+		<!-- Filters -->
+		<div class="filter-bar">
+			<form class="margin-none form-inline">
+				
+				<!-- Min -->
+				<div class="form-group col-md-6">
+					<label>Titulo del ticket</label>
+					<div class="input-group">
+						<input type="text" name="from" class="form-control" value="Tengo una falla con el envio de correos"	 />
+					</div>
+				</div>
+				<!-- // Min END -->
+				
+				<br><br>
+				
+				<!-- Min -->
+				<div class="form-group col-md-12">
+					<label>Detalle del ticket:</label>
+					<div class="input-group">
+					<textarea rows="3" cols="60">Sea tan claro y específico como le resulte posible.</textarea>
+					</div>
+				</div>
+				<!-- // Min END -->
+				
+				<br><br><br><br>
+				
+				<!-- Min -->
+				<div class="form-group col-md-6">
+					<label>Adjunte una imagen si es necesario:</label>
+					<div class="input-group col-md-6">
+						<input class="form-control" id="appendedInputButtons" type="text" placeholder="Placeholder .." />
+					<div class="input-group-btn"><button class="btn btn-success" type="button">Buscar imagen</button></div>
+					</div>
+				</div>
+				<!-- // Min END -->
+				
+				<br><br>
+				
+				<!-- footer -->
+							<!-- With selected actions -->
+							<div class="pull-left">
+								<button class="btn btn-success"><i class="fa fa-save"></i> Crear ticket</button>
+							</div>
+							<!-- // With selected actions END -->
+							<div class="clearfix"></div>
+							<!-- // footer END -->
+				
+				<div class="clearfix"></div>
+			</form>
+		</div>
+	
+		<!-- // Filters END -->
+	
+</div>
+<!-- First grid -->
+<!-- First grid -->
+<div><br /><br /></div>
+<!-- First grid -->
+<h3 class="margin-none pull-left pestana">Chat en línea</h3>
+<div class="clearfix"></div>	
+<div class="tablaBCK">
+
+	<div class="clearfix"></div>
+	<div class="separator-h"></div>
+
+	<!-- Filters -->
+	<div class="filter-bar">
+		<form class="margin-none form-inline">
+			
+			<!-- Min -->
+			<div class="form-group col-md-4">
+			<label>Motivo de contacto:</label>
+			<div class="input-group col-md-6">
+			<input class="form-control" id="appendedInputButtons" type="text" placeholder="Placeholder .." />
+			<div class="input-group-btn"><button class="btn btn-success" type="button">Iniciar chat</button></div>
+			</div>
+			</div>
+			<!-- // Min END -->
+			
+			
+			<div class="clearfix"><br></div>
+		</form>
+	</div>
+
+	<!-- // Filters END -->
+	<div class="clearfix"></div>
+	
+</div>
+<!-- First grid -->
+<!-- First grid -->
+<div><br /><br /></div>
+
+{% endblock %}
+{% block bottom_javascripts %}
+
+	<!-- Global -->
+	<script data-id="App.Config">
+	var App = {};	var basePath = '',
+		commonPath = '{{ STATIC_URL }}',
+		rootPath = '../',
+		DEV = false,
+		componentsPath = '{{ STATIC_URL }}components/';
+	
+	var primaryColor = '#3695d5',
+		dangerColor = '#b55151',
+		successColor = '#609450',
+		infoColor = '#4a8bc2',
+		warningColor = '#ab7a4b',
+		inverseColor = '#45484d';
+	
+	var themerPrimaryColor = primaryColor;
+
+		</script>
+	
+	<script src="{{ STATIC_URL }}components/library/bootstrap/js/bootstrap.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/nicescroll/jquery.nicescroll.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/breakpoints/breakpoints.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/preload/pace/pace.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/preload/pace/preload.pace.init.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/core/js/animations.init.js?v=v1.0.2"></script>
+
+<script src="{{ STATIC_URL }}components/core/js/sidebar.main.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/core/js/sidebar.discover.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/core/js/core.init.js?v=v1.0.2"></script>	
+
+<script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-select/assets/lib/js/bootstrap-select.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-select/assets/custom/js/bootstrap-select.init.js?v=v1.0.2&sv=v0.0.1"></script>
+
+<script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/bootbox.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/modals.init.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/modules/admin/notifications/gritter/assets/lib/js/jquery.gritter.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/modules/admin/notifications/gritter/assets/custom/js/gritter.init.js?v=v1.0.2&sv=v0.0.1"></script>
+{% endblock %}

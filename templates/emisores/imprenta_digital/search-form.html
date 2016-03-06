@@ -1,0 +1,34 @@
+{% csrf_token %}
+<!--
+<div class="widget-head">
+    <h4>Buscador</h4>
+</div>-->
+
+<div class="widget-body">
+    <fieldset>
+    <div class="form-group col-md-6">
+        <label>Desde:&nbsp;<i class="fa fa-calendar"></i></label>
+        {{ search_form.fecha_desde }}
+    </div>
+    <div class="form-group col-md-6">
+        <label>Hasta:&nbsp;<i class="fa fa-calendar"></i></label>
+        {{ search_form.fecha_hasta }}
+    </div>
+    <div class="form-group col-md-6">
+        <label>Secuencial:</label>
+           {{ search_form.secuencial }}
+    </div>
+    <div class="form-group col-md-6">
+        <label>Identificación:</label>
+           {{ search_form.identificacion_cliente }}
+    </div>
+        <div class="form-group col-md-6">
+        <label>Razón Social:</label>
+           {{ search_form.razon_social_cliente }}
+     </div>
+     <div class="form-group col-md-6">
+         <label>Registros:</label>
+           {{ search_form.filas }}
+     </div>
+     </fieldset>
+</div>

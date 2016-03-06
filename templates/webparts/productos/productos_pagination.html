@@ -1,0 +1,12 @@
+<ul class="pagination pull-right margin-none">
+    {% if productos_interes.has_previous %}
+       <a href="?page_banner={{ productos_interes.previous_page_number }}">Anterior</a>
+    {% endif %}
+    <span class="disabled">
+       Pág. {{ productos_interes.number }} de {{ productos_interes.paginator.num_pages }}.
+    </span>
+    {% if productos_interes.has_next %}
+    <a href="?page_produc={{ productos_interes.next_page_number }}">Siguiente</a>
+    {% endif %}
+</ul>
+<div class="clearfix"></div>

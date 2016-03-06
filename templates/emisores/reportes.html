@@ -1,0 +1,106 @@
+{% extends 'emisores/baseEmisor.html' %}
+{% block titulo_page %}Reportes{% endblock%}
+{% load static from staticfiles %}
+{% block top_javascripts %}
+<script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="{% static  'util/util.js' %}"></script>
+<script src="{{ STATIC_URL }}util/ZeroClipboard.min.js"></script>
+<link rel="stylesheet/less" href="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/less/datepicker.less" />
+<link rel="stylesheet" href="{{ STATIC_URL }}css/admin/datepicker/datepicker.css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}css/admin/coupons.css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}css/table/demo_table.css" />
+{% endblock%}
+{% block body %}
+<script> utilidades(); </script>
+<div class="row">
+   {% if razon_social_empresa %}
+   <!-- Column -->
+   <div class="col-md-7">
+      <!-- Widget -->
+      <div class="widget widget-3">
+         <!-- Widget heading -->
+         <div class="widget-head">
+            <h4 class="heading"><span class="fa fa-user"><i></i> {{ razon_social_empresa }}</span></h4>
+         </div>
+         <!-- // Widget heading END -->
+      </div>
+      <!-- // Widget END -->
+   </div>
+   {% endif %}
+   <!-- Column -->
+   <div class="col-md-5">
+      <!-- Widget -->
+      <div class="widget widget-3">
+         <div style="height: 60px; width:420px">
+            {% if logotipo_empresa.logotipo %}
+            <img src="{{ logotipo_empresa.logotipo.url }}" style="width: 100%;max-height: 100%" id='logotipo' border="1">
+            {% endif %}
+         </div>
+      </div>
+      <!-- // Widget END -->
+   </div>
+</div>
+<div><br></div>
+<!-- First grid -->
+<h4 class="margin-none pull-left pestana">Reporte general <a class="tooltips" href="#"><i class="fa fa-question-circle"></i><span>El reporte general  permite al usuario conocer de manera rápida el monto total facturado por la persona/empresa emisora de documentos digitales en un periodo de tiempo delimitado por las fechas de inicio y fin del mismo.</span></a></h4>
+<div class="clearfix"></div>
+<div class="tablaBCK">
+   <div class="clearfix"></div>
+   <div class="separator-h"></div>
+   {% include "webparts/reportes/reporte_general_form.html" %}
+   {% include "webparts/reportes/reporte_general_list.html" %}
+   <!-- // Widget -->
+</div>
+<!-- First grid -->
+<!-- Spacer -->
+<div><br ></div>
+<!-- Spacer -->
+<!-- Spacer -->
+<div><br></div>
+<!-- Spacer -->
+<!-- Second grid -->
+<h4 class="margin-none pull-left pestana">Reportes individuales <a class="tooltips" href="#"><i class="fa fa-question-circle"></i><span>El reporte individual permite que la persona/empresa emisora de documentos electrónicos pueda acceder a la información de total facturado en un periodo de tiempo definido por una o varias categorías para un usuario especifico de la plataforma a través de su número de cédula.</span></a></h4>
+<div class="clearfix"></div>
+<div class="tablaBCK">
+   <div class="clearfix"></div>
+   <div class="separator-h"></div>
+   {% include "webparts/reportes/reporte_individual_form.html" %}
+   {% include "webparts/reportes/reporte_individual_list.html" %}
+   <div class="clearfix"></div>
+</div>
+<!-- Second grid -->
+{% endblock %}
+{% block bottom_javascripts %}
+<!-- Global -->
+<script data-id="App.Config">
+   var App = {};	var basePath = '',
+       commonPath = '{{ STATIC_URL }}',
+       rootPath = '../',
+       DEV = false,
+       componentsPath = '{{ STATIC_URL }}components/';
+   
+   var primaryColor = '#3695d5',
+       dangerColor = '#b55151',
+       successColor = '#609450',
+       infoColor = '#4a8bc2',
+       warningColor = '#ab7a4b',
+       inverseColor = '#45484d';
+   
+   var themerPrimaryColor = primaryColor;
+   
+</script>
+<script src="{{ STATIC_URL }}components/library/bootstrap/js/bootstrap.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/nicescroll/jquery.nicescroll.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/breakpoints/breakpoints.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/preload/pace/pace.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/preload/pace/preload.pace.init.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/core/js/animations.init.js?v=v1.0.2"></script>
+
+<script src="{{ STATIC_URL }}components/core/js/sidebar.main.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/core/js/sidebar.discover.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/core/js/core.init.js?v=v1.0.2"></script>
+
+<script src="{{ STATIC_URL }}components/core/modules/commons.js"></script>
+<script src="{{ STATIC_URL }}components/core/modules/reportes.js"></script>
+
+{% endblock %}

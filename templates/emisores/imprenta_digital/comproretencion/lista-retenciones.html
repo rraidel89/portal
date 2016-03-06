@@ -1,0 +1,103 @@
+{% extends 'emisores/baseEmisor.html' %}
+{% block titulo_page %}Imprenta Digital&nbsp;|&nbsp;Retenciones {% endblock%}
+{% load static from staticfiles %}
+{% block top_javascripts %}
+    <script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    {% load static from staticfiles %}
+    <script src="{% static  'util/util.js' %}"></script>
+    <link rel="stylesheet/less" href="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/less/datepicker.less" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/admin/datepicker/datepicker.css" />
+{% endblock%}
+{% block body %}
+<script> utilidades(); </script>
+<h3 class="margin-none pull-left pestana">Comprobantes de Retención</h3>
+<div class="clearfix"></div>
+<div class="tablaBCK">
+   <div class="clearfix"></div>
+   <div class="separator-h"></div>
+   <div class="widget widget-body-white">
+      <div class="widget-body">
+	 <div>
+	    <form id="search_retencion" class="margin-none form-inline" action="">
+	       <div class="widget widget-body-white" style="height: auto;">
+		  {% include "emisores/imprenta_digital/search-form.html" %}
+		  <div class="modal-footer">
+		     <a href="/imprenta-digital/retenciones/crear/" class="btn btn-success"><i class="fa fa-file"></i>&nbsp;Crear Retención</a>
+		     <a onclick="return filter_impd_retenciones()" href="#" class="btn btn-primary"><i class="fa fa-search"></i>&nbsp;Buscar</a>
+		  </div>
+	       </div>
+	    </form>
+	 </div>
+      </div>
+      <div class="widget-body">
+	 <table class="table table-condensed table-striped table-primary table-vertical-center checkboxs">
+	    <thead>
+		<tr>
+		    <th class="center">Secuencial</th>
+		    <th class="center">Cliente</th>
+		    <th class="center">Emisión</th>
+		    <th class="center">Periodo Fiscal</th>
+		    <th class="center">Ver</th>
+		    <th class="center">Quitar</th>
+		    <th class="center">Estado</th>
+		</tr>
+	    </thead>
+	    <tbody id="retenciones">
+		  {% include "emisores/imprenta_digital/comproretencion/items-lista-retencion.html" %}
+	    </tbody>
+	</table>
+	 {% include "emisores/imprenta_digital/comproretencion/retenciones_pagination.html" %}
+      </div>
+      <div class="modal-footer">
+	<!-- <a href="/imprenta-digital/retenciones/crear/"><button class="btn btn-success"><i class="fa fa-file"></i>&nbsp;Crear Retención</button></a>-->
+      </div>	 
+   </div>
+   <div class="clearfix"></div>
+</div>
+{% endblock %}
+{% block bottom_javascripts %}
+	<!-- Global -->
+
+	<script data-id="App.Config">
+        var App = {};	var basePath = '',
+            commonPath = '{{ STATIC_URL }}',
+            rootPath = '../',
+            DEV = false,
+            componentsPath = '{{ STATIC_URL }}components/';
+
+        var primaryColor = '#3695d5',
+            dangerColor = '#b55151',
+            successColor = '#609450',
+            infoColor = '#4a8bc2',
+            warningColor = '#ab7a4b',
+            inverseColor = '#45484d';
+
+        var themerPrimaryColor = primaryColor;
+
+	</script>
+	
+	<script src="{{ STATIC_URL }}components/library/bootstrap/js/bootstrap.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/nicescroll/jquery.nicescroll.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/breakpoints/breakpoints.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/preload/pace/pace.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/preload/pace/preload.pace.init.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/core/js/animations.init.js?v=v1.0.2"></script>
+
+    <script src="{{ STATIC_URL }}components/core/js/sidebar.main.init.js?v=v1.0.2"></script>
+    <script src="{{ STATIC_URL }}components/core/js/sidebar.discover.init.js?v=v1.0.2"></script>
+    <script src="{{ STATIC_URL }}components/core/js/core.init.js?v=v1.0.2"></script>
+
+    <script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/bootbox.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/modals.init.js?v=v1.0.2&sv=v0.0.1"></script>
+    
+    <script src="{{ STATIC_URL }}components/core/modules/commons.js"></script>
+    <script src="{{ STATIC_URL }}components/core/modules/imprentadigital.js"></script>
+    
+    <script>
+      $(document).ready(function () {
+	 $('.datepicker').datepicker({
+	     format: "yyyy-mm-dd"
+	 });
+      });
+    </script>
+{% endblock %}

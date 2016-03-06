@@ -1,0 +1,313 @@
+{% extends 'emisores/baseEmisor.html' %}
+{% block titulo_page %}Actualizar Datos Empresariales{% endblock %}
+{% block left_menu %}
+    <div id="menu" class="hidden-print hidden-xs">
+        <div id="sidebar-discover-wrapper">
+            <h2>Datos Empresariales Requeridos</h2>
+        </div>
+    </div>
+{% endblock %}
+{% block top_menu %}{% endblock %}
+{% block right_top_menu %}{% endblock %}
+{% block notifications_menu %}{% endblock %}
+{% block body %}
+    <!-- First grid -->
+    <h4 class="margin-none pull-left pestana">Complete sus datos empresariales</h4>
+    <div class="clearfix"></div>
+    <div class="tablaBCK">
+
+    <h4>Datos Empresariales</h4>
+    <br>
+    <p>Por favor solicitamos ingresar la siguiente información para <b>continuar utilizando Innobee gratuitamente</b>. Este proceso toma tan solo unos minutos.</p>
+    <p>Recuerde que solamente con <b>información válida</b> podemos mantener su cuenta activa. Muchas gracias por su información.</p>
+
+    <div class="separator-h"></div>
+
+    <form class="margin-none form-inline" method="POST" action="">
+
+    {% csrf_token %}
+    <!-- Filters -->
+    <div class="filter-bar">
+
+        <!-- Min -->
+        <div class="form-group col-md-4">
+            <label>RUC de la Empresa:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.ruc.errors }}
+                {{ frm_perfil_persona.ruc }}
+            </div>
+        </div>
+        <!-- // Min END -->
+
+        <!-- Min -->
+        <div class="form-group col-md-4">
+            <label>Razon Social:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.razon_social.errors }}
+                {{ frm_perfil_persona.razon_social }}
+            </div>
+        </div>
+        <!-- // Min END -->
+
+        <!-- Min -->
+        <div class="form-group col-md-4">
+            <label>Dirección matríz:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.direccion_matriz }}
+            </div>
+        </div>
+        
+        <!-- Min -->
+        <div class="form-group col-md-4">
+            <label>Pais:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.pais.errors }}
+                {{ frm_perfil_persona.pais }}
+            </div>
+        </div>
+        
+        <div class="form-group col-md-4">
+            <label>Provincia:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.provincia.errors }}
+                {{ frm_perfil_persona.provincia }}
+            </div>
+        </div>
+        <!-- // Min END -->
+
+        <div class="form-group col-md-4">
+            <label>Ciudad:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.ciudad.errors }}
+                {{ frm_perfil_persona.ciudad }}
+            </div>
+        </div>
+        
+        <div class="form-group col-md-4">
+            <label>Email:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.email.errors }}
+                {{ frm_perfil_persona.email }}
+            </div>
+        </div>
+        <!-- // Min END -->
+
+        <!-- Min -->
+        <div class="form-group col-md-4">
+            <label>Teléfono:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.telefono.errors }}
+                {{ frm_perfil_persona.telefono }}
+            </div>
+        </div>
+        <!-- // Min END -->
+        <!-- Min -->
+        <div class="form-group col-md-4">
+            <label>Extensión:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.extension.errors }}
+                {{ frm_perfil_persona.extension }}
+            </div>
+        </div>
+        
+        <div class="form-group col-md-4">
+            <label>Teléfono Celular de Contacto:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.telefono_celular.errors }}
+                {{ frm_perfil_persona.telefono_celular }}
+            </div>
+        </div>
+       
+        <div class="form-group col-md-4">
+            <label>Página Web:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.pagina_web.errors }}
+                {{ frm_perfil_persona.pagina_web }}
+            </div>
+        </div>
+        
+        <div class="clearfix"></div>
+
+    </div>
+
+    <h4>Datos Adicionales</h4>
+    <br>
+    <p>Con la siguiente información nos permitirá poder atenderle de una manera más personalizada y efectiva.</p>
+    
+    <div class="separator-h"></div>
+    <!-- Filters -->
+    <div class="filter-bar">
+        <!-- Min -->
+        
+         <!-- // Min END -->
+        <div class="form-group col-md-4">
+            <label>Categoría de la Empresa:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.categoria.errors }}
+                {{ frm_perfil_persona.categoria }}
+            </div>
+        </div>
+        
+        <!-- // Min END -->
+        <div class="form-group col-md-4">
+            <label>Cargo que usted ocupa en la Empresa:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.cargo.errors }}
+                {{ frm_perfil_persona.cargo }}
+            </div>
+        </div>
+        
+        <!-- Min -->
+        <div class="form-group col-md-4">
+            <label>La Empresa es Obligada a Llevar Contabilidad:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.obligado_contabilidad.errors }}
+                {{ frm_perfil_persona.obligado_contabilidad }}
+            </div>
+        </div>
+        
+        <div class="form-group col-md-4">
+            <label>La Empresa es Contribuyente Especial:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.contribuyente_especial.errors }}
+                {{ frm_perfil_persona.contribuyente_especial }}
+            </div>
+        </div>
+        
+         <div class="form-group col-md-4">
+            <label>Su empresa ya usa un sistema de facturación electrónica:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.usa_facturacion_electronica.errors }}
+                {{ frm_perfil_persona.usa_facturacion_electronica }}
+            </div>
+        </div>
+        
+        <!-- // Min END -->
+        <div class="clearfix"><br/></div>
+    </div>
+
+
+    <h4>Datos sociales del emisor</h4>
+    <br>
+    <p>Al menos una de las siguientes redes sociales perteneciente a la Empresa.</p>
+    <div class="separator-h"></div>
+    <!-- Filters -->
+    <div class="filter-bar">
+        <!-- Min -->
+        <div class="form-group col-md-4">
+            <label>Perfil en Facebook:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.perfil_facebook.errors }}
+                {{ frm_perfil_persona.perfil_facebook }}
+            </div>
+        </div>
+        <!-- // Min END -->
+
+        <!-- Min -->
+        <div class="form-group col-md-4">
+            <label>Perfil en Twitter:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.perfil_twitter.errors }}
+                {{ frm_perfil_persona.perfil_twitter }}
+            </div>
+        </div>
+        <!-- // Min END -->
+
+        <!-- Min -->
+        <div class="form-group col-md-4">
+            <label>Perfil en LinkedIn:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.perfil_linkedid.errors }}
+                {{ frm_perfil_persona.perfil_linkedid }}
+            </div>
+        </div>
+        <!-- // Min END -->
+
+        <!-- Min -->
+        <div class="form-group col-md-4">
+            <label>Perfil en Google+:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.perfil_googleplus.errors }}
+                {{ frm_perfil_persona.perfil_googleplus }}
+
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+    
+    <!-- With selected actions -->
+    <div class="pull-left">
+        <button class="btn btn-success"><i class="fa fa-save"></i> Guardar los cambios</button>
+    </div>
+    <!-- // With selected actions END -->
+    <div class="clearfix"></div>
+    <!-- // footer END -->
+
+    </form>
+
+</div>
+
+{% endblock %}
+{% block bottom_javascripts %}
+    <!-- Global -->
+    <script data-id="App.Config">
+        var App = {};
+        var basePath = '',
+                commonPath = '{{ STATIC_URL }}',
+                rootPath = '../',
+                DEV = false,
+                componentsPath = '{{ STATIC_URL }}components/';
+
+        var primaryColor = '#3695d5',
+                dangerColor = '#b55151',
+                successColor = '#609450',
+                infoColor = '#4a8bc2',
+                warningColor = '#ab7a4b',
+                inverseColor = '#45484d';
+
+        var themerPrimaryColor = primaryColor;
+
+
+    </script>
+
+    <script src="{{ STATIC_URL }}components/library/bootstrap/js/bootstrap.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/nicescroll/jquery.nicescroll.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/breakpoints/breakpoints.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/preload/pace/pace.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/preload/pace/preload.pace.init.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/core/js/animations.init.js?v=v1.0.2"></script>
+
+    <script src="{{ STATIC_URL }}components/core/js/sidebar.main.init.js?v=v1.0.2"></script>
+    <script src="{{ STATIC_URL }}components/core/js/sidebar.discover.init.js?v=v1.0.2"></script>
+    <script src="{{ STATIC_URL }}components/core/js/core.init.js?v=v1.0.2"></script>
+
+    <script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-select/assets/lib/js/bootstrap-select.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-select/assets/custom/js/bootstrap-select.init.js?v=v1.0.2&sv=v0.0.1"></script>
+
+    <script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/bootbox.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/modals.init.js?v=v1.0.2&sv=v0.0.1"></script>
+    
+    <script src="{{ STATIC_URL }}components/core/modules/commons.js"></script>
+    <script src="{{ STATIC_URL }}components/core/modules/empresa.js"></script>
+{% endblock %}

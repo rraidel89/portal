@@ -1,0 +1,22 @@
+<div class="widget-body">
+        <table width="100%" cellpadding="2" cellspacing="2">
+                <tr>
+                        <th>Serie:</th>
+                        <td>{{entity.id_configuracion.establecimiento}}-{{entity.id_configuracion.punto_emision}}-{{entity.secuencial}}</td>
+                </tr>
+                <tr>
+                        <th>Fecha de Emisi&oacute;n:</th>
+                        <td>
+                                {% if entity.get_fecha_emision %}
+                                        {{entity.get_fecha_emision}}
+                                {% endif %}       
+                        </td>
+                </tr>
+                {% if entity.get_guia_remision %}
+                <tr>
+                        <th>Gu&iacute;a de remisi&oacute;n:</th>
+                        <td>{{entity.get_guia_remision}}</td>
+                </tr>
+                {% endif %}
+        </table>
+</div>

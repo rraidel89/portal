@@ -1,0 +1,55 @@
+<form id="filtro_banners_form" class="margin-none form-inline" method="POST" action="" onsubmit="filter_banners_form();return false;">
+    <div class="filter-bar">
+        {% csrf_token %}
+        <!-- From -->
+        <div class="form-group col-md-4">
+           <label>Inicio:</label>
+           <div class="input-group date" id="datepicker01">
+              {{ form_banner.ban_fecha_inicio.errors }}
+              {{ form_banner.ban_fecha_inicio}}
+              <span class="input-group-addon"><i class="fa fa-th"></i></span>
+           </div>
+        </div>
+        <!-- // From END -->
+        <!-- To -->
+        <div class="form-group col-md-4">
+           <label>Fin:</label>
+           <div class="input-group date" id="datepicker02">
+              {{ form_banner.ban_fecha_fin.errors }}
+              {{ form_banner.ban_fecha_fin }}
+              <span class="input-group-addon"><i class="fa fa-th"></i></span>
+           </div>
+        </div>
+        <!-- // To END -->
+        <!-- Min -->
+        <div class="form-group col-md-4">
+           <label>Nombre:</label>
+           <div class="input-group">
+              {{ form_banner.ban_nombre.errors }}
+              {{ form_banner.ban_nombre }}
+           </div>
+        </div>
+        <!-- // Min END -->
+        <!-- Select -->
+        <div class="form-group col-md-4">
+           <label>Estado</label>
+           <div class="row">
+              {{ form_banner.ban_estado.errors }}
+              {{ form_banner.ban_estado }}
+           </div>
+        </div>
+        <!-- // Select END -->
+        <!-- Select -->
+        <div class="form-group col-md-4">
+           <button id="filter_banners_button" type="button" onclick="filter_banners_form();" class="btn btn-primary btn-sm">
+             <span class="glyphicon glyphicon-search"></span>Buscar
+           </button>
+        </div>
+        <!-- // Select END -->
+        <div class="clearfix"></div>
+    </div>
+    
+    <div class="separator bottom">Total Banners Cargados: <span id="cantidad-banners">{{ cant_banners }}</span>
+    <span class="pull-right"><label class="strong">Organizados por:</label> {{ form_banner.ban_filas_banner }}</span>
+    </div>
+</form>

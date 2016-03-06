@@ -1,0 +1,75 @@
+<h3 style="color:#BB0000">Errores:</h3>
+{% for field in form %}
+    {% if field.errors %}
+        <b>{{ field.label }}:</b>&nbsp;
+        {% for error in field.errors %}
+          {{ error }},
+        {% endfor %}<br>
+    {% endif %}
+{% endfor %}
+
+{% if config_form and config_form.errors %}
+    <h4 style="color:#CC0000">Errores Datos Iniciales:</h4>
+    {% for field in config_form %}
+        {% if field.errors %}
+            <b>{{ field.label }}:</b>&nbsp;
+            {% for error in field.errors %}
+              {{ error }},
+            {% endfor %}<br>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% if customer_form and customer_form.errors %}
+    <h4 style="color:#CC0000">Errores Datos Cliente:</h4>
+    {% for field in customer_form %}
+        {% if field.errors %}
+            <b>{{ field.label }}:</b>&nbsp;
+            {% for error in field.errors %}
+              {{ error }},
+            {% endfor %}<br>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% if detalle_destinatario_form and detalle_destinatario_form.errors %}
+    <h4 style="color:#CC0000">Errores Destinatario y Detalles:</h4>
+    {% for field in detalle_destinatario_form %}
+        {% if field.errors %}
+            <b>{{ field.label }}:</b>&nbsp;
+            {% for error in field.errors %}
+              {{ error }},
+            {% endfor %}<br>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% if formset1 and formset1.errors %}
+    <h4 style="color:#CC0000">Errores Primer Segmento:</h4>
+    {% for dict in formset1.errors %}
+        <b>{{dict}}</b>&nbsp;
+        {% for error in dict.values %}
+            {{ error }}
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+
+{% if formset2 and formset2.errors %}
+    <h4 style="color:#CC0000">Errores Segundo Segmento</h4>
+    {% for dict in formset2.errors %}
+        <b>{{dict}}</b>&nbsp;
+        {% for error in dict.values %}
+            {{ error }}
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+
+{% if formset3 and formset3.errors %}
+    <h4 style="color:#CC0000">Errores Tercer Segmento</h4>
+    {% for dict in formset3.errors %}
+        <b>{{dict}}</b>&nbsp;
+        {% for error in dict.values %}
+            {{ error }}
+        {% endfor %}
+    {% endfor %}
+{% endif %}

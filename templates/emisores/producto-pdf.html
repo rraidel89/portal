@@ -1,0 +1,64 @@
+{% extends 'emisores/baseEmisor.html' %}
+{% block titulo_page %}Productos{% endblock %}
+{% load static from staticfiles %}
+{% block top_javascripts %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/admin/coupons.css"/>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/table/demo_table.css"/>
+{% endblock %}
+{% block body %}
+    <!-- First grid -->
+    <h3 class="margin-none pull-left pestana">Innobee - Facturación Electrónica</h3>
+    <div class="clearfix"></div>
+    <div class="tablaBCK">
+        <div class="clearfix"></div>
+        <div class="separator-h"></div>
+        <!-- Widget -->
+            <!-- // Widget heading END -->
+                <!-- Total bookings & sort by options -->
+                <!-- // Total bookings & sort by options END -->
+                    <!-- Cupon -->
+                    <span style="display: inline-block;">
+                        <!-- Item -->
+                        <div class="bck_cupon">
+                           <div class="imagen"><img src="{{ form.imagen.url }}"/></div>
+                <div class="contenido_logos">
+                    <ul>
+                        <li class="logos"><img src="{{ form.logotipo.url }}" /></li>
+                        <li class="texto-logo">{{ form.nombre }}<br> {{ form.titulo }}</li>
+                    </ul>
+                </div>
+
+                            <div class="clearfix"></div>
+
+
+                        </div>
+                        <!-- Item End -->
+                        <!-- Modal -->
+                                            <!-- // Modal END -->
+                        <!-- Total bookings & sort by options -->
+                        <div class="clearfix"><br/></div>
+                        <div class="clearfix"><br/></div>
+                        <div class="clearfix"></div>
+                        <!-- // Total bookings & sort by options END -->
+                        </span>
+                    <!-- Cupon END -->
+        <div class="clearfix"></div>
+        <!-- With selected actions -->
+    </div>
+{% endblock %}
+{% block bottom_javascripts %}
+    <!-- Global -->
+    <script src="{{ STATIC_URL }}components/library/bootstrap/js/bootstrap.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/breakpoints/breakpoints.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/preload/pace/pace.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/preload/pace/preload.pace.init.js?v=v1.0.2&sv=v0.0.1"></script>
+
+
+
+    <script src="{{ STATIC_URL }}components/core/js/core.init.js?v=v1.0.2"></script>
+
+    <!--<script src="{{ STATIC_URL }}components/common/forms/validator/assets/custom/form-validator.init.js?v=v1.0.2&sv=v0.0.1"></script>-->
+
+    <script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/bootbox.min.js?v=v1.0.2&sv=v0.0.1"></script>
+
+{% endblock %}

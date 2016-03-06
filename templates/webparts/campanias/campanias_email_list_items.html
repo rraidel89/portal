@@ -1,0 +1,19 @@
+{% load emisoreceptor %}
+{% for campania in campania_email %}
+<!-- Item -->
+<tr class="selectable">
+     <td class="center lightblue">{{ campania.nombre }}</td>
+     <td class="center">{{ campania.fecha_creacion|date:'Y-m-d' }}</td>
+     <td class="center lightblue"> {{ campania.fecha_publicacion|date:'Y-m-d' }}</td>
+     <td class="center">{{ campania.nro_enviados }}</td>
+     <td class="center lightblue">{{ campania.opens }}</td>
+     <td class="center">{{ campania.clicks }}</td>
+     <td class="center lightblue">{{ campania.estado }} </td>
+     <td class="center lightblue">
+        <div class="btn-group btn-group-sm edit">
+            <a href="/campania-publicidad/editar-campania-email/{{campania.id_campania_sms}}/" class="btn btn-default link"><i class="fa fa-pencil"></i></a>
+        </div>
+    </td>
+</tr>
+<!-- // Item END -->
+{% endfor %}

@@ -1,0 +1,29 @@
+<div class="modal fade" id="modal-crear-producto">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="close-modal-crear-producto" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title"><i class="fa fa-shopping-cart fa-lg"></i>&nbsp;CREAR / ACTUALIZAR PRODUCTO</h3>
+            </div>
+            <div class="modal-body" id="contenido-producto">
+               {% include "emisores/imprenta_digital/producto.html" %}
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:void(0)" data-dismiss="modal" class="btn btn-danger"><i class="fa fa-exit"></i>&nbsp;Cancelar</a>
+                <a href="javascript:void(0)" class="btn btn-success" onclick="save_product()"><i class="fa fa-save"></i>&nbsp;Guardar</a>
+            </div>
+        </div>
+    </div>    
+</div>
+
+<script>
+    $('#add_more_detalles_producto').click(function() {
+        
+        cloneMore('tr.item_det_prod:last', 'impdproductodetalleadicional_set');
+    });
+    
+    $('#add_more_impuestos_producto').click(function() {
+        
+        cloneMore('tr.item_imp_prod:last', 'impdproductoimpuesto_set');
+    });
+</script>

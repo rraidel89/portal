@@ -1,0 +1,326 @@
+{% extends 'emisores/baseEmisor.html' %}
+{% block titulo_page %}{% if not form.instance or not form.instance.pk %}Nuevo Comprobante{% else %}Editar Retención{% endif %}{% endblock %}
+{% load selectable_tags %}
+{% load static from staticfiles %}
+
+{% block top_javascripts %}
+<script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="{{ STATIC_URL }}components/core/modules/formsets.js"></script>
+
+<link rel="stylesheet/less"
+      href="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/less/datepicker.less"/>
+<link rel="stylesheet"
+      href="{{ STATIC_URL }}css/admin/datepicker/datepicker.css"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/admin/forms.css" />
+
+{% endblock%}
+
+{% block body %}
+<div id="nuevo_comprobante">
+    <h4 class="margin-none pull-left pestana">Nuevo Comprobante de Retención</h4>
+    <div class="clearfix"></div>
+    <div class="filter-bar">
+        <ul id="crear_retencion_error_list" class="custom_error_list"></ul>
+        <div class="col-md-6">
+            <div class="widget widget-body-white panel panel-success" style="height: auto;">
+                <div class="widget-head">
+                    <h3>{{empresa.nombre_comercial}}</h3>
+                </div>
+                <div class="widget-body">
+                    {% if empresa.logotipo.url %}
+                    <div style="text-align: center"><img height="auto" width="50%" src="{{ empresa.logotipo.url }}"/></div>
+                    {% endif %}
+                    <br>
+                    <table width="100%" cellpadding="2" cellspacing="2">
+                        <tr>
+                            <th>Razón Social:</th><td>{{empresa.razon_social}}</td>
+                        </tr>
+                        <tr>
+                            <th>RUC:</th><td>{{empresa.ruc}}</td>
+                        </tr>
+                        <tr>
+                            <th>Dirección Matriz:</th><td>{{empresa.direccion_matriz}}</td>
+                        </tr>
+                        <tr>
+                            <th>Teléfono:</th><td>{{empresa.telefono_principal}}</td>
+                        </tr>
+                        <tr>
+                            <th>Obligado a llevar contabilidad:</th><td>{{empresa.obligado_contabilidad}}</td>
+                        </tr>
+                        {% if empresa.codigo_contribuyente_especial %}
+                        <tr>
+                            <th>Contribuyente especial:</th><td>{{empresa.codigo_contribuyente_especial}}</td>
+                        </tr>
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="widget widget-body-white" style="height: auto;">
+                <div class="widget-head">
+                    <h4>Datos del Comprobante de Retención</h4>
+                </div>
+                <div class="widget-body">
+                    {% include "emisores/imprenta_digital/configuracion.html" %}
+                </div>
+            </div>
+            <div class="widget widget-body-white" style="height: auto;">
+                <div class="widget-head">
+                    <h4>Cliente Retenido</h4>
+                </div>
+                <div class="widget-body">
+                    {% include "emisores/imprenta_digital/cliente.html" %}
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>    
+    <form id="form_retencion" action="." method="post"> {% csrf_token %}
+        
+        <div class="filter-bar">
+            <div class="widget widget-body-white" style="height: auto;">
+                <div class="widget-head">
+                    <h4>Impuestos a Retener
+                    <div class="pull-right inline_normal_form">{{ form.as_p }}</div>
+                    </h4>
+                </div>
+                <div class="widget-body">
+                    {{ impuestos_form.management_form }}
+                    <table id="main-table" class="form-custom">
+                    {% for form in impuestos_form.forms %}
+                        <tr class="{% cycle row1,row2 %} item">
+                            <td>
+                                <table id="sub-table" class="form-custom">
+                                    {# Primera parte de los campos #}
+                                    <tr>
+                                        {% for field in form.visible_fields %}
+                                            {% if field.name != 'codigo_documento_sustento' and field.name != 'numero_documento_sustento' and field.name != 'fecha_emi_docum_sustento' and not forloop.last %}
+                                                <th class="{% cycle col1,col2 %}">{{ field.label|capfirst }}</th>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </tr>
+                                    <tr>
+                                    {% for field in form.visible_fields %}
+                                        {% if field.name != 'codigo_documento_sustento' and field.name != 'numero_documento_sustento' and field.name != 'fecha_emi_docum_sustento' and not forloop.last %}
+                                            <td class="{% cycle col1,col2 %}">
+                                            {# Include the hidden fields in the form #}
+                                            {% if forloop.first %}
+                                              {% for hidden in form.hidden_fields %}
+                                              {{ hidden }}
+                                              {% endfor %}
+                                            {% endif %}
+                                              {{ field.errors.as_ul }}
+                                              {{ field }}
+                                            </td>
+                                        {% endif %}
+                                    {% endfor %}
+                                    </tr>
+                                    
+                                    {# Segunda parte de los campos #}
+                                    <tr>
+                                        {% for field in form.visible_fields %}
+                                            {% if field.name == 'codigo_documento_sustento' or field.name == 'numero_documento_sustento' or field.name == 'fecha_emi_docum_sustento' %}
+                                                <th class="{% cycle col1,col2 %}" {% if field.name == 'numero_documento_sustento' %}colspan="3"{% endif %}>
+                                                    {{ field.label|capfirst }}
+                                                </th>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </tr>
+
+                                    <tr>
+                                    {% for field in form.visible_fields %}
+                                        {% if field.name == 'codigo_documento_sustento' or field.name == 'numero_documento_sustento' or field.name == 'fecha_emi_docum_sustento' %}
+                                            <td class="{% cycle col1,col2 %}" {% if field.name == 'numero_documento_sustento' %}colspan="3"{% endif %}>
+                                                {{ field.errors.as_ul }}
+                                                {{ field }}
+                                            </td>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <td class="col2" ><p style=""><a  class="delete btn btn-danger delete_item_retencion" onclick="return pregunta_retencion(this,'{{ impuestos_form.prefix }}','item','item_impuesto_retencion','{{form.instance.id}}');" href="javascript:void(0)">X</a></p></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                            
+                                
+                                <td><input type="button" id="add_more" class="btn btn-primary" value="Agregar" /></td>
+                            
+                      
+                    
+                    </table>
+                    
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="filter-bar">
+            <div class="col-md-7">
+                {% include "emisores/imprenta_digital/info-adicional.html" %}
+                <a id="buton-crear-prod" href="#modal-crear-producto" data-toggle="modal"></a>
+            </div>
+            <div class="col-md-5">
+                <div class="widget widget-body-white" style="height: auto;">
+                    <div class="modal-footer">
+                        <a href="/imprenta-digital/retenciones/" class="btn btn-danger">Cancelar</a>
+                         {% if form.instance.pk %}
+                        <a href="/imprenta-digital/retenciones/{{form.instance.pk}}/preview/" target="blank" class="btn btn-info btn-sm"><i class="fa fa-eye"></i>&nbsp;Vista Previa</a>
+                        {% endif %}
+                        {% if not form.instance.pk %}
+                        <a href="javascript:void(0)" onclick="save_retencion()" class="submit btn btn-success">Guardar</a>
+                        {% else %}
+                        <a href="javascript:void(0)" onclick="update_retencion()" class="submit btn btn-success">Actualizar</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <input id="ruc_empresa" name="ruc_empresa" type="hidden" value="{{empresa.ruc}}">
+    </form>
+</div>
+
+    
+{% endblock %}
+{% block bottom_javascripts %}
+   <!-- Global -->
+    <script data-id="App.Config">
+        var App = {};
+        var basePath = '',
+                commonPath = '{{ STATIC_URL }}',
+                rootPath = '../',
+                DEV = false,
+                componentsPath = '{{ STATIC_URL }}components/';
+
+        var primaryColor = '#3695d5',
+                dangerColor = '#b55151',
+                successColor = '#609450',
+                infoColor = '#4a8bc2',
+                warningColor = '#ab7a4b',
+                inverseColor = '#45484d';
+
+        var themerPrimaryColor = primaryColor;
+
+    </script>
+
+    <script src="{{ STATIC_URL }}components/library/bootstrap/js/bootstrap.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    
+    
+    <script src="{{ STATIC_URL }}components/plugins/nicescroll/jquery.nicescroll.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/breakpoints/breakpoints.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/preload/pace/pace.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/preload/pace/preload.pace.init.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/core/js/animations.init.js?v=v1.0.2"></script>
+
+    <script src="{{ STATIC_URL }}components/core/js/sidebar.main.init.js?v=v1.0.2"></script>
+    <script src="{{ STATIC_URL }}components/core/js/sidebar.discover.init.js?v=v1.0.2"></script>
+    <script src="{{ STATIC_URL }}components/core/js/core.init.js?v=v1.0.2"></script>
+
+    <script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/bootbox.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/modals.init.js?v=v1.0.2&sv=v0.0.1"></script>
+    
+    <script src="{{ STATIC_URL }}components/core/modules/commons.js"></script>
+    <script src="{{ STATIC_URL }}components/core/modules/imprentadigital.js"></script>
+    
+{% endblock %}
+
+{% block dajaxice_block %}
+<link rel="stylesheet" href="{{ STATIC_URL }}selectable/css/dj.selectable.css"/>
+    
+<script src="{{ STATIC_URL }}dajaxicecore/dajaxice.core.js"></script>
+<script src="{{ STATIC_URL }}dajax/jquery.dajax.core.js" type="text/javascript"></script>
+
+<!--{% include_jquery_libs '1.4.4' '1.8.13' %}-->
+<script src="{{ STATIC_URL }}selectable/js/jquery/jquery.min.js"></script>
+<script src="{{ STATIC_URL }}selectable/js/jquery/jquery-ui.js"></script>
+<script src="{{ STATIC_URL }}selectable/js/jquery.dj.selectable.js"></script>
+
+<script>
+    function fecha(){
+        $('.datepicker').datepicker({
+            dateFormat: "dd/mm/yy"
+        });
+        
+    }
+    
+    $(document).ready(function () {
+        $('#add_more').click(function() {
+            cloneMore('tr.item:last', '{{ impuestos_form.prefix }}');
+        });
+        
+        $('#add_more_info_adi').click(function() {
+            cloneMore('tr.item-info-adi:last', '{{ info_adicional_form.prefix }}');
+        });
+
+        $('.datepicker').datepicker({
+            dateFormat: "dd/mm/yy"
+        });
+    
+        {% if form.instance.pk %}
+            
+            $('select.codigo_impuesto_tmp').each(function(){
+                var aux=$(this).val();
+                if (aux == 1) {
+                    //$('select.codigo_impuesto_tmp').change();
+                    update_field_Renta(this,'select.codigo_impuesto_tmp');
+                    
+                }
+            })
+        {% endif%}
+    
+    });
+    
+    
+    function update_field_Renta(obj) {
+            
+        show_field(obj, 'id_porcentaje_retener_tmp');
+        hide_field(obj, 'id_porcentaje_retener');
+    }
+    function show_field(obj, target) {
+    target_field_id = get_set_field_id(obj, target);
+    $('#'+target_field_id).removeClass('input_hide');
+    
+    };
+
+    function hide_field(obj, target) {
+    target_field_id = get_set_field_id(obj, target);
+    $('#'+target_field_id).addClass('input_hide');
+    };
+    
+    
+    
+    function pregunta_retencion(this_for,info_adicional_form_prefix, item ,item_info,form_ia_instance_id){
+     var formCount = parseInt($('#id_' + info_adicional_form_prefix + '-TOTAL_FORMS').val());
+     
+     if (formCount>1) {
+        if (form_ia_instance_id=="None") {
+            
+      deleteForm(this_for,info_adicional_form_prefix ,item);
+     }else{
+      if (confirm('¿Estas seguro de Eliminar?')){
+        deleteForm(this_for,info_adicional_form_prefix ,item);
+        delete_entity(item_info,form_ia_instance_id);
+       
+      }
+      }
+     }
+     
+    }
+    
+    function eliminarFila(this_for,prefix, item){
+        var formCount = parseInt($('#id_' + info_adicional_form_prefix + '-TOTAL_FORMS').val());
+        
+        if (formCount>1) {
+           if (form_ia_instance_id=="None") {               
+               deleteForm(this_for,prefix ,item);
+           }
+        }
+     
+    }
+    
+   
+</script>
+
+{% endblock%}

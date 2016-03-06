@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<head>
+    <title>Bandeja de Impresión | Innobee</title>
+    
+    <style>
+        #lookbook .ptrbox-items ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+         
+        #lookbook .ptrbox-items ul li {
+            cursor: pointer;
+            display: block;
+            margin-bottom: 25px;
+            position: relative;
+            height: 200px;
+            width: 450px;
+        }
+         
+        #lookbook .ptrbox-items ul li .ptrbox-item {
+            border: 2px dashed #ccc;
+            padding: 5px;
+            position: absolute;
+            right: 0;
+            height: 200px;
+            width: 400px;
+        }
+         
+        #lookbook .ptrbox-items ul li .ptrbox-item img {
+            width: 250px;
+            height: 200px;
+        }
+        
+        #lookbook .ptrbox-items ul li .ptrbox-item .ptrbox-item-text {
+            font-size: 0.8em;
+            height: 200px;
+            left: 250px;
+            padding: 5px;
+            position: absolute;
+            text-align: justify;
+            top: 0;
+            width: 140px;
+            word-wrap: break-word;
+        }
+        
+        #lookbook .ptrbox-items ul li .ptrbox-item .ptrbox-item-text b {
+            font-size: 0.8em;
+            color: #0000CC;
+            text-transform: uppercase;
+        }
+        
+        #lookbook .ptrbox-items ul li .ptrbox-item .ptrbox-item-text h4 {
+            font-size: 0.9em;
+            color: #ED1C24;
+            text-transform: uppercase;
+        }
+        
+        #lookbook .ptrbox-items ul li .ptrbox-item .ptrbox-item-text h5 {
+            font-size: 0.7em;
+            color: #D11920;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        #lookbook .ptrbox-items ul li .ptrbox-item .ptrbox-item-text p {
+            font-size: 0.7em;
+            color: #666;
+        }
+         
+        #lookbook .ptrbox-items ul li:hover .ptrbox-item {
+            border-color: #666;
+        }
+         
+        #lookbook .ptrbox-items ul li .check {
+            background-image: url('/static/images/coupons/checkbox.gif');
+            background-position: -1px -30px;
+            background-repeat: no-repeat;
+            position: absolute;
+            top: 50px;
+            left: 0;
+            height: 17px;
+            width: 17px;
+        }
+         
+        #lookbook .ptrbox-items ul li:hover .check {
+            background-position: -1px -16px;
+        }
+         
+        #lookbook .ptrbox-items ul li.print .check {
+            background-position: -1px 0;
+        }
+        
+        #lookbook .button {
+            margin: 0 auto;
+            padding: 30px;
+            width: 600px;
+        }
+         
+        #lookbook .button .print {
+            background-color: #ED1C24;
+            border: 1px solid #333;
+            border-radius: 5px;
+            box-shadow: 2px 2px 3px #999, inset 1px 1px #fff;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: bold;            
+            padding: 10px;
+            text-align: center;
+            text-shadow: 0 1px 0 #000;
+            width: 250px;
+            display: inline;
+        }
+         
+        #lookbook .button .print:hover {
+            background-color: #D11920;
+            border-color: #000;
+        }
+        
+        #lookbook .button .goback {
+            background-color: #9E9E9E;
+            border: 1px solid #333;
+            border-radius: 5px;
+            box-shadow: 2px 2px 3px #999, inset 1px 1px #fff;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 10px;
+            text-align: center;
+            text-shadow: 0 1px 0 #000;
+            width: 250px;
+            display: inline;
+        }
+         
+        #lookbook .button .goback:hover {
+            background-color: #8E9191;
+            border-color: #000;
+        }
+        
+        .select {
+            font-size: 0.9em;
+            color:#666;
+            font-weight: bold;
+        }
+        
+        .deselect {
+            font-size: 0.9em;
+            color:#777;
+            font-weight: bold;
+        }
+         
+        @media print {
+         
+            #sitesearch, #eyebrow, #navigation-layer, #branding-layer, .leaderboard, #breadcrumb-layer, #column-3, #footer,
+            #lookbook .header, #lookbook .intro, #lookbook .help, #lookbook .sel-links, #lookbook .ptrbox-items ul li .check, #lookbook .button, .deselect, .select {
+                display: none;
+            }
+     
+            #page-body {
+                overflow: visible !important;
+            }
+     
+            #lookbook .ptrbox-items {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+     
+            #lookbook .ptrbox-items ul li {
+                display: none;
+            }
+     
+            #lookbook .ptrbox-items ul li.print {
+                display: block;
+            }
+     
+            #lookbook .ptrbox-items ul li .ptrbox-item {
+                position: relative;
+            }
+        }
+    </style>
+
+    <script src="{{ STATIC_URL }}components/library/jquery/jquery-1.9.1.min.js"></script>
+    
+    <script>        
+        $(document).ready(function() {            
+            function limpiar_bandeja_impresion() {
+                Dajaxice.emisor_receptor.limpiar_bandeja_impresion(Dajax.process);
+             };
+            
+            $('#lookbook li').click(function(){
+                jQuery(this).toggleClass('print');
+            });
+            $('#lookbook .select').click(function(e){
+                jQuery('#lookbook li').removeClass('print');
+                jQuery('#lookbook li').addClass('print');
+                e.preventDefault();
+            });
+            $('#lookbook .deselect').click(function(e){
+                jQuery('#lookbook li').removeClass('print');
+                e.preventDefault();
+            });
+            $('#lookbook .print').click(function(e) {
+                limpiar_bandeja_impresion();
+                window.print();
+            });
+            
+            $('#lookbook .goback').click(function(e) {
+                window.history.back();
+            });
+        });
+    </script>
+</head>
+<body>
+    {% if request.session.BANDEJA_IMPRESION %}
+        <div id="lookbook">
+            <p><a href="#" class="select">Seleccionar Todo</a> / <a href="#" class="deselect">Deseleccionar Todo</a></p>
+            <div class="ptrbox-items">
+                <ul>
+                    {% for item in request.session.BANDEJA_IMPRESION %}
+                    <li>
+                        <div class="check"></div>
+                        {{ item|safe }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="button"><div class="goback">Volver Atrás</div><div class="print">Imprimir Elementos Seleccionados</div></div>
+        </div>
+    {% else %}
+        <div id="lookbook">
+            <h2>Oops!</h2>
+            <h3>Su Bandeja de Impresión Innobee se encuentra vacía</h3>
+            <p>Puede llenar elementos en su bandeja de impresión seleccionandolos mientras navega por el sitio o desde su correo.</p>
+            <div class="button"><div class="goback">Volver Atrás</div></div>
+        </div>
+    {% endif %}
+    
+    <script src="{{ STATIC_URL }}dajaxicecore/dajaxice.core.js"></script>
+    <script src="{{ STATIC_URL }}dajax/jquery.dajax.core.js" type="text/javascript"></script>
+</body>
+</html>

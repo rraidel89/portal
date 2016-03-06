@@ -1,0 +1,16 @@
+<div id="emitidos-pagination" class="pagination margin-none pull-right">
+    {% if documentos_emitidos.has_previous %}
+        <a href="#" onclick="return paginar('{{ documentos_emitidos.previous_page_number }}', 'emitidos');">Anterior</a>
+    {% endif %}
+    <span class="disabled">Pág. {{ documentos_emitidos.number }} de {{ documentos_emitidos.paginator.num_pages }}.</span>
+    {% if documentos_emitidos.has_next %}
+        <a href="#" onclick="return paginar('{{ documentos_emitidos.next_page_number }}','emitidos');">Siguiente</a>
+    {% endif %}
+</div>
+<div class="clearfix"></div>
+<div class="pull-left">
+    <a target="_blank" href="/export_comp_emit">
+        <button id="btnExportCompRec" class="btn btn-success"><i class="fa fa-download"></i> Descargar resultados a XLS</button>
+    </a>
+</div>
+<div class="clearfix"></div>

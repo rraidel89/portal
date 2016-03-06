@@ -1,0 +1,70 @@
+{% load emisoreceptor %}
+{% for de in documentos_emitidos %}
+    {% with de.estado.pk as estado_comprobante %}
+    <tr id="E-{{de.tipo_comprobante}}-{{de.id}}" style="height: 60px;">
+        <td class="center {% if estado_comprobante != 1 %}fila-anulada{% endif %} cdate">
+            {{ de.fecha_emision|date:'Y-m-d' }}
+        </td>
+        <td class="center {% if estado_comprobante != 1 %}fila-anulada{% endif %}">{{ de.tipo_comprobante|get_value }}</td>
+        <td class="center lightblue {% if estado_comprobante != 1 %}fila-anulada{% endif %} cnumber">
+            {{ de.establecimiento|get_value }}-{{ de.pto_emision|get_value }}-{{ de.secuencial|get_value }}
+        </td>
+        <td class="center {% if estado_comprobante != 1 %}fila-anulada{% endif %}"><div class="cliente" title="{{ de.razon_social_receptor }}">{{ de.razon_social_receptor|truncatechars:20 }}</div></td>
+        <td class="center lightblue {% if estado_comprobante != 1 %}fila-anulada{% endif %} cidentity">
+            {{ de.identificacion_receptor|get_value }}
+        </td>
+        <td class="center {% if estado_comprobante != 1 %}fila-anulada{% endif %}">{{ de.monto_total|get_value }}</td>
+        <td class="center {% if estado_comprobante != 1 %}fila-anulada{% endif %}">
+            <div class="btn-group btn-group-sm">
+                {% if de.ruta_documento_pdf %}
+                    <a href="/docs/pdf/{{ de.codigo_original }}/" target="blank"  class="btn btn-success" rel="tooltip" title="Ver archivo RIDE PDF">PDF</a>
+                {% endif %}
+            </div>
+            <div class="btn-group btn-group-sm">
+                {% if de.ruta_documento_xml %}
+                    <a href="/docs/xml/{{ de.codigo_original }}/" target="blank" class="btn btn-success" rel="tooltip" title="Ver archivo XML Autorizado">XML</a>
+                {% endif %}
+            </div>
+        </td>
+        <td class="center {% if estado_comprobante != 1 %}fila-anulada{% endif %}" style="width: 30px;">
+            <div id="{{ de.numero_autorizacion }}" class="btnCopiar btn-group btn-group-sm" title="Doble click para copiar">
+                <a class="copiar btn btn-success">Copiar</a>    
+            </div>
+        </td>
+        <td class="center {% if estado_comprobante != 1 %}fila-anulada{% endif %}" style="width: 30px;">
+            {% if de.tipo_comprobante == 'FE' %}
+            <a href="javascript:cambiar_estado_factura('{{de.tipo_comprobante}}',{{de.id}}, {{estado_comprobante}})"
+            {% else %}
+            <a href="javascript:cambiar_estado_comprobante('{{de.tipo_comprobante}}',{{de.id}}, {{estado_comprobante}})"
+            {% endif %}
+                class="anu-comp btn btn-success" rel="tooltip" title="{% if estado_comprobante == 1 %}ANULAR{% else %}RE-ACTIVAR{% endif %}">
+                {% if estado_comprobante == 1 %}
+                    ACTIVO
+                    <!--<i class="glyphicon glyphicon-ok"></i>&nbsp;-->
+                {% else %}
+                    ANULADO
+                    <!--<i class="glyphicon glyphicon-remove"></i>&nbsp;-->
+                {% endif %}
+             </a>
+        </td>
+        <td class="center {% if estado_comprobante != 1 %}fila-anulada{% endif %}" style="width: 30px;">
+            <a href="javascript:reenotificar('{{de.tipo_comprobante}}',{{de.id}}, {{estado_comprobante}})" class="anu-comp btn btn-success" rel="tooltip" title="Re-Notificar Comprobante {{ de.establecimiento|get_value }}-{{ de.pto_emision|get_value }}-{{ de.secuencial|get_value }}">
+                <i class="fa fa-mail-forward"></i>&nbsp;
+            </a>
+        </td>
+        <td class="center {% if estado_comprobante != 1 %}fila-anulada{% endif %}" style="width: 30px;"> 
+            <div class="btn-group btn-group-sm">
+                {% if de.ruta_documento_pdf %}
+                    <a href="/docs/pdf/{{ de.codigo_original }}/" download target="blank"  class="btn btn-success" rel="tooltip" title="Descargar archivo RIDE PDF"><i class="fa fa-download"> </i></a>
+                {% endif %}
+            </div>
+            <div class="btn-group btn-group-sm">
+                {% if de.ruta_documento_pdf %}
+                    <a href="/docs/xml/{{ de.codigo_original }}/" download target="blank"  class="btn btn-success" rel="tooltip" title="Descargar comprobante XML"><i class="fa fa-download"> </i></a>
+                {% endif %}
+            </div>
+        </td>
+    </tr>
+    {% endwith %}
+{% endfor %}
+

@@ -1,0 +1,115 @@
+{% extends 'emisores/baseEmisor.html' %}
+{% block titulo_page %}Publicidad{% endblock%}
+{% load static from staticfiles %}
+{% block top_javascripts %}
+<script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="{% static  'util/util.js' %}"></script>
+<link rel="stylesheet/less"
+      href="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/less/datepicker.less"/>
+<link rel="stylesheet"
+      href="{{ STATIC_URL }}css/admin/datepicker/datepicker.css"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/admin/coupons.css"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/table/demo_table.css"/>
+{% endblock%}
+{% block body %}
+<script> utilidades(); </script>
+
+<h3 class="margin-none pull-left pestana">Banners publicitarios</h3>
+<div class="clearfix"></div>
+<div class="tablaBCK">
+   <div class="clearfix"></div>
+   <div class="separator-h"></div>
+   {% include "webparts/banners/banners_form.html" %}
+   <div class="widget widget-body-white" style="height: auto;">
+      <div class="widget-body">{% include "webparts/banners/banners_list.html" %}</div>
+   </div>
+   {% include "webparts/banners/banners_pagination.html" %}
+   <div class="clearfix"></div>
+   <!-- With selected actions -->
+   <div class="pull-left">
+        <a href="/campania-publicidad/crear-nuevo-banner" class="btn btn-success"><i class="fa fa-pencil"></i>&nbsp;Crear un nuevo banner</a>
+   </div>
+   <div class="clearfix"></div>
+</div>
+
+<div><br></div>
+<!-- First grid -->
+<h3 class="margin-none pull-left pestana">Email Marketing</h3>
+<div class="clearfix"></div>
+<div class="tablaBCK">
+   <div class="clearfix"></div>
+   <div class="separator-h"></div>
+   {% include "webparts/campanias/campanias_email_form.html" %}
+   <div class="widget widget-body-white" style="height: auto;">
+      <div class="widget-body">{% include "webparts/campanias/campanias_email_list.html" %}</div>
+   </div>
+   {% include "webparts/campanias/campanias_email_pagination.html" %}
+   <div class="clearfix"></div>
+   <!-- With selected actions -->
+   <div class="pull-left">
+         <a href="/campania-publicidad/crear-nueva-campana/" class="btn btn-success">
+	    <i class="fa fa-pencil"></i>&nbsp;Crear nueva campaña de E-mail
+        </a>
+   </div>
+   <div class="clearfix"></div>
+</div>
+
+<div><br></div>
+<!-- First grid -->
+<h3 class="margin-none pull-left pestana">Envio SMS</h3>
+
+<div class="clearfix"></div>
+<div class="tablaBCK">
+   <div class="clearfix"></div>
+   <div class="separator-h"></div>
+   {% include "webparts/campanias/campanias_sms_form.html" %}
+   <div class="widget widget-body-white" style="height: auto;">
+      <div class="widget-body">{% include "webparts/campanias/campanias_sms_list.html" %}</div>
+   </div>
+   {% include "webparts/campanias/campanias_sms_pagination.html" %}
+   <div class="clearfix"></div>
+   <!-- With selected actions -->
+   <div class="pull-left">
+	 <a href="/campania-publicidad/crear-nuevo-sms/" class="btn btn-success">
+	    <i class="fa fa-pencil"></i>&nbsp;Crear nueva campaña de SMS
+	 </a>
+   </div>
+   <div class="clearfix"></div>
+</div>
+
+{% endblock %}
+{% block bottom_javascripts %}
+	<!-- Global -->
+	<script data-id="App.Config">
+	var App = {};	var basePath = '',
+		commonPath = '{{ STATIC_URL }}',
+		rootPath = '../',
+		DEV = false,
+		componentsPath = '{{ STATIC_URL }}components/';
+	
+	var primaryColor = '#3695d5',
+		dangerColor = '#b55151',
+		successColor = '#609450',
+		infoColor = '#4a8bc2',
+		warningColor = '#ab7a4b',
+		inverseColor = '#45484d';
+	
+	var themerPrimaryColor = primaryColor;
+
+		</script>
+
+<script src="{{ STATIC_URL }}components/library/bootstrap/js/bootstrap.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/nicescroll/jquery.nicescroll.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/breakpoints/breakpoints.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/preload/pace/pace.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/preload/pace/preload.pace.init.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/core/js/animations.init.js?v=v1.0.2"></script>
+
+<script src="{{ STATIC_URL }}components/core/js/sidebar.main.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/core/js/sidebar.discover.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/core/js/core.init.js?v=v1.0.2"></script>
+
+<script src="{{ STATIC_URL }}components/core/modules/commons.js"></script>
+<script src="{{ STATIC_URL }}components/core/modules/inicio.js"></script>
+
+{% endblock %}

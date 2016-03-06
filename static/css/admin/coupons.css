@@ -1,0 +1,135 @@
+
+.bck_cupon, .bck_cupon2{
+	width: 270px;
+	float: left;
+	display: inline-block;
+	margin: 20px 10px 0 0;
+	background: url(../../images/coupons/img_cuadro.png) no-repeat;
+}
+.bck_cupon, .bck_cupon2{
+	height: 270px;
+	}
+	
+.flechas{
+	width: 26px;
+	height: 50px;
+	position: relative;
+	display: inline-block;
+	margin: 141px 14px 0 0;
+	float: left;
+}
+
+.contenido_logos{
+	width: 90px;
+	height: 48px;
+	position: relative;
+	display: inline-block;
+	margin: 10px 0 0 0;
+	padding: 0 10px;
+}
+
+.logos{
+	display: inline-block;
+	margin: 0 10px 0 0;
+	position: relative;
+	float: left;
+}
+
+.ver_mas{
+	width: 70px;
+	float: right;
+	font: 12px 'myriadpro', Arial !important;
+	color: #000;
+	display: inline-block;
+	margin: 45px 0 0 0;
+}
+
+.ver_mas a{
+	color: #0E4F86;
+	text-decoration: none;
+	}
+
+.redes_sociales{
+	width: 138px;
+	float: left;
+	position: relative;
+	margin: 20px 0 0 10px;	
+}
+.cambiar-estado{
+	width: 138px;
+	float: left;
+	position: relative;
+	margin: 20px 0 0 10px;	
+}
+.compartir{
+	width: 72px;
+	font: 13px "Trebuchet MS";
+	margin: 0;
+	display: inline-block;
+	float: left;
+	color: #333;
+}
+.iconos_pequenios{
+	cursor: pointer;
+	display: inline;
+	float: left;
+	height: 16px;
+	margin: 0 2px 0 4px;
+	padding: 0;
+	position: relative;
+	width: 16px;
+}
+
+/* Modificado Marathon */
+
+
+
+.texto-logo{
+	color: #333333;
+	font-family: 'myriadpro',Arial !important;
+	font-size: 14px;
+	font-weight: bold;
+	list-style: none outside none;
+	position: relative;
+	width: 300px;
+	margin: 0 -110px 0 0;	
+}
+
+
+.ol{  width:320px;
+	height:auto;
+	color:#666;
+	float:left;
+	margin:-22px 0 0 335px;
+	font-family:'myriadpro', Arial !important;
+	font-size:14px;
+
+
+}
+
+.imagen{
+	margin: 0;
+	position: relative;
+	display: block;
+}
+
+.imagen img {
+	width: 270px;
+	height: 201px;
+}
+table tr.descripcion td.imagen {
+	border-bottom: 1px dotted #dd281f;
+	border-right: 1px dotted #dd281f;
+}
+
+table tr.descripcion td.imagen img{
+	width: 152px;
+	height: 101px;
+	margin: 20px;
+	border: 1px solid #cde0e6;
+	
+}
+/* inactive */
+.inactive {
+	border:1px solid #666; display: inline-block;block; position: absolute; width: 268px; height: 268px; margin-top: 22px; border-radius: 12px; background-color: #fff; z-index: 10; opacity: .8;
+}

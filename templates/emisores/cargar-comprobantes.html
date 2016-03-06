@@ -1,0 +1,278 @@
+{% extends 'emisores/baseEmisor.html' %}
+{% block titulo_page %}{% if not form.instance or not form.instance.pk %}Nuevo Comprobante{% else %}Editar Comprobante{% endif %}{% endblock %}
+{% load static from staticfiles %}
+{% block top_javascripts %}
+    <script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/js/bootstrap-datepicker.js"
+            xmlns="http://www.w3.org/1999/html"></script>
+    <script src="{% static  'util/util.js' %}"></script>
+    <link rel="stylesheet/less"
+          href="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/less/datepicker.less"/>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/admin/datepicker/datepicker.css"/>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/admin/coupons.css"/>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/table/demo_table.css"/>
+    <script> utilidades(); </script>
+{% endblock %}
+{% block body %}    <!-- First grid -->
+    
+    <h4 class="margin-none pull-left pestana">Cargar comprobantes físicos</h4>
+    <div class="clearfix"></div>
+    <div class="tablaBCK">
+
+    <div class="clearfix"></div>
+    <div class="separator-h"></div>
+    <h4>Datos del documento</h4>
+
+    <div class="separator-h"></div>
+    <!-- Filters -->
+    <div class="filter-bar">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>{{ form.non_field_errors }}</p>
+        <!-- From -->
+        <div class="col-md-4">
+            <label>Fecha de emisión:</label>
+
+            <div class="input-group date" id="datepicker01">
+                {{ form.fecha_emision }}
+                {{ form.fecha_emisione.errors }}
+                <span class="input-group-addon"><i class="fa fa-th"></i></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label>Tipo Comprobante:</label>
+
+            <div class="input-group">
+                {{ form.tipo_comprobante }}
+                {{ form.tipo_comprobante.errors }}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label>Numero Comprobante:</label>
+
+            <div class="input-group">
+                {{ form.numero_comprobante }}
+                {{ form.numero_comprobante.errors }}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label>Categoría Emisor:</label>
+
+            <div class="input-group">
+                {{ form.categoria_emisor }}
+                {{ form.categoria_emisor.errors }}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label>Sub Categoría:</label>
+
+            <div class="input-group">
+                {{ form.subcategoria_emisor }}
+                {{ form.subcategoria_emisor.errors }}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label>Monto Comprobante:</label>
+
+            <div class="input-group">
+                {{ form.monto_comprobante }}
+                {{ form.monto_comprobante.errors }}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label>Ciudad:</label>
+
+            <div class="input-group">
+                {{ form.ciudad }}
+                {{ form.ciudad.errors }}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label>Razón Social Emisor:</label>
+
+            <div class="input-group">
+                {{ form.razon_social_emisor }}
+                {{ form.razon_social_emisor.errors }}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label>Ruc Emisor:</label>
+
+            <div class="input-group">
+                {{ form.ruc_emisor }}
+                {{ form.ruc_emisor.errors }}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label>Establecimiento:</label>
+
+            <div class="input-group">
+                {{ form.establecimiento }}
+                {{ form.establecimiento.errors }}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label>Tipo Archivo:</label>
+
+            <div class="input-group">
+                {{ form.tipo_archivo }}
+                {{ form.tipo_archivo.errors }}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label>Archivo:</label>
+
+            <div class="input-group col-md-6">
+                {{ form.ruta_archivo }}
+                {{ form.ruta_archivo.errors }}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label>Aprobado Por:</label>
+
+            <div class="input-group">
+                {{ form.aprobado_por }}
+                {{ form.aprobado_por.errors }}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label>Número Autorización:</label>
+
+            <div class="input-group">
+                {{ form.numero_autorizacion }}
+                {{ form.numero_autorizacion.errors }}
+            </div>
+        </div>
+
+        <!-- // From END -->
+
+        <!--     <input type="submit" value="Guardar documento" />
+        </form>-->
+        <!-- // Min END -->
+        <div class="clearfix"><br/></div>
+        <!-- footer -->
+        <!-- With selected actions -->
+        <div class="pull-left">
+            <!--<a href="#modal-documento-preview" data-toggle="modal"><button class="btn btn-success"><i class="fa fa-eye"></i> Vista previa del documento</button></a>
+            &nbsp;&nbsp;-->
+            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Guardar documento</button>
+            <!--<a href="#modal-documento-save" data-toggle="modal"><button class="btn btn-success"><i class="fa fa-save"></i> Guardar documento</button></a>-->
+        </div>
+        <!-- // With selected actions END -->
+        <div class="clearfix"></div>
+        <!-- // footer END -->
+    </form>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal-documento-preview">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal heading -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">Vista previa del documento digitalizado</h3>
+                </div>
+                <!-- // Modal heading END -->
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <p><i class="fa fa-eye"></i> Este es el archivo digitalizado.</p>
+
+                    <p align="center"><img src="{{ STATIC_URL }}images/documento.jpg" alt="Cupon"/>
+                </div>
+                <!-- // Modal body END -->
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+
+                    <a href="#" data-dismiss="modal" class="btn btn-success">Aceptar</a>
+                </div>
+                <!-- // Modal footer END -->
+
+            </div>
+        </div>
+
+    </div>
+    <!-- // Modal END -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal-documento-save">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal heading -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">Confirmación de guardado</h3>
+                </div>
+                <!-- // Modal heading END -->
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <p><i class="fa fa-exclamation-circle"></i> El sistema ha guardado su documento.</p>
+                </div>
+                <!-- // Modal body END -->
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <a href="#" data-dismiss="modal" class="btn btn-danger">Continuar editando</a>
+                    <a href="#" data-dismiss="modal" class="btn btn-success">
+                        {% if not form.instance or not form.instance.pk %}Crear{% else %}Guardar{% endif %}
+                    </a>
+                </div>
+                <!-- // Modal footer END -->
+
+            </div>
+        </div>
+
+    </div>
+    <!-- // Modal END -->
+
+
+    </div>
+
+    </div>
+    <!-- First grid -->
+{% endblock %}
+{% block bottom_javascripts %}
+
+    <!-- Global -->
+    <script data-id="App.Config">
+        var App = {};
+        var basePath = '',
+                commonPath = '{{ STATIC_URL }}',
+                rootPath = '../',
+                DEV = false,
+                componentsPath = '{{ STATIC_URL }}components/';
+
+        var primaryColor = '#3695d5',
+                dangerColor = '#b55151',
+                successColor = '#609450',
+                infoColor = '#4a8bc2',
+                warningColor = '#ab7a4b',
+                inverseColor = '#45484d';
+
+        var themerPrimaryColor = primaryColor;
+
+    </script>
+
+    <script src="{{ STATIC_URL }}components/library/bootstrap/js/bootstrap.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/nicescroll/jquery.nicescroll.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/breakpoints/breakpoints.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/preload/pace/pace.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/preload/pace/preload.pace.init.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/core/js/animations.init.js?v=v1.0.2"></script>
+
+    <script src="{{ STATIC_URL }}components/core/js/sidebar.main.init.js?v=v1.0.2"></script>
+    <script src="{{ STATIC_URL }}components/core/js/sidebar.discover.init.js?v=v1.0.2"></script>
+    <script src="{{ STATIC_URL }}components/core/js/core.init.js?v=v1.0.2"></script>
+
+    <script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/bootbox.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/modals.init.js?v=v1.0.2&sv=v0.0.1"></script>
+    
+    <script src="{{ STATIC_URL }}components/core/modules/commons.js"></script>
+    <script src="{{ STATIC_URL }}components/core/modules/empresa.js"></script>
+{% endblock %}

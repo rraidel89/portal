@@ -1,0 +1,46 @@
+ <fieldset>
+  {{ item_factura_form.management_form }}
+  <table class="form-custom">
+     {% for form in item_factura_form.forms %}
+     {% if forloop.first %}
+     <thead>
+        <tr>
+           {% for field in form.visible_fields %}
+           {% if not forloop.last %}
+           <th class="{% cycle col1,col2 %}">{{ field.label|capfirst }}</th>
+           {% endif %}
+           {% endfor %}
+           <th class="col1">Eliminar</th>
+        </tr>
+     </thead>
+     {% endif %}
+     <tr class="{% cycle row1,row2 %} item">
+        {% for field in form.visible_fields %}
+        {% if not forloop.last %}
+        <td class="{% cycle col1,col2 %}">
+           {# Include the hidden fields in the form #}
+           {% if forloop.first %}
+           {% for hidden in form.hidden_fields %}
+           {{ hidden }}
+           {% endfor %}
+           {% endif %}
+           {{ field.errors.as_ul }}
+           {{ field }}
+        </td>
+        {% endif %}
+        {% endfor %}
+        <td class="col1" >
+           {% if forloop.last %}
+           <a class="delete btn btn-danger last_delete_item_factura" onclick="pregunta(this, '{{ item_factura_form.prefix }}','item', 'item_factura','{{form.instance.id}}');" href="javascript:void(0)">X</a>
+           {% else %}
+           <a class="delete btn btn-danger last_delete_item_factura" onclick="pregunta(this, '{{ item_factura_form.prefix }}', 'item', 'item_factura','{{form.instance.id}}');" href="javascript:void(0)">X</a>
+           {% endif %}
+        </td>
+     </tr>
+     {% endfor %}
+     <tr>
+        <td colspan="4"></td>
+        <td><input type="button" id="add_more" class="btn btn-primary" value="Agregar"/></td>
+     </tr>
+  </table>
+</fieldset>

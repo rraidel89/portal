@@ -1,0 +1,19 @@
+{% load emisoreceptor %}
+<table class="table table-condensed table-striped table-primary table-vertical-center checkboxs">
+    <thead>
+        <tr>
+            <th class="center">Fecha de creacion</th>
+            <th class="center">Fecha de publicacion</th>
+            <th class="center">Nombre campaña</th>
+            <th class="center">Estado</th>
+            <th class="center">Clicks</th>
+            <th class="center">Impresiones</th>
+            <th class="center">Impresiones Restantes</th>
+            <th class="center">Editar banner</th>
+            <th class="center">Ver el banner</th>
+        </tr>
+    </thead>
+    <tbody id="banners_items">
+    {% include "webparts/banners/banners_list_items.html" %}
+    </tbody>
+</table>

@@ -1,0 +1,40 @@
+<form id="filtro_cargados_form" class="margin-none form-inline" method="POST" action="" onsubmit="filter_cargados_form();return false;">
+    <div class="filter-bar">
+        {% csrf_token %}
+        <div class="form-group col-md-4">
+            <label>Fecha de emisión:</label>
+            <div class="input-group date" id="datepicker01">
+                {{ frm_filtro_documento.carg_fecha }} {{ frm_filtro_documento.carg_fecha.errors }}
+                <span class="input-group-addon"><i class="fa fa-th"></i></span>
+            </div>
+        </div>                
+        <div class="form-group col-md-4">
+            <label>Tipo:</label>
+            <div class="input-group">
+            {{ frm_filtro_documento.carg_tipo_comprobante }} {{ frm_filtro_documento.carg_tipo_comprobante.errors }}
+            </div>
+        </div>        
+        <div class="form-group col-md-4">
+            <label>Número:</label>
+            <div class="input-group">
+                    {{ frm_filtro_documento.carg_numero }} {{ frm_filtro_documento.carg_numero.errors }}
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <label>Emisor:</label>
+            <div class="input-group">
+                    {{ frm_filtro_documento.carg_emisor }} {{ frm_filtro_documento.carg_emisor.errors }}
+            </div>
+        </div>     
+        <div class="form-group col-md-4">
+            <button id="filter_cargados_button" type="button" onclick="filter_cargados_form();" class="btn btn-primary btn-sm">
+                <span class="glyphicon glyphicon-search"></span>Buscar
+            </button>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    
+    <div class="separator bottom">Total Comprobantes Cargados: <span id="cantidad-cargados">{{ cant_doc_carg }}</span>
+    <span class="pull-right"><label class="strong">Organizados por:</label> {{ frm_filtro_documento.carg_filas }}</span>
+    </div>
+</form>

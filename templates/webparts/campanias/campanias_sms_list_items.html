@@ -1,0 +1,17 @@
+{% load emisoreceptor %}
+{% for campania in campania_sms %}
+<!-- Item -->
+<tr class="selectable">
+     <td class="center lightblue">{{ campania.nombre }}</td>
+     <td class="center">{{ campania.fecha_publicacion|date:'Y-m-d' }}</td>
+     <td class="center">{{ campania.nro_receptores|default_if_none:'---' }}</td>
+     <td class="center lightblue">{{ campania.mensaje }}</td>
+     <td class="center lightblue">{{ campania.estado }} </td>
+     <td class="center lightblue">
+        <div class="btn-group btn-group-sm edit">
+            <a href="/campania-publicidad/editar-campania-sms/{{campania.id_campania_sms}}/" class="btn btn-default link"><i class="fa fa-pencil"></i></a>
+        </div>
+    </td>
+</tr>
+<!-- // Item END -->
+{% endfor %}

@@ -1,0 +1,21 @@
+{% load emisoreceptor %}
+<table class="table table-condensed table-striped table-primary table-vertical-center checkboxs">
+    <thead>
+    <tr>
+        <th class="center">Fecha</th>
+        <th class="center">Tipo</th>
+        <th class="center">Número</th>
+        <th class="center">Cliente</th>
+        <th class="center">RUC/CI</th>
+        <th class="center">Monto</th>
+        <th class="center">Acción</th>
+        <th class="center">Autorización</th>
+        <th class="center">Estado</th>
+        <th class="center">Notificaci&oacute;n</th>
+        <th class="center">Descargar</th>
+    </tr>
+    </thead>
+    <tbody id="comprobantes-emitidos">
+    {% include "webparts/emitidos_list_items.html" %}
+    </tbody>
+</table>

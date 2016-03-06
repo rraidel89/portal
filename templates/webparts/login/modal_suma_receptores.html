@@ -1,0 +1,45 @@
+<div class="modal fade" id="modal-receptores">
+    <div class="modal-dialog">
+       <div class="modal-content">
+          <!-- Modal heading -->
+          <div class="modal-header">
+             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+             <h3 class="modal-title">Validar Acceso Receptor</h3>
+          </div>
+          <!-- // Modal heading END -->
+          <!-- Modal body -->
+          <center>
+             <div class="modal-body">
+                <div class="innerAll">
+                   <h5 class="strong">¿Cuál es el resultado de la suma?</h5>
+                   <div id="btn1" name="btn1" class="btn btn-circle btn-success"></div>
+                   <button class="btn btn-circle btn-primary">+</button>
+                   <div id="btn2" class="btn btn-circle btn-success"></div>
+                </div>
+                <div class="innerAll">
+                   <label>Código:</label>
+                   <div class="input-group">
+                      <input type="hidden" name="txtResultado" id="txtResultado" value="" disabled="disabled"/>
+                      <input type="text" name="txtfrom1" id="txtfrom1"  class="form-control" value="" disabled="disabled" />
+                   </div>
+                </div>
+                <div class="innerAll">
+                   <div id="btn_1" class="btn btn-circle btn-success" onclick="leerDatos('btn_1', 'txtfrom1')">1</div>
+                   <button id="btn_2" class="btn btn-circle btn-success" onclick="leerDatos('btn_2', 'txtfrom1')">2</button>
+                   <button id="btn_3" class="btn btn-circle btn-success" onclick="leerDatos('btn_3', 'txtfrom1')">3</button>
+                   <button id="btn_4" class="btn btn-circle btn-success" onclick="leerDatos('btn_4', 'txtfrom1')">4</button>
+                   <button id="btn_5" class="btn btn-circle btn-success" onclick="leerDatos('btn_5', 'txtfrom1')">5</button>
+                   <button id="btn_6" class="btn btn-circle btn-success" onclick="leerDatos('btn_6', 'txtfrom1')">6</button>
+                   <button id="btn_7" class="btn btn-circle btn-success" onclick="leerDatos('btn_7', 'txtfrom1')">7</button>
+                   <button id="btn_8" class="btn btn-circle btn-success" onclick="leerDatos('btn_8', 'txtfrom1')">8</button>
+                   <button id="btn_9" class="btn btn-circle btn-success" onclick="leerDatos('btn_9', 'txtfrom1')">9</button>
+                   <button id="btn_10" class="btn btn-circle btn-success" onclick="leerDatos('btn_10', 'txtfrom1')">0</button>
+                </div>
+             </div>
+          </center>
+          <!-- // Modal body END -->
+          <!-- Modal footer -->
+          <!-- // Modal footer END -->
+       </div>
+    </div>
+</div>

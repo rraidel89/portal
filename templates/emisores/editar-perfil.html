@@ -1,0 +1,386 @@
+{% extends 'emisores/baseEmisor.html' %}
+{% block titulo_page %}Editar Empresa{% endblock %}
+{% load static from staticfiles %}
+{% block top_javascripts %}
+    <script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="{% static  'util/util.js' %}"></script>
+    <link rel="stylesheet/less"
+          href="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/less/datepicker.less"/>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/admin/datepicker/datepicker.css"/>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/admin/coupons.css"/>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/table/demo_table.css"/>
+{% endblock %}
+
+{% block body %}
+    <script> utilidades(); </script>
+    <!-- First grid -->
+    <h4 class="margin-none pull-left pestana">Perfíl de la Empresa</h4>
+    <div class="clearfix"></div>
+    <div class="tablaBCK">
+        <form class="margin-none form-inline" method="POST" enctype="multipart/form-data">
+
+        <div class="clearfix"></div>
+        <h4>Datos generales del emisor</h4>
+        <div class="separator-h"></div>
+        <!-- Filters -->
+            <div class="filter-bar">
+                {% csrf_token %}
+                <div class="form-group col-md-4">
+                    <label>Nombre comercial:</label>
+
+                    <div class="input-group">
+                        {{ f.nombre_comercial }}
+                        {{ f.nombre_comercial.errors }}
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>RUC:</label>
+
+                    <div class="input-group">
+                        {{ f.ruc }}
+                        {{ f.ruc.errors }}
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Razón social:</label>
+
+                    <div class="input-group">
+                        {{ f.razon_social }}
+                        {{ f.razon_social.errors }}
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Código empresa:</label>
+
+                    <div class="input-group">
+                        {{ f.codigo_empresa }}
+                        {{ f.codigo_empresa.errors }}
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Email principal:</label>
+
+                    <div class="input-group">
+                        {{ f.email_principal }}
+                        {{ f.email_principal.errors }}
+                        <small>(más de uno separar por comas)</small>
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Tipo:</label>
+
+                    <div class="input-group">
+                        {{ f.tipo }}
+                        {{ f.tipo.errors }}
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Representante legal:</label>
+
+                    <div class="input-group">
+                        {{ f.representante_legal }}
+                        {{ f.representante_legal.errors }}
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Categoría:</label>
+
+                    <div class="input-group">
+                        {{ f.categoria_emisor }}
+                        {{ f.categoria_emisor.errors }}
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Subcategoría:</label>
+
+                    <div class="input-group">
+                        {{ f.subcategoria_emisor }}
+                        {{ f.subcategoria_emisor.errors }}
+                    </div>
+                </div>
+                
+                <div class="clearfix"></div>                
+                
+            </div>
+            
+            <div class="clearfix"></div>
+
+            <h4>Configuraciones</h4>
+            <div class="separator-h"></div>
+            <!-- Filters -->
+            <div class="filter-bar">
+                <div class="form-group col-md-6">
+                    <label>Notificar Vía SMS:</label>
+
+                    <div class="input-group">
+                        {{ f.envio_sms }}
+                        {{ f.envio_sms.errors }}
+                        <br>
+                        <small>Recuerde que este servicio tiene un costo por número de mensajes, por favor contáctese con nosotros para mayor información.</small>
+                    </div>
+                </div>
+                
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <h4>Datos ubicación física del emisor</h4>
+            <div class="separator-h"></div>
+            <!-- Filters -->
+            <div class="filter-bar">
+                <div class="form-group col-md-4">
+                    <label>País:</label>
+                    <div class="input-group">
+                        {{ f.pais }}
+                        {{ f.pais.errors }}
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Provincia:</label>
+                    <div class="input-group">
+                        {{ f.provincia }}
+                        {{ f.provincia.errors }}
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Ciudad:</label>
+                    <div class="input-group">
+                        {{ f.ciudad }}
+                        {{ f.ciudad.errors }}
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Calle principal:</label>
+                    <div class="input-group">
+                        {{ f.calle_principal }}
+                        {{ f.calle_principal.errors }}
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Calle secundaria:</label>
+                    <div class="input-group">
+                        {{ f.calle_secundaria }}
+                        {{ f.calle_secundaria.errors }}
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Número:</label>
+                    <div class="input-group">
+                        {{ f.numeracion }}
+                        {{ f.numeracion.errors }}
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Teléfono principal:</label>
+                    <div class="input-group">
+                        {{ f.telefono_principal }}
+                        {{ f.telefono_principal.errors }}
+                        {{ f.extension_principal }}
+                        {{ f.extension_principal.errors }}
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Teléfono secundario:</label>
+                    <div class="input-group">
+                        {{ f.telefono_secundario }}
+                        {{ f.telefono_secundario.errors }}
+                        {{ f.extension_secundaria }}
+                        {{ f.extension_secundaria.errors }}
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Dirección matríz:</label>
+                    <div class="input-group">
+                        {{ f.direccion_matriz }}
+                        {{ f.direccion_matriz.errors }}
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Página web:</label>
+                    <div class="input-group">
+                        {{ f.pagina_web }}
+                        {{ f.pagina_web.errors }}
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Email secundario:</label>
+                    <div class="input-group">
+                        {{ f.email_secundario }}
+                        {{ f.email_secundario.errors }}
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Fax:</label>
+                    <div class="input-group">
+                        {{ f.fax }}
+                        {{ f.fax.errors }}
+                    </div>
+                </div>
+
+                <div class="clearfix"><br/></div>
+            </div>
+
+            <div class="clearfix"><br/></div>
+
+            <h4>Datos de perfil del emisor</h4>
+            <div class="separator-h"></div>
+            <!-- Filters -->
+            <div class="filter-bar">
+                <div class="form-group col-md-6">
+                    <label>Fecha de fundación:</label>
+
+                    <div id="datepicker01" class="input-group date col-md-6">
+                        {{ f.fecha_fundacion }}
+                        {{ f.fecha_fundacion.error }}
+                        <span class="input-group-addon">
+                            <i class="fa fa-th"></i>
+                        </span>
+                    </div>
+                </div>
+                <br> <br>
+                <!-- // From END -->
+                <div class="form-group col-md-4">
+                    <label>Misión:</label>
+
+                    <div class="input-groupcol-md-6">
+                        {{ f.mision }}
+                        {{ f.mision.errors }}
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Visión:</label>
+
+                    <div class="input-groupcol-md-6">
+                        {{ f.vision }}
+                        {{ f.vision.errors }}
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Valores:</label>
+
+                    <div class="input-groupcol-md-6">
+                        {{ f.valores }}
+                        {{ f.valores.errors }}
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+
+            <h4>Datos sociales del emisor</h4>
+            <div class="separator-h"></div>
+            <!-- Filters -->
+                <div class="filter-bar">
+                    <!-- Min -->
+                    <div class="form-group col-md-3">
+                        <label style="width: 100%">Perfil en Facebook:</label>
+                            <div style="width: 100%" class="input-group">
+                                {{ f.perfil_facebook.errors }}
+                                {{ f.perfil_facebook }}
+                            </div>
+                    </div>
+                    <!-- // Min END -->
+
+                    <!-- Min -->
+                    <div class="form-group col-md-3">
+                        <label style="width: 100%">Perfil en Twitter:</label>
+                            <div style="width: 100%" class="input-group">
+                                {{ f.perfil_twitter.errors }}
+                                {{ f.perfil_twitter }}
+                            </div>
+                    </div>
+                    <!-- // Min END -->
+
+                    <!-- Min -->
+                    <div class="form-group col-md-3">
+                        <label style="width: 100%">Perfil en LinkedIn:</label>
+                            <div style="width: 100%" class="input-group">
+                                {{ f.perfil_linkedid.errors }}
+                                {{ f.perfil_linkedid }}
+                            </div>
+                    </div>
+                    <!-- // Min END -->
+
+                    <!-- Min -->
+                    <div class="form-group col-md-3">
+                        <label style="width: 100%">Perfil en Google+:</label>
+                            <div style="width: 100%" class="input-group">
+                                {{ f.perfil_googleplus.errors }}
+                                {{ f.perfil_googleplus }}
+
+                            </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label style="width: 100%">Logotipo:</label>
+                            <div style="width: 100%" class="input-group">
+                                {{ f.logotipo.errors }}
+                                {{ f.logotipo}}
+                            </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+            </div>
+
+            <div class="pull-left">
+                <input type="submit" class="btn btn-success fa fa-save" value="Guardar"/>
+            </div>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+
+
+{% endblock %}
+{% block bottom_javascripts %}
+
+    <!-- Global -->
+    <script data-id="App.Config">
+        var App = {};
+        var basePath = '',
+                commonPath = '{{ STATIC_URL }}',
+                rootPath = '../',
+                DEV = false,
+                componentsPath = '{{ STATIC_URL }}components/';
+
+        var primaryColor = '#3695d5',
+                dangerColor = '#b55151',
+                successColor = '#609450',
+                infoColor = '#4a8bc2',
+                warningColor = '#ab7a4b',
+                inverseColor = '#45484d';
+
+        var themerPrimaryColor = primaryColor;
+
+    </script>
+
+    <script src="{{ STATIC_URL }}components/library/bootstrap/js/bootstrap.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/nicescroll/jquery.nicescroll.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/breakpoints/breakpoints.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/preload/pace/pace.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/preload/pace/preload.pace.init.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/core/js/animations.init.js?v=v1.0.2"></script>
+
+    <script src="{{ STATIC_URL }}components/core/js/sidebar.main.init.js?v=v1.0.2"></script>
+    <script src="{{ STATIC_URL }}components/core/js/sidebar.discover.init.js?v=v1.0.2"></script>
+    <script src="{{ STATIC_URL }}components/core/js/core.init.js?v=v1.0.2"></script>
+
+    <script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/bootbox.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/modals.init.js?v=v1.0.2&sv=v0.0.1"></script>
+    
+    <script src="{{ STATIC_URL }}components/core/modules/commons.js"></script>
+    <script src="{{ STATIC_URL }}components/core/modules/empresa.js"></script>
+{% endblock %}

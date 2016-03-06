@@ -1,0 +1,46 @@
+{% for f in object_list %}
+   {% with f.check_activo as es_activo %}
+<tr class="selectable">
+   <td class="center lightblue {% if not es_activo %}fila-anulada{% endif %}" style="min-width: 100px" title="{{ f.codigo_original }}">
+      {% if es_activo %}
+         <a href="/imprenta-digital/notasdebito/{{f.pk}}/update/" class="lightblue"><i class="fa fa-pencil-square"></i>&nbsp;{{f.get_secuencial}}</a></td>
+      {% else %}
+         {{f.get_secuencial}}
+      {% endif %}
+   <td class="center {% if not es_activo %}fila-anulada{% endif %}">{{ f.id_cliente.identificacion }}<hr>
+      <span class="emisor"
+            title="{{ f.id_cliente.razon_social }}">{{ f.id_cliente.razon_social|truncatechars:20 }}</span>
+   </td>
+   <td class="center {% if not es_activo %}fila-anulada{% endif %}">{{f.fecha_emision|date:'Y-m-d'}}</td>
+   <td class="center {% if not es_activo %}fila-anulada{% endif %}">{{f.numero_documento_modificado}}</td>
+   <td class="center {% if not es_activo %}fila-anulada{% endif %}">{{f.get_fecha_emision_documento_modificado}}</td>
+   <td class="center {% if not es_activo %}fila-anulada{% endif %}">{{f.total_sin_impuestos}}</td>
+   <td class="center {% if not es_activo %}fila-anulada{% endif %}">{{f.valor_total}}</td>
+   <td id="fact-{{f.pk}}" class="{% if not es_activo %}fila-anulada{% endif %}">
+      {% if f.codigo_original %}
+      <a href="/imprenta-digital/notasdebito/{{f.pk}}/preview/" class="btn btn-default btn-sm"><i class="fa fa-eye"></i>&nbsp;Previsualizar y Procesar</a>
+      {% else %}
+      <a href="/imprenta-digital/notasdebito/{{f.pk}}/preview/" class="btn btn-info btn-sm"><i class="fa fa-eye"></i>&nbsp;Previsualizar y Procesar</a>
+      {% endif %}
+   </td>
+   {% if f.codigo_original %}
+   <td class="center {% if not es_activo %}fila-anulada{% endif %}">&nbsp;</td>
+   {% else %}
+   <td class="center {% if not es_activo %}fila-anulada{% endif %}">
+      <a href="/imprenta-digital/notasdebito/{{f.pk}}/delete/" class="btn btn-danger btn-sm">x</a>
+   </td>
+   {% endif %}
+   <td class="center {% if not es_activo %}fila-anulada{% endif %}">
+      {% if es_activo %}
+         {% if f.check_autorizado %}
+            <a href="javascript:void(0)" onclick="anular_comprobante('ND','{{f.pk}}')" class="btn btn-danger btn-sm">ANULAR</a>
+         {% else %}
+            PENDIENTE
+         {% endif %}
+      {% else %}
+         ANULADO
+      {% endif%}
+   </td>
+</tr>
+   {% endwith %}
+{% endfor %}

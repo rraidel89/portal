@@ -1,0 +1,57 @@
+<form id="filtro_emitidos_form" class="margin-none form-inline" method="POST" action="" onsubmit="filter_emitidos_form();return false;">
+    <div class="filter-bar">
+        <!--{% csrf_token %}-->
+        <div class="form-group col-md-3">
+            <label style="width:50px">Inicio:</label>
+            <div class="input-group date" id="datepicker01">
+                {{ frm_filtro.em_fecha_desde }} {{ frm_filtro.em_fecha_desde.errors }}
+                <span class="input-group-addon"><i class="fa fa-th"></i></span>
+            </div>
+        </div>
+        <div class="form-group col-md-3">
+            <label style="width:50px">Fin:</label>
+            <div class="input-group date" id="datepicker02">
+                {{ frm_filtro.em_fecha_hasta }} {{ frm_filtro.em_fecha_hasta.errors }}
+                <span class="input-group-addon"><i class="fa fa-th"></i></span>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label style="width:80px">Número:</label>
+            <div class="input-group">
+                {{ frm_filtro.em_establecimiento }}
+                {{ frm_filtro.em_puntoemi }}
+                {{ frm_filtro.em_secuencial }}
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="form-group col-md-3">
+            <label style="width:80px">Documento:</label>
+            <div class="row">
+                {{ frm_filtro.em_tipo_documento }} {{ frm_filtro.em_tipo_documento.errors }}
+            </div>
+        </div>
+        <div class="form-group col-md-3">
+            <label style="width:50px">Estado:</label>
+            <div class="input-group">
+                {{ frm_filtro.em_estado }} {{ frm_filtro.em_estado.errors }}
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label style="width:80px">Cliente:</label>
+            <div class="input-group">
+                {{ frm_filtro.em_cliente }} {{ frm_filtro.em_cliente.errors }}
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="form-group col-md-4">
+            <button id="filter_emitidos_button" type="button" onclick="filter_emitidos_form();" class="btn btn-primary btn-sm">
+                <span class="glyphicon glyphicon-search"></span>&nbsp;Buscar
+            </button>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    
+    <div class="separator bottom">Total Comprobantes: <span id="cantidad-emitidos">{{ cant_doc_emit }}</span>
+    <span class="pull-right"><label class="strong">Organizados por:</label> {{ frm_filtro.em_filas_emitidos }}</span>
+    </div>
+</form>

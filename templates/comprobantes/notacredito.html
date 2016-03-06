@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<notaCredito id="comprobante" version="1.0.0">
+	<infoTributaria>
+		<razonSocial>{{entity.ruc_empresa.razon_social}}</razonSocial>
+		<nombreComercial>{{entity.ruc_empresa.nombre_comercial}}</nombreComercial>
+		<ruc>{{entity.ruc_empresa}}</ruc>
+		<estab>{{entity.id_configuracion.establecimiento}}</estab>
+		<ptoEmi>{{entity.id_configuracion.punto_emision}}</ptoEmi>
+		<secuencial>{{entity.secuencial}}</secuencial>
+		<dirMatriz>{{entity.ruc_empresa.direccion_matriz}}</dirMatriz>
+	</infoTributaria>
+	<infoNotaCredito>
+		<fechaEmision>{{entity.get_fecha_emision}}</fechaEmision>
+		<dirEstablecimiento>{{entity.ruc_empresa.direccion_matriz}}</dirEstablecimiento>
+		<tipoIdentificacionComprador>{{entity.id_cliente.tipo_identificacion}}</tipoIdentificacionComprador>
+		<razonSocialComprador>{{entity.id_cliente.razon_social}}</razonSocialComprador>
+		<identificacionComprador>{{entity.id_cliente.identificacion}}</identificacionComprador>
+		{% if entity.ruc_empresa.codigo_contribuyente_especial %}
+		<contribuyenteEspecial>{{entity.ruc_empresa.codigo_contribuyente_especial}}</contribuyenteEspecial>
+		{% endif %}
+		<obligadoContabilidad>{{entity.ruc_empresa.obligado_contabilidad}}</obligadoContabilidad>
+		{% if entity.rise %}
+		<rise>{{entity.rise}}</rise>
+		{% endif %}
+		<codDocModificado>{{entity.codigo_documento_modificado}}</codDocModificado>
+		<numDocModificado>{{entity.numero_documento_modificado}}</numDocModificado>
+		<fechaEmisionDocSustento>{{entity.get_fecha_emi_docum_sustento}}</fechaEmisionDocSustento>
+		<totalSinImpuestos>{{entity.str_total_sin_impuestos}}</totalSinImpuestos>
+		<valorModificacion>{{entity.str_valor_modificacion}}</valorModificacion>
+		<moneda>{{entity.id_configuracion.moneda}}</moneda>
+		<totalConImpuestos>
+			{% for imp in entity.get_impuestos_grouped %}
+			<totalImpuesto>
+				<codigo>{{imp.producto_impuesto__codigo_impuesto}}</codigo>
+				<codigoPorcentaje>{{imp.producto_impuesto__codigo_porcentaje}}</codigoPorcentaje>
+				<baseImponible>{{imp.base_imponible|stringformat:".2f"}}</baseImponible>
+				<valor>{{imp.valor|stringformat:".2f"}}</valor>
+			</totalImpuesto>
+			{% endfor %}
+		</totalConImpuestos>
+		<motivo>{{entity.motivo}}</motivo>
+	</infoNotaCredito>
+	<detalles>
+        {% for item in entity.impditemnotacredito_set.all %}
+		<detalle>
+			<codigoInterno>{{item.id_producto.codigo_principal}}</codigoInterno>
+			<codigoAdicional>{{item.id_producto.codigo_secundario}}</codigoAdicional>
+			<descripcion>{{item.id_producto.descripcion}}</descripcion>
+			<cantidad>{{item.str_cantidad}}</cantidad>
+			<precioUnitario>{{item.id_producto.str_precio_unitario}}</precioUnitario>
+			<descuento>{{item.str_descuento}}</descuento>
+			<precioTotalSinImpuesto>{{item.str_total_sin_impuestos}}</precioTotalSinImpuesto>
+			{% if item.id_producto.impdproductodetalleadicional_set.all %}
+			<detallesAdicionales>
+                        {% for detalle_adicional in item.id_producto.impdproductodetalleadicional_set.all %}
+			    <detAdicional nombre="{{detalle_adicional.nombre}}" valor="{{detalle_adicional.descripcion}}"/>
+                        {% endfor %}
+			</detallesAdicionales>
+			{% endif %}			
+			{% with item.get_impuestos as impuestos_item %}	
+			{% if impuestos_item %}
+			<impuestos>
+				{% for item_impuesto in impuestos_item %}
+				<impuesto>
+					<codigo>{{item_impuesto.producto_impuesto.codigo_impuesto}}</codigo>
+					<codigoPorcentaje>{{item_impuesto.producto_impuesto.codigo_porcentaje}}</codigoPorcentaje>
+					<tarifa>{{item_impuesto.producto_impuesto.str_tarifa}}</tarifa>
+					<baseImponible>{{item_impuesto.str_base_imponible}}</baseImponible>
+					<valor>{{item_impuesto.str_valor}}</valor>
+				</impuesto>
+				{% endfor %}
+			</impuestos>
+			{% endif %}
+			{% endwith %}
+		</detalle>
+        {% endfor %}
+	</detalles>
+	<infoAdicional>
+		<campoAdicional nombre="Email">{{entity.id_cliente.email_principal}}{% if entity.id_cliente.email_secundario %},{{entity.id_cliente.email_secundario}}{% endif %}</campoAdicional>
+		{% for info_adicional in entity.impdnotacreditoinformacionadicional_set.all %}
+                <campoAdicional nombre="{{ info_adicional.nombre }}">{{ info_adicional.valor }}</campoAdicional>
+                {% endfor %}
+	</infoAdicional>
+</notaCredito>

@@ -1,0 +1,90 @@
+{% load emisoreceptor %}
+{% for d in documentos_recibidos %}
+    <tr id="{{d.tipo_comprobante}}-{{d.id}}" class="selectable" style="height: 20px;">
+        <td class="center lightblue" style="width: 10px;">{{ d.fecha_emision|date:'Y-m-d' }}</td>
+        <td class="center" style="width: 10px;">{{ d.tipo_comprobante|default_if_none:"---" }}</td>
+        <td class="center lightblue"
+            style="width: 20px;">{{ d.secuencial|default_if_none:"---" }}</td>
+        <td class="center" style="width: 40px;">
+            <div class="emisor"
+                 title="{{ d.razon_social_emisor }}">{{ d.razon_social_emisor|truncatechars:20 }}</div>
+        </td>
+        <td class="center" style="width: 40px;">$ {{ d.monto_total|get_value }}</td>
+        <td class="center lightblue" style="width: 40px;">{{ d.aprobado_por|get_value }}</td>
+        <td class="center lightblue" style="width: 40px;">{{ d.fuente_generacion|get_value }}</td>
+        <td class="center" style="width: 135px;">
+            <div class="btn-group btn-group-sm">
+                {% if d.ruta_documento_pdf %}
+                    {% if d.codigo_original %}
+                    <!--
+                    <form action="/docs/pdf/" id="re_form_pdf" method="post">
+                        {% csrf_token %}
+                        <input name="id" value="{{ d.id }}" type="hidden">
+                        <a href="javascript:void(0)" onclick="document.getElementById('re_form_pdf').submit();" class="btn btn-default" rel="tooltip" title="Ver archivo RIDE PDF"><i class="fa fa-eye"></i></a>
+                    </form>
+                    -->
+                        <a href="/docs/pdf/{{ d.codigo_original }}/" target="blank" class="btn btn-success" rel="tooltip" title="Ver archivo RIDE PDF">PDF</a>
+                    {% else %}
+                        <a href="{{d.ruta_documento_pdf}}" target="blank" class="btn btn-success" rel="tooltip" title="Ver archivo RIDE PDF">PDF</a>
+                    {% endif %}
+                {% endif %}
+                {% if d.ruta_documento_xml %}
+                    {% if d.codigo_original %}
+                        <!--
+                        <form action="/docs/xml/" id="re_form_xml" method="post">
+                            {% csrf_token %}
+                            <input name="id" value="{{ d.id }}" type="hidden">
+                            <a href="javascript:void(0)" onclick="document.getElementById('re_form_xml').submit();" class="btn btn-success" rel="tooltip" title="Ver archivo XML Autorizado">XML</a>
+                        </form>
+                        -->
+                        <a href="/docs/xml/{{ d.codigo_original }}/" target="blank" class="btn btn-success" rel="tooltip" title="Ver archivo XML Autorizado">XML</a>
+                    {% else %}
+                        <a href="{{d.ruta_documento_xml.url}}" target="blank" class="btn btn-success" rel="tooltip" title="Ver archivo XML Autorizado">XML</a>
+                    {% endif %}
+                {% endif %}
+                {% if d.ruta_documento_otro %}
+                    {% if d.codigo_original %}
+                        <a href="/docs/html/{{ d.codigo_original }}/" target="blank" class="btn btn-success" rel="tooltip" title="Ver resumen HTML">LINK</a>
+                    {% else %}
+                        <a href="{{ d.ruta_documento_otro }}" target="blank" class="btn btn-success" rel="tooltip" title="Ver resumen HTML">LINK</a>
+                    {% endif %}
+                {% endif %}
+            
+                {% if d.estado_notificacion.nombre == 'PENDIENTE' or d.estado_notificacion.nombre == 'Pendiente'%}
+                <a href="javascript:seleccionar_comprobante_accion('{{d.tipo_comprobante}}',{{d.id}})"
+                   class="conf-comp btn btn-success" rel="tooltip" title="Autorizar/Rechazar">
+                   <i class="glyphicon glyphicon-ok"></i>&nbsp;
+                </a>
+                {% else %}
+                   {% if d.estado_notificacion.nombre == 'AUTORIZADO' %}
+                      <span class="conf-comp btn btn-primary">
+                      <i class="glyphicon glyphicon-ok" rel="tooltip" title="{{d.estado_notificacion.nombre}}{% if d.observaciones %}:&nbsp;{{d.observaciones}}{% endif %}"></i>&nbsp;
+                      </span>
+                   {% else %}
+                      <span class="conf-comp btn btn-primary">
+                      <i class="glyphicon glyphicon-remove" rel="tooltip" title="{{d.estado_notificacion.nombre}}{% if d.observaciones %}:&nbsp;{{d.observaciones}}{% endif %}"></i>&nbsp;
+                      </span>
+                   {% endif %}                                       
+                {% endif %}
+            </div>
+        </td>
+        <td class="center" style="width: 30px;">
+            <div id="{{ d.numero_autorizacion }}" class="btnCopiar btn-group btn-group-sm">
+                <a href="#" class="btncopiar btn btn-success" rel="tooltip" title="Doble click para copiar">Copiar</a>
+            </div>
+        </td>
+        <td class="center" style="width: 30px;"> 
+            <div class="btn-group btn-group-sm">
+                {% if d.ruta_documento_pdf %}
+                    <a href="/docs/pdf/{{ d.codigo_original }}/" download target="blank"  class="btn btn-success" rel="tooltip" title="Descargar archivo RIDE PDF"><i class="fa fa-download"> pdf</i></a>
+                {% endif %}
+            </div>
+            <p>
+            <div class="btn-group btn-group-sm">
+                {% if d.ruta_documento_pdf %}
+                    <a href="/docs/xml/{{ d.codigo_original }}/" download target="blank"  class="btn btn-success" rel="tooltip" title="Descargar comprobante XML"><i class="fa fa-download"> xml</i></a>
+                {% endif %}
+            </div>
+        </td>
+    </tr>
+{% endfor %}

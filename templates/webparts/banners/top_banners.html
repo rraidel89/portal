@@ -1,0 +1,29 @@
+<div class="col-md-5">
+   <!-- Widget -->
+   <div class="widget widget-3">
+      <div style="height: 60px; width:450px">
+         <a onclick="javascript:banner_click({{banner.pk}});" style="cursor:pointer" href="{{ banner.url_banner_apunta }}" target="blank">
+            <div class="image-cropper">
+               <img src="{{ banner.imagen.url }}" >
+            </div>
+         </a>
+      </div>
+      <span class="pull-right" style="margin-top: 5px !important"><a href="/banners-page" target="blank" class="see-more">¿Quieres ver más?</a></span>
+   </div>   
+</div>
+
+{% if banner_secondary and banner_secondary.pk != banner.pk %}
+<div class="col-md-5">
+   <div class="widget widget-3">
+      <div style="height: 60px; width:450px">
+         <a onclick="javascript:banner_click({{banner_secondary.pk}});" style="cursor:pointer" href="{{ banner_secondary.url_banner_apunta }}" target="blank">
+            <div class="image-cropper">
+               <img src="{{ banner_secondary.imagen.url }}" >
+            </div>
+         </a>
+      </div>
+      <span class="pull-right" style="margin-top: 5px !important"><a href="/banners-page" target="blank" class="see-more">¿Quieres ver más?</a></span>
+   </div>
+</div>
+{% endif %}
+

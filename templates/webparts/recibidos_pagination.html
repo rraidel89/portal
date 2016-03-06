@@ -1,0 +1,19 @@
+<div id="recibidos-pagination" class="pagination margin-none pull-right">
+    {% if documentos_recibidos.has_previous %}
+        <a href="#" onclick="return paginar('{{ documentos_recibidos.previous_page_number }}', 'recibidos');">Anterior</a>
+    {% endif %}
+    <span class="disabled">
+        Pág. {{ documentos_recibidos.number }} de {{ documentos_recibidos.paginator.num_pages }}.
+    </span>
+    {% if documentos_recibidos.has_next %}
+        <a href="#" onclick="return paginar('{{ documentos_recibidos.next_page_number }}', 'recibidos');">Siguiente</a>
+    {% endif %}
+</div>
+<div class="clearfix"></div>
+
+<div class="pull-left">
+    <a target="_blank" href="/export_comp_rec">
+        <button class="btn btn-success"><i class="fa fa-download"></i>&nbsp;Descargar resultados a XLS</button>
+    </a>
+</div>
+<div class="clearfix"></div>

@@ -1,0 +1,12 @@
+<ul class="pagination pull-right margin-none">
+    {% if cupones_empresa.has_previous %}
+       <a href="?page_banner={{ cupones_empresa.previous_page_number }}">Anterior</a>
+    {% endif %}
+    <span class="disabled">
+       Pág. {{ cupones_empresa.number }} de {{ cupones_empresa.paginator.num_pages }}.
+    </span>
+    {% if cupones_empresa.has_next %}
+    <a href="?page_cupon={{ cupones_empresa.next_page_number }}">Siguiente</a>
+    {% endif %}
+</ul>
+<div class="clearfix"></div>

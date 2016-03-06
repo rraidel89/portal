@@ -1,0 +1,25 @@
+{% load emisoreceptor %} 
+{% for c in documentos_cargados %}
+<!-- Item -->
+<tr class="selectable">
+    <td class="center">{{c.fecha_emision|date:'Y-m-d'}}</td>
+    <td class="center">{{c.tipo_comprobante|get_value}}</td>
+    <td class="center lightblue">{{c.numero_comprobante|get_value}}</td>
+    <td class="center">{{c.razon_social_emisor|get_value}}</td>
+    <td class="lightblue"><strong>{{c.ciudad|get_value}}</strong></td>
+    <td class="center">{{c.monto_comprobante|get_value}}</td>
+    <td class="center lightblue">{{c.aprobado_por|get_value}}</td>
+    <td class="center">{{c.estado|get_value}}</td>
+    <td class="center">
+        <div class="btn-group btn-group-sm">
+            <a href="{{c.ruta_archivo.url}}" class="btn btn-default"><i class="fa fa-cloud-download"></i></a>
+        </div>
+    </td>
+    <td class="center lightblue">
+        <div class="btn-group btn-group-sm edit">
+            <a href="/comprobantes-cargados/editar-comprobante/{{c.id}}" class="btn btn-default link"><i
+                    class="fa fa-pencil"></i></a>
+        </div>
+    </td>
+</tr>
+{% endfor %}

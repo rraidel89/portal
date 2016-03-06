@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<factura id="comprobante" version="1.0.0">
+	<infoTributaria>
+		<razonSocial>{{entity.ruc_empresa.razon_social}}</razonSocial>
+		<nombreComercial>{{entity.ruc_empresa.nombre_comercial}}</nombreComercial>
+		<ruc>{{entity.ruc_empresa}}</ruc>
+		<estab>{{entity.id_configuracion.establecimiento}}</estab>
+		<ptoEmi>{{entity.id_configuracion.punto_emision}}</ptoEmi>
+		<secuencial>{{entity.secuencial}}</secuencial>
+		<dirMatriz>{{entity.ruc_empresa.direccion_matriz}}</dirMatriz>
+	</infoTributaria>
+	<infoFactura>
+		<fechaEmision>{{entity.get_fecha_emision}}</fechaEmision>
+		<dirEstablecimiento>{{ entity.ruc_empresa.direccion_matriz }}</dirEstablecimiento>
+		{% if entity.ruc_empresa.codigo_contribuyente_especial %}
+		<contribuyenteEspecial>{{ entity.ruc_empresa.codigo_contribuyente_especial }}</contribuyenteEspecial>
+		{% endif %}
+		<obligadoContabilidad>{{ entity.ruc_empresa.obligado_contabilidad }}</obligadoContabilidad>
+        {% if entity.comercio_exterior %}
+        <comercioExterior>EXPORTADOR</comercioExterior>
+        {% endif %}
+        {% if entity.inco_term_factura %}
+        <incoTermFactura>{{ entity.inco_term_factura }}</incoTermFactura>
+        {% endif %}
+        {% if entity.lugar_inco_term %}
+        <lugarIncoTerm>{{ entity.lugar_inco_term }}</lugarIncoTerm>
+        {% endif %}
+        {% if entity.pais_origen %}
+        <paisOrigen>{{ entity.pais_origen }}</paisOrigen>
+        {% endif %}
+        {% if entity.puerto_embarque %}
+        <puertoEmbarque>{{ entity.puerto_embarque }}</puertoEmbarque>
+        {% endif %}
+        {% if entity.puerto_destino %}
+        <puertoDestino>{{ entity.puerto_destino }}</puertoDestino>
+        {% endif %}
+        {% if entity.pais_destino %}
+        <paisDestino>{{ entity.pais_destino }}</paisDestino>
+        {% endif %}
+        {% if entity.pais_adquisicion %}
+        <paisAdquisicion>{{ entity.pais_adquisicion}}</paisAdquisicion>
+        {% endif %}
+		<tipoIdentificacionComprador>{{entity.id_cliente.tipo_identificacion}}</tipoIdentificacionComprador>
+		{% if entity.get_guia_remision %}
+		<guiaRemision>{{entity.get_guia_remision}}</guiaRemision>
+		{% endif %}
+		<razonSocialComprador>{{entity.id_cliente.razon_social}}</razonSocialComprador>
+		<identificacionComprador>{{entity.id_cliente.identificacion}}</identificacionComprador>
+		{% if entity.id_cliente.direccion_comprador %}
+		<direccionComprador>{{entity.id_cliente.direccion_comprador}}</direccionComprador>
+		{% endif %}
+		<totalSinImpuestos>{{entity.str_total_sin_impuestos}}</totalSinImpuestos>
+        {% if entity.inco_term_total_sin_impuestos %}
+        <incoTermTotalSinImpuestos>{{entity.inco_term_total_sin_impuestos}}</incoTermTotalSinImpuestos>
+        {% endif %}
+        <totalDescuento>{{entity.str_descuento}}</totalDescuento>
+        {% if entity.cod_doc_reembolso %}
+        <codDocReembolso>{{entity.cod_doc_reembolso}}</codDocReembolso>
+        {% endif %}
+        {% if entity.total_comprobantes_reembolso %}
+        <totalComprobantesReembolso>{{entity.total_comprobantes_reembolso|stringformat:".2f"}}</totalComprobantesReembolso>
+        {% endif %}
+        {% if entity.total_base_imponible_reembolso %}
+        <totalBaseImponibleReembolso>{{entity.total_base_imponible_reembolso|stringformat:".2f"}}</totalBaseImponibleReembolso>
+        {% endif %}
+        {% if entity.total_impuesto_reembolso %}
+        <totalImpuestoReembolso>{{entity.total_impuesto_reembolso|stringformat:".2f"}}</totalImpuestoReembolso>
+        {% endif %}
+
+		<totalConImpuestos>
+			{% for imp in entity.get_impuestos_grouped %}
+			<totalImpuesto>
+				<codigo>{{imp.producto_impuesto__codigo_impuesto}}</codigo>
+				<codigoPorcentaje>{{imp.producto_impuesto__codigo_porcentaje}}</codigoPorcentaje>
+				<baseImponible>{{imp.base_imponible|stringformat:".2f"}}</baseImponible>
+				<valor>{{imp.valor|stringformat:".2f"}}</valor>
+			</totalImpuesto>
+			{% endfor %}
+		</totalConImpuestos>
+		<propina>{{entity.propina|stringformat:".2f"}}</propina>
+
+        {% if entity.flete_internacional %}
+        <fleteInternacional>{{entity.flete_internacional|stringformat:".2f"}}</fleteInternacional>
+        {% endif %}
+        {% if entity.seguro_internacional %}
+        <seguroInternacional>{{entity.seguro_internacional|stringformat:".2f"}}</seguroInternacional>
+        {% endif %}
+        {% if entity.gastos_aduaneros %}
+        <gastosAduaneros>{{entity.gastos_aduaneros|stringformat:".2f"}}</gastosAduaneros>
+        {% endif %}
+        {% if entity.gastos_transporte_otros %}
+        <gastosTransporteOtros>{{entity.gastos_transporte_otros|stringformat:".2f"}}</gastosTransporteOtros>
+        {% endif %}
+        
+		<importeTotal>{{entity.str_total}}</importeTotal>
+		<moneda>{{entity.id_configuracion.moneda}}</moneda>
+
+        {% if entity.impdfactpago_set.all %}
+        <pagos>
+            {% for item_pago in entity.impdfactpago_set.all %}
+                <pago>
+                    <formaPago>{{ item_pago.forma_pago }}</formaPago>
+                    <total>{{ item_pago.total|stringformat:".2f" }}</total>
+                    <plazo>{{ item_pago.plazo }}</plazo>
+                    <unidadTiempo>{{ item_pago.unidad_tiempo }}</unidadTiempo>
+                </pago>
+            {% endfor %}
+        </pagos>
+        {% endif %}
+
+        {% if entity.valor_ret_iva %}
+        <valorRetIva>{{entity.valor_ret_iva|stringformat:".2f"}}</valorRetIva>
+        {% endif %}
+        {% if entity.valor_ret_renta %}
+        <valorRetRenta>{{entity.valor_ret_renta|stringformat:".2f"}}</valorRetRenta>
+        {% endif %}
+	</infoFactura>
+	<detalles>
+		{% for item in entity.impditemfactura_set.all %}
+		<detalle>
+			<codigoPrincipal>{{item.id_producto.codigo_principal}}</codigoPrincipal>
+			<codigoAuxiliar>{{item.id_producto.codigo_secundario}}</codigoAuxiliar>
+			<descripcion>{{item.id_producto.descripcion}}</descripcion>
+			<cantidad>{{item.str_cantidad}}</cantidad>
+			<precioUnitario>{{item.id_producto.str_precio_unitario}}</precioUnitario>
+			<descuento>{{item.str_descuento}}</descuento>
+			<precioTotalSinImpuesto>{{item.str_total_sin_impuestos}}</precioTotalSinImpuesto>
+			{% if item.id_producto.impdproductodetalleadicional_set.all %}
+			<detallesAdicionales>
+                        {% for detalle_adicional in item.id_producto.impdproductodetalleadicional_set.all %}
+			    <detAdicional nombre="{{detalle_adicional.nombre}}" valor="{{detalle_adicional.descripcion}}"/>
+                        {% endfor %}
+			</detallesAdicionales>
+			{% endif %}
+			{% with item.get_impuestos as impuestos_item %}
+			{% if impuestos_item %}
+			<impuestos>
+				{% for item_impuesto in impuestos_item %}
+				<impuesto>
+					<codigo>{{item_impuesto.producto_impuesto.codigo_impuesto}}</codigo>
+					<codigoPorcentaje>{{item_impuesto.producto_impuesto.codigo_porcentaje}}</codigoPorcentaje>
+					<tarifa>{{item_impuesto.producto_impuesto.str_tarifa}}</tarifa>
+					<baseImponible>{{item_impuesto.str_base_imponible}}</baseImponible>
+					<valor>{{item_impuesto.str_valor}}</valor>
+				</impuesto>
+				{% endfor %}
+			</impuestos>
+			{% endif %}
+			{% endwith %}
+		</detalle>
+		{% endfor %}
+	</detalles>
+    {% if entity.impdfactreembolso_set.all %}
+	<reembolsos>
+	{% for item_reem in entity.impdfactreembolso_set.all %}
+	    <reembolsoDetalle>
+            <tipoIdentificacionProveedorReembolso>{{item_reem.tipo_identificacion_proveedor_reembolso}}</tipoIdentificacionProveedorReembolso>
+            <identificacionProveedorReembolso>{{item_reem.identificacion_proveedor_reembolso}}</identificacionProveedorReembolso>
+            <codPaisPagoProveedorReembolso>{{item_reem.cod_pais_pago_proveedor_reembolso}}</codPaisPagoProveedorReembolso>
+            <tipoProveedorReembolso>{{item_reem.tipo_proveedor_reembolso}}</tipoProveedorReembolso>
+            <codDocReembolso>{{item_reem.cod_doc_reembolso}}</codDocReembolso>
+            <estabDocReembolso>{{item_reem.estab_doc_reembolso}}</estabDocReembolso>
+            <ptoEmiDocReembolso>{{item_reem.pto_emi_doc_reembolso}}</ptoEmiDocReembolso>
+            <secuencialDocReembolso>{{item_reem.secuencial_doc_reembolso}}</secuencialDocReembolso>
+            <fechaEmisionDocReembolso>{{item_reem.fecha_emision}}</fechaEmisionDocReembolso>
+            <numeroautorizacionDocReemb>{{item_reem.numero_autorizacion}}</numeroautorizacionDocReemb>
+            {% if item_reem.impdfactdetalleimpuestoreembolso_set.all %}
+            <detalleImpuestos>
+                {% for item_imp_reem in item_reem.impdfactdetalleimpuestoreembolso_set.all %}
+                    <detalleImpuesto>
+                        <codigo>{{item_imp_reem.codigo_reembolso}}</codigo>
+                        <codigoPorcentaje>{{item_imp_reem.codigo_porcentaje_rembolso}}</codigoPorcentaje>
+                        <tarifa>{{item_imp_reem.tarifa_reembolso}}</tarifa>
+                        <baseImponibleReembolso>{{item_imp_reem.base_imponible_reembolso|stringformat:".2f"}}</baseImponibleReembolso>
+                        <impuestoReembolso>{{item_imp_reem.impuesto_reembolso|stringformat:".2f"}}</impuestoReembolso>
+                    </detalleImpuesto>
+                {% endfor %}
+            </detalleImpuestos>
+            {% endif %}
+        </reembolsoDetalle>
+	{% endfor %}
+	</reembolsos>
+    {% endif %}
+	<infoAdicional>
+		<campoAdicional nombre="Email">{{entity.id_cliente.email_principal}}{% if entity.id_cliente.email_secundario %},{{entity.id_cliente.email_secundario}}{% endif %}</campoAdicional>
+		{% for info_adicional in entity.impdfacturainformacionadicional_set.all %}
+                <campoAdicional nombre="{{ info_adicional.nombre }}">{{ info_adicional.valor }}</campoAdicional>
+                {% endfor %}
+	</infoAdicional>
+</factura>

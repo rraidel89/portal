@@ -1,0 +1,318 @@
+{% extends 'emisores/baseEmisor.html' %}
+{% block titulo_page %}Crear campania sms{% endblock%}
+{% load static from staticfiles %}
+{% block top_javascripts %}
+<script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="{% static  'util/util.js' %}"></script>
+<link rel="stylesheet/less"
+      href="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/less/datepicker.less"/>
+<link rel="stylesheet"
+      href="{{ STATIC_URL }}css/admin/datepicker/datepicker.css"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/admin/coupons.css"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/table/demo_table.css"/>
+
+<script src="{{ STATIC_URL }}components/library/bootstrap/js/bootstrap.min.js"></script>
+<script src="{{ STATIC_URL }}util/bootstrap-datetimepicker.js"></script>
+<script src="{{ STATIC_URL }}util/bootstrap-datetimepicker.min.css"></script>
+<script src="{{ STATIC_URL }}util/bootstrap-datetimepicker.es.js"></script>
+
+<link rel="stylesheet" href="{{ STATIC_URL }}util/bootstrap.min.css"/>
+    <link rel="stylesheet" href="{{ STATIC_URL }}util/bootstrap-datetimepicker.min.css"/>
+        <script> utilidades(); </script>
+
+{% endblock%}
+{% block body %}
+
+
+
+
+<!-- First grid -->
+<h4 class="margin-none pull-left pestana">Crear nueva campaña de SMS</h4>
+<div class="clearfix"></div>	
+<div class="tablaBCK">
+
+	<div class="clearfix"></div>
+	<div class="separator-h"></div>
+	<h4>Datos generales de la campaña</h4>
+	<div class="separator-h"></div>
+	<!-- Filters -->
+	<div class="filter-bar">
+		<form id="frmCampaniaSMS" class="margin-none form-inline" method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+
+		
+		<!-- Min -
+		<div class="col-md-12 emaildisclaimer">
+			<label><i class="fa fa-exclamation-circle"></i> NOTA:<br>
+			El archivo que usted debe utilizar al momento de subir a la plataforma los receptores de este mensaje, debe tener la extension XLS y contener un número telefonico celular con el formato 09XXXXXXX
+			<br>
+			EL número de caracteres a ser utilizado es de 144 incluyendo espacios en blanco y este es entregado a todas las operadora móviles en Ecuador.</label>
+		</div>
+		<!-- // Min END -->
+		
+		
+		<!-- 
+		<br><br><br><br>
+		-->
+
+		<!-- Min -->
+		<div class="form-group col-md-4">
+			<label>Nombre  de la campaña:</label>
+			<div class="input-group">
+                {{ form.nombre.errors }}
+				{{ form.nombre }}
+			</div>
+		</div>
+		<!-- // Min END -->
+		
+		<!-- Min -->
+		<div class="form-group col-md-8 moreinfo">
+			<label><i class="fa fa-eye"></i> Si desea obtener más información sobre el costo de este servicio,<a href="http://www.google.com" target="_blank" data-toggle="modal"> clic aquí</a></label>
+		</div>
+		<!-- // Min END -->
+		
+		<!-- Modal -->
+		<div class="modal fade" id="modal-costos">
+			
+			<div class="modal-dialog">
+				<div class="modal-content">
+		
+					<!-- Modal heading -->
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h3 class="modal-title">Costos de publicación de campaña SMS</h3>
+					</div>
+					<!-- // Modal heading END -->
+					
+					<!-- Modal body -->
+					<div class="modal-body">
+						<p><i class="fa fa-eye"></i> Esta es una tabla de costos referenciales. El valor final de facturación será presentado el momento de crear la publicación.</p>
+						<p>
+						<table cellpadding="5" cellpadding="0" border="1">
+						<tr>
+						<td width="25%">Número de teléfonos</td>
+						<td width="25%">Costo a ser facturado</td>
+						<td width="50%" rowspan="4">
+						<p>El costo presentado en la tabla corresponde al valor que se deberá facturar al finalizar los 30 días de creación de la campaña.</p>
+						</td>
+						</tr>
+						<tr><td>1 - 1000</td><td>$100,oo USD</td></tr>
+						<tr><td>1 - 1000</td><td>$100,oo USD</td></tr>
+						<tr><td>1 - 1000</td><td>$100,oo USD</td></tr>
+						
+						</table>
+						</p>
+					</div>
+					<!-- // Modal body END -->
+					
+					<!-- Modal footer -->
+					<div class="modal-footer">
+						
+						<a href="#" data-dismiss="modal" class="btn btn-success">Aceptar</a>
+					</div>
+					<!-- // Modal footer END -->
+		
+				</div>
+			</div>
+		
+		</div>
+		
+		<!-- Modal ends -->
+		
+		<br><br>
+		
+		<!-- From -->
+		<div class="col-md-4">
+			<label>Fecha de publicación:</label>
+			<div class="input-group date" id="datepicker02">
+			    {{ form.fecha_publicacion.errors }}
+			    {{ form.fecha_publicacion }}
+			    <span class="input-group-addon"><i class="fa fa-th"></i></span>
+			</div>
+		</div>
+		<!-- // From END -->
+		
+		<div class="clearfix"></div>
+
+	
+	<div class="separator-h"></div>
+		<h4>Datos específicos de la campaña</h4>
+		<div class="separator-h"></div>
+		<!-- Filters -->
+		<div class="filter-bar">
+			
+			<!-- Min -->
+			<div class="form-group col-md-6">
+				<label>Receptores SMS:</label>
+				<div class="input-group col-md-12">
+                    {{ form.receptor_sms_archivo.errors }}
+				  	{{ form.receptor_sms_archivo }}
+				</div>
+			</div>
+			<!-- // Min END -->
+			
+			<!-- Min -->
+			<div class="form-group col-md-6" >
+				<label>Mensaje a ser enviado:</label>
+				<div class="input-group col-md-12" style="border: 1px solid #dbd7d7;">
+				    {{ form.mensaje.errors }}
+				    {{ form.mensaje}}
+				</div>
+			</div>
+			<!-- // Min END -->
+	
+			<!-- Select -->
+			<div class="form-group col-md-4">
+				<label>Estado</label>
+				<div class="row">
+					{{ form.estado.errors }}
+					{{ form.estado }}
+				</div>
+			</div>
+		<!-- // Select END -->
+			<div class="clearfix"><br /></div></div>
+			
+			<!-- footer -->
+			<!-- With selected actions -->
+			<div class="pull-left">
+				<a href="#modal-cupon-preview" data-toggle="modal"><button id="preview_sms" class="btn btn-success"><i class="fa fa-eye"></i> Vista previa del SMS</button></a>
+				&nbsp;&nbsp;
+				<a href="#modal-cupon-save" data-toggle="modal"><button id="btnConfGuardarSms" class="btn btn-success"><i class="fa fa-save"></i> Guardar SMS</button></a>
+			</div>
+			<!-- // With selected actions END -->
+			<div class="clearfix"></div>
+			<!-- // footer END -->
+			
+			<div class="clearfix"><br /></div>
+			
+			<!-- Modal -->
+			<div class="modal fade" id="modal-cupon-preview">
+				
+				<div class="modal-dialog">
+					<div class="modal-content">
+			
+						<!-- Modal heading -->
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h3 class="modal-title">Vista previa del SMS</h3>
+						</div>
+						<!-- // Modal heading END -->
+						
+						<!-- Modal body -->
+						<div class="modal-body">
+							<p><i class="fa fa-eye"></i> Este es el mensaje que los usuarios verán en sus dispositivos.</p>
+							<p id="preview_mensaje_sms" align="center"></p>
+						</div>
+						<!-- // Modal body END -->
+						
+						<!-- Modal footer -->
+						<div class="modal-footer">
+							
+							<a href="#" data-dismiss="modal" class="btn btn-success">Aceptar</a>
+						</div>
+						<!-- // Modal footer END -->
+			
+					</div>
+				</div>
+				
+			</div>
+			<!-- // Modal END -->
+			
+			<!-- Modal -->
+			<div class="modal fade" id="modal-cupon-save">
+				
+				<div class="modal-dialog">
+					<div class="modal-content">
+			
+						<!-- Modal heading -->
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h3 class="modal-title">Confirmación de solicitud</h3>
+						</div>
+						<!-- // Modal heading END -->
+						
+						<!-- Modal body -->
+						<div class="modal-body">
+							<p><i class="fa fa-exclamation-circle"></i> El sistema de SMS ha recibido la orden de publicación a partir de la fecha:</p><p id="orden_date_publ"></p>
+							<p>Los métodos de pago disponibles son:
+							<br /><br />
+							<!--
+							<button class="btn btn-success">Pago adelantado</button>&nbsp;&nbsp;<button class="btn btn-success">Contrafactura</button>
+							-->
+							</p>
+						</div>
+						<!-- // Modal body END -->
+						
+						<!-- Modal footer -->
+						<div class="modal-footer">
+							<a href="#" data-dismiss="modal" class="btn btn-danger">Continuar editando</a>
+							<a href="#" id="btnCrearSms" data-dismiss="modal" class="btn btn-success">Crear campaña</a>
+						</div>
+						<!-- // Modal footer END -->
+			
+					</div>
+				</div>
+				
+			</div>
+			<!-- // Modal END -->
+    </form>
+	</div>
+			
+{% endblock %}
+{% block bottom_javascripts %}
+
+	<!-- Global -->
+	<script data-id="App.Config">
+	var App = {};	var basePath = '',
+		commonPath = '{{ STATIC_URL }}',
+		rootPath = '../',
+		DEV = false,
+		componentsPath = '{{ STATIC_URL }}components/';
+	
+	var primaryColor = '#3695d5',
+		dangerColor = '#b55151',
+		successColor = '#609450',
+		infoColor = '#4a8bc2',
+		warningColor = '#ab7a4b',
+		inverseColor = '#45484d';
+	
+	var themerPrimaryColor = primaryColor;
+
+		</script>
+
+    <script type="text/javascript">
+    $('.datetimepicker').datetimepicker({
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        startDate: "{{ fecha_actual }}"
+    });
+</script>
+
+
+	<script src="{{ STATIC_URL }}components/library/bootstrap/js/bootstrap.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/nicescroll/jquery.nicescroll.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/breakpoints/breakpoints.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/preload/pace/pace.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/preload/pace/preload.pace.init.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/core/js/animations.init.js?v=v1.0.2"></script>
+
+<script src="{{ STATIC_URL }}components/core/js/sidebar.main.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/core/js/sidebar.discover.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/core/js/core.init.js?v=v1.0.2"></script>
+
+<script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-select/assets/lib/js/bootstrap-select.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-select/assets/custom/js/bootstrap-select.init.js?v=v1.0.2&sv=v0.0.1"></script>
+
+<script src="{{ STATIC_URL }}components/common/forms/validator/assets/lib/jquery-validation/dist/jquery.validate.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/common/forms/validator/assets/custom/form-validator.init.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/common/forms/elements/fuelux-checkbox/fuelux-checkbox.js?v=v1.0.2&sv=v0.0.1"></script>
+
+<script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/bootbox.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/modals.init.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/modules/admin/notifications/gritter/assets/lib/js/jquery.gritter.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/modules/admin/notifications/gritter/assets/custom/js/gritter.init.js?v=v1.0.2&sv=v0.0.1"></script>
+{% endblock %}

@@ -1,0 +1,118 @@
+{% extends 'emisores/baseEmisor.html' %}
+{% block titulo_page %}Imprenta Digital&nbsp;|&nbsp;Previsualización {% endblock%}
+{% load static from staticfiles %}
+{% block left_menu %}{% endblock %}
+{% block body %}
+<ul id="comprobanteTabs" class="nav nav-tabs">
+    <li class="active"><a href="#comprobante" data-toggle="tab">Comprobante</a></li>
+    <li><a href="#comprobante-xml" data-toggle="tab">XML</a></li>
+</ul>
+<div id="comprobanteContent" class="tab-content">
+    <div class="tab-pane fade in active" id="comprobante">
+        {% if tipo == 'FT' %}
+            {% include "comprobantes/preview/factura-template.html" %}
+        {% elif tipo == 'CR' %}
+            {% include "comprobantes/preview/comproretencion-template.html" %}
+        {% elif tipo == 'GR' %}
+            {% include "comprobantes/preview/guiaremision-template.html" %}
+        {% elif tipo == 'NC' %}
+            {% include "comprobantes/preview/notacredito-template.html" %}
+        {% elif tipo == 'ND' %}
+            {% include "comprobantes/preview/notadebito-template.html" %}
+        {% endif %}
+        <div class="filter-bar">
+            <div class="widget widget-body-white" style="height: auto;">
+                <div class="modal-body">
+                    <p>Pulsando el botón <b>"Procesar"</b> usted podrá emitir su comprobante de forma electrónica mediante <b>Innobee</b> hacia el SRI. Pulse <b>"Volver"</b> para regresar a la lista de comprobantes.</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="javascript:void(0)" onclick="window.history.back()" class="btn btn-primary"><i class="fa fa-arrow-left"></i>&nbsp;Volver</a>
+                {% if entity.check_activo %}    
+                    {% if tipo == 'FT' %}		   
+                        <a href="/imprenta-digital/facturas/{{entity.pk}}/pdf/" class="btn btn-info btn-sm"><i class="fa fa-eye"></i>&nbsp;PDF</a>
+                        <a href="javascript:void(0)" onclick="generar_archivo_factura({{entity.pk}},'{{entity.codigo_original}}')" class="btn btn-danger btn-sm"><i class="fa fa-play"></i>&nbsp;Procesar</a>
+                    {% elif tipo == 'CR' %}
+                        <a href="/imprenta-digital/retenciones/{{entity.pk}}/pdf/" class="btn btn-info btn-sm"><i class="fa fa-eye"></i>&nbsp;PDF</a>
+                        <a href="javascript:void(0)" onclick="generar_archivo_retencion({{entity.pk}},'{{entity.codigo_original}}')" class="btn btn-danger btn-sm"><i class="fa fa-play"></i>&nbsp;Procesar</a>
+                    {% elif tipo == 'GR' %}
+                    <a href="/imprenta-digital/guiasremision/{{entity.pk}}/pdf/" class="btn btn-info btn-sm"><i class="fa fa-eye"></i>&nbsp;PDF</a>
+                        <a href="javascript:void(0)" onclick="generar_archivo_guia({{entity.pk}},'{{entity.codigo_original}}')" class="btn btn-danger btn-sm"><i class="fa fa-play"></i>&nbsp;Procesar</a>
+                    {% elif tipo == 'NC' %}
+                    <a href="/imprenta-digital/notascredito/{{entity.pk}}/pdf/" class="btn btn-info btn-sm"><i class="fa fa-eye"></i>&nbsp;PDF</a>
+                        <a href="javascript:void(0)" onclick="generar_archivo_nota_credito({{entity.pk}},'{{entity.codigo_original}}')" class="btn btn-danger btn-sm"><i class="fa fa-play"></i>&nbsp;Procesar</a>
+                    {% elif tipo == 'ND' %}
+                    <a href="/imprenta-digital/notasdebito/{{entity.pk}}/pdf/" class="btn btn-info btn-sm"><i class="fa fa-eye"></i>&nbsp;PDF</a>
+                        <a href="javascript:void(0)" onclick="generar_archivo_nota_debito({{entity.pk}},'{{entity.codigo_original}}')" class="btn btn-danger btn-sm"><i class="fa fa-play"></i>&nbsp;Procesar</a>
+                    {% endif %}
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane" id="comprobante-xml">
+        <div class="filter-bar">
+            <div class="widget widget-body-white" style="height: auto;">
+                <div class="modal-body">
+                    <textarea cols="200" rows="40" style="max-width: 100%">
+                        {% if tipo == 'FT' %}
+                            {% include "comprobantes/factura.html" %}
+                        {% elif tipo == 'CR' %}
+                            {% include "comprobantes/comproretencion.html" %}
+                        {% elif tipo == 'GR' %}
+                            {% include "comprobantes/guiaremision.html" %}
+                        {% elif tipo == 'NC' %}
+                            {% include "comprobantes/notacredito.html" %}
+                        {% elif tipo == 'ND' %}
+                            {% include "comprobantes/notadebito.html" %}
+                        {% endif %}
+                    </textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block bottom_javascripts %}
+	<!-- Global -->
+
+	<script data-id="App.Config">
+        var App = {};	var basePath = '',
+            commonPath = '{{ STATIC_URL }}',
+            rootPath = '../',
+            DEV = false,
+            componentsPath = '{{ STATIC_URL }}components/';
+
+        var primaryColor = '#3695d5',
+            dangerColor = '#b55151',
+            successColor = '#609450',
+            infoColor = '#4a8bc2',
+            warningColor = '#ab7a4b',
+            inverseColor = '#45484d';
+
+        var themerPrimaryColor = primaryColor;
+
+	</script>
+	
+    <script src="{{ STATIC_URL }}components/library/bootstrap/js/bootstrap.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/nicescroll/jquery.nicescroll.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/breakpoints/breakpoints.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/preload/pace/pace.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/preload/pace/preload.pace.init.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/core/js/animations.init.js?v=v1.0.2"></script>
+
+    <script src="{{ STATIC_URL }}components/core/js/sidebar.main.init.js?v=v1.0.2"></script>
+    <script src="{{ STATIC_URL }}components/core/js/sidebar.discover.init.js?v=v1.0.2"></script>
+    <script src="{{ STATIC_URL }}components/core/js/core.init.js?v=v1.0.2"></script>
+
+    <script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/bootbox.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/modals.init.js?v=v1.0.2&sv=v0.0.1"></script>
+    
+    <script src="{{ STATIC_URL }}components/core/modules/commons.js"></script>
+    <script src="{{ STATIC_URL }}components/core/modules/imprentadigital.js"></script>
+    
+    <script>
+      $(document).ready(function () {
+	
+      });
+    </script>
+{% endblock %}

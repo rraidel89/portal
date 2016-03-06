@@ -1,0 +1,20 @@
+<ul class="pagination pull-right margin-none">
+    {% if resultado_campania.has_previous %}
+       <a href="?page_banner={{ resultado_campania.previous_page_number }}">Anterior</a>
+    {% endif %}
+    <span class="disabled">
+       Pág. {{ resultado_campania.number }} de {{ resultado_campania.paginator.num_pages }}.
+    </span>
+    {% if resultado_campania.has_next %}
+    <a href="?page_camp={{ resultado_campania.next_page_number }}">Siguiente</a>
+    {% endif %}
+</ul>
+ <div class="clearfix"></div>
+<!-- With selected actions -->
+<div class="pull-left">
+   <a target="_blank" href="/export_camp_public">
+   <button class="btn btn-success"><i class="fa fa-download"></i>&nbsp;Descargar resultados a XLS</button>
+   </a>
+</div>
+<!-- // With selected actions END -->
+<div class="clearfix"></div>

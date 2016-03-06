@@ -1,0 +1,116 @@
+{% extends 'emisores/baseEmisor.html' %}
+{% block titulo_page %}Reportes Estado{% endblock %}
+{% load static from staticfiles %}
+{% block top_javascripts %}
+<script src="{{ STATIC_URL }}components/common/fforms/elements/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="{% static  'util/util.js' %}"></script>
+<link rel="stylesheet/less" href="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/less/datepicker.less"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/admin/datepicker/datepicker.css"/>
+
+<link rel="stylesheet" href="{{ STATIC_URL }}css/admin/coupons.css"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/table/demo_table.css"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}components/library/jquery-ui/css/jquery-ui-1.10.3.custom.min.css"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}selectable/css/dj.selectable.css"/>
+<script src="{{ STATIC_URL }}util/ZeroClipboard.js"></script>
+{% endblock %}
+
+{% block body %}
+
+   {{ mensage }}
+
+   <h3 class="margin-none pull-left pestana">Reporte Estado de Comprobantes</h3>
+   <div class="clearfix"></div>
+   <div class="tablaBCK">
+      <div class="clearfix"></div>
+      <div class="separator-h"></div>
+
+      <div class="widget widget-body-white" style="height: auto;">
+         <div class="widget-head" style="height: auto;">
+
+        <form name="Form1RE" id="Form1RE" action="" method="get">
+            <B>Intervalo en dias: </B>
+            <select id="Dias" name="Dias">
+             <option value="0" {{ select.0 }}>Hoy</option>
+             <option value="1" {{ select.1 }}>Un dia</option>
+             <option value="2" {{ select.2 }}>Dos dias</option>
+             <option value="3" {{ select.3 }}>Tres dias</option>
+             <option value="4" {{ select.4 }}>Cuatro dias</option>
+             <option value="5" {{ select.5 }}>Cinco dias</option>
+            </select>
+            <B>Comprobante: </B>
+            <select id="TipoComp" name="TipoComp">
+             <option value="0" {{ select2.0 }}>Factura</option>
+             <option value="1" {{ select2.1 }}>Nota de credito</option>
+             <option value="2" {{ select2.2 }}>Comprobante de retencion</option>
+             <option value="3" {{ select2.3 }}>Guia de remision</option>
+             <option value="4" {{ select2.4 }}>Nota de debito</option>
+             <option value="5" {{ select2.5 }}>Todos</option>
+            </select>
+            <B>Sucursal: </B>
+            <input type="text" name="Sucursal" style="height:25px;width:40px;text-align:center" id="Sucursal" value="{{ suc }}" maxlength="3">
+            <B>Emision: </B>
+            <input type="text" name="Emision" style="height:25px;width:40px;text-align:center" id="Emision" value="{{ emi }}" maxlength="3">
+            <B>Secuencial: </B>
+            <input type="text" name="Secuencial" style="height:25px;width:80px;text-align:center" id="Secuencial" value="{{ sec }}" maxlength="9">
+            <br>
+            <P align="right">
+            <B>Organizados por: </B>
+            <input type="text" id="Paginas" name="Paginas" style="height:25px;width:40px;text-align:center" value="{{ pags }}" maxlength="2">
+
+
+            <a href="#" onclick="JavaScript:if(parseFloat(Form1RE.Pagina.value) > 1){Form1RE.Pagina.disabled=false;Form1RE.Pagina.value = parseFloat(Form1RE.Pagina.value) - 1;Form1RE.submit();}">Anterior</a>
+
+            Pag:
+            <input type="text" disabled="true" id="Pagina" name="Pagina" style="height:25px;width:30px;border-width:0;text-align:center" value="{{ pag }}" maxlength="2">
+
+            <!--<button id="Anterior" name="Anterior" type="submit" onclick="JavaScript:Form1RE.Pagina.value = parseFloat(Form1RE.Pagina.value) - 1;" class="btn btn-primary btn-sm">
+              <<
+            </button>-->
+
+            <a href="#" onclick="JavaScript:Form1RE.Pagina.disabled=false;Form1RE.Pagina.value = parseFloat(Form1RE.Pagina.value) + 1;Form1RE.submit();">Siguiente&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+            <!--<button id="Siguiente" name="Siguiente" type="submit" onclick="JavaScript:Form1RE.Pagina.value = parseFloat(Form1RE.Pagina.value) + 1;" class="btn btn-primary btn-sm">
+               >>
+            </button> -->
+            <button id="Buscar" type="submit" class="btn btn-primary btn-sm">
+                <span class="glyphicon glyphicon-search"></span>&nbsp;Buscar
+            </button>
+
+            </P>
+
+        </form>
+      </div>
+         <div class="widget-body">{% include "webparts/reporte_estados_list.html" %}</div>
+      </div>
+      {% include "webparts/leyenda_comprobantes.html" %}
+      {% include "webparts/reporte_estados_pagination.html" %}
+   </div>
+
+    <div><br></div>
+
+
+{% endblock %}
+
+{% block bottom_javascripts %}
+<!-- Global -->
+
+<script src="{{ STATIC_URL }}components/library/bootstrap/js/bootstrap.min.js?v=v1.0.2&sv=v0.0.1"></script>
+
+<script src="{{ STATIC_URL }}components/library/jquery-ui/js/jquery-ui-1.10.3.custom.min.js"></script>
+
+<script src="{{ STATIC_URL }}components/plugins/nicescroll/jquery.nicescroll.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/breakpoints/breakpoints.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/preload/pace/pace.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/preload/pace/preload.pace.init.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/core/js/animations.init.js?v=v1.0.2"></script>
+
+<script src="{{ STATIC_URL }}components/core/js/sidebar.main.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/core/js/sidebar.discover.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/core/js/core.init.js?v=v1.0.2"></script>
+
+<script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/assets/lib/js/bootstrap-datepicker.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/assets/custom/js/bootstrap-datepicker.init.js?v=v1.0.2&sv=v0.0.1"></script>
+
+<script src="{{ STATIC_URL }}components/core/modules/commons.js"></script>
+<script src="{{ STATIC_URL }}components/core/modules/productos.js"></script>
+
+{% endblock %}

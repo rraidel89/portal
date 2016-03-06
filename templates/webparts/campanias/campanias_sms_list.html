@@ -1,0 +1,16 @@
+{% load emisoreceptor %}
+<table class="table table-condensed table-striped table-primary table-vertical-center checkboxs">
+<thead>
+   <tr>
+      <th class="center">Nombre de la campaña</th>
+      <th class="center">Fecha de envio</th>
+      <th class="center">Número de receptores</th>
+      <th class="center">Mensaje enviado</th>
+      <th class="center">Estado</th>
+      <th class="center">Editar</th>
+   </tr>
+</thead>
+<tbody id="campanias_sms_list">
+   {% include "webparts/campanias/campanias_sms_list_items.html" %}
+</tbody>
+</table>

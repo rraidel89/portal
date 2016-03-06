@@ -1,0 +1,9 @@
+{% if not configuracion_form %}
+    {{form.instance.id_configuracion.establecimiento}}-{{form.instance.id_configuracion.punto_emision}}-{{form.instance.secuencial}}
+{% else %}
+<form id="form_crear_config" action="." method="post">
+    <div>
+        {{ configuracion_form.as_p }}
+    </div>
+</form>
+{% endif %}

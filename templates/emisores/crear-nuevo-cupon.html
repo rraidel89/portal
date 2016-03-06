@@ -1,0 +1,377 @@
+{% extends 'emisores/baseEmisor.html' %}
+{% block titulo_page %}{% if not form.instance or not form.instance.pk %}Nuevo Cupón{% else %}Editar Cupón{% endif %}{% endblock%}
+{% load selectable_tags %}
+{% load static from staticfiles %}
+{% block top_javascripts %}
+<script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="{% static  'util/util.js' %}"></script>
+<link rel="stylesheet/less"
+      href="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/less/datepicker.less"/>
+<link rel="stylesheet"
+      href="{{ STATIC_URL }}css/admin/datepicker/datepicker.css"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/admin/coupons.css"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/table/demo_table.css"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}components/library/jquery-ui/css/jquery-ui-1.10.3.custom.min.css"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}selectable/css/dj.selectable.css"/>
+
+{% endblock%}
+{% block body %}
+<script> utilidades(); </script>
+
+<!-- First grid -->
+<h4 class="margin-none pull-left pestana">Cupón</h4>
+<div class="clearfix"></div>
+<div class="tablaBCK">
+
+	<div class="clearfix"></div>
+	<div class="separator-h"></div>
+	<h4>Datos generales del cupón</h4>
+	<div class="separator-h"></div>
+	<!-- Filters -->
+    <form id="frmCupon" method="post" class="margin-none form-inline" enctype="multipart/form-data">
+        <div class="filter-bar">
+            {% csrf_token %}
+            <!-- Min -->
+            <div class="form-group col-md-4">
+                <label>Título del cupón:</label>
+                <div class="input-group">
+			{{ form.titular_cupon.errors }}
+			{{ form.titular_cupon }}
+                </div>
+            </div>
+            <!-- // Min END -->
+
+            <!--
+            <div class="form-group col-md-4">
+                <label>Marca principal:</label>
+                <div class="input-group col-md-6">
+                    {{ form.ruta_imagen_marca_principal.errors }}
+                    {{ form.ruta_imagen_marca_principal }}
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label>Marca secundaria:</label>
+                <div class="input-group col-md-6">
+                    {{ form.ruta_imagen_marca_secundaria.errors }}
+                    {{ form.ruta_imagen_marca_secundaria }}
+                </div>
+            </div>
+            -->
+
+            <br><br>
+
+            <!-- Select -->
+            <div class="form-group col-md-4">
+                <label>Estado del cupón</label>
+                <div class="row">
+                    {{ form.estado}}
+                    {{ form.estado.errors }}
+                </div>
+            </div>
+            <!-- // Select END -->
+
+            <!-- From -->
+            <div class="col-md-4">
+                <label>Fecha de publicación:</label>
+                <div class="input-group date" id="datepicker02">
+                    {{ form.fecha_publicacion.errors }}
+                    {{ form.fecha_publicacion }}
+                    <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                </div>
+            </div>
+            <!-- // From END -->
+            <!-- From -->
+            <div class="col-md-4">
+                <label>Fecha final publicación:</label>
+                <div class="input-group date" id="datepicker03">
+                    {{ form.fecha_final_publicacion.errors }}
+                    {{ form.fecha_final_publicacion }}
+                    <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                </div>
+            </div>
+            <!-- // From END -->
+
+            <!-- Select -->
+            <div class="form-group col-md-4">
+                <label>Tipo de cupón</label>
+                <div class="row">
+                    {{ form.tipo_cupon.errors }}
+                    {{ form.tipo_cupon }}
+                </div>
+            </div>
+            <!-- // Select END -->
+
+            <!-- Select -->
+            <div class="col-md-4">
+		<label>Categoria</label>
+                <div class="row">
+                    {{ form.categoria.errors }}
+                    {{ form.categoria }}
+                </div>
+            </div>
+            <!-- // Select END -->
+	    
+	    <!-- Select -->
+            <div class="col-md-4">
+		<label>Subcategoria</label>
+                <div class="row">
+                    {{ form.sub_categoria.errors }}
+                    {{ form.sub_categoria }}
+                </div>
+            </div>
+            <!-- // Select END -->
+
+            <div class="clearfix"></div>
+        </div>
+
+	    <div class="separator-h"></div>
+		<h4>Datos específicos del cupón</h4>
+		<div class="separator-h"></div>
+		<!-- Filters -->
+		<div class="filter-bar">
+
+
+			<!-- Min -->
+			<div class="form-group col-md-4">
+				<label>Imagen del cupón:</label>
+				<div class="input-group col-md-6">
+                    {{ form.ruta_imagen_cupon.errors }}
+                    {{ form.ruta_imagen_cupon }}
+				</div>
+			</div>
+			<!-- // Min END -->
+
+			<!-- Min -->
+			<div class="form-group col-md-4">
+				<label>Cargar códigos: <a class="tooltips" href="#"><i class="fa fa-question-circle"></i><span>La carga de códigos se realiza a través de un documento que tenga la siguiente extensión: XLS. Los códigos generados corresponden a un valor alfanumérico de 10 caracteres y que mantienen el siguiente orden: XXX-00000-XX</span></a></label>
+				<div class="input-group col-md-6">
+				  	{{ form.codigos_ruta.errors }}
+				  	{{ form.codigos_ruta }}
+				</div>
+			</div>
+			<!-- // Min END -->
+
+			<!-- Min -->
+			<div class="form-group col-md-4 moreinfo" style="margin-top: 0!important">
+				<label style="width: 100%"><i class="fa fa-eye"></i> Si desea obtener más información sobre el costo de este servicio,<a href="http://www.google.com" target="_blank" data-toggle="modal"> clic aquí</a></label>
+			</div>
+			<!-- // Min END -->
+
+			<!-- Modal -->
+			<div class="modal fade" id="modal-costos">
+
+				<div class="modal-dialog">
+					<div class="modal-content">
+
+						<!-- Modal heading -->
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h3 class="modal-title">Costos de publicación de cupones</h3>
+						</div>
+						<!-- // Modal heading END -->
+
+						<!-- Modal body -->
+						<div class="modal-body">
+							<p><i class="fa fa-eye"></i> Esta es una tabla de costos referenciales. El valor final de facturación será presentado el momento de crear la publicación.</p>
+							<p>
+							<table cellpadding="5" cellpadding="0" border="1">
+							<tr>
+							<td width="25%">Número de impresiones</td>
+							<td width="25%">Costo a ser facturado</td>
+							<td width="50%" rowspan="4">
+							<p>El costo presentado en la tabla corresponde al valor que se deberá facturar al finalizar los 30 días de creación de la campaña.</p>
+							<p>Para la contabilización de impresión de cupones se debe completar el flujo establecido para el usuario persona/empresa que recibe el cupón y que consta de los siguientes pasos:
+							<blockquote>
+							<ol>
+							<li>Selección del cupón deseado</li>
+							<li>Impresión del cupón deseado</li>
+							<li>Recepción del cupón en la dirección de correo establecida</li>
+							</ol>
+							</blockquote>
+                            <p>Solo cuando se han cumplido estos pasos, se considera un cupón impreso y la suma de todas estas impresiones es la que representa el valor a facturar.</p>
+							</td>
+							</tr>
+							<tr><td>1 - 1000</td><td>$100,oo USD</td></tr>
+							<tr><td>1 - 1000</td><td>$100,oo USD</td></tr>
+							<tr><td>1 - 1000</td><td>$100,oo USD</td></tr>
+
+							</table>
+							</p>
+						</div>
+						<!-- // Modal body END -->
+
+						<!-- Modal footer -->
+						<div class="modal-footer">
+
+							<a href="#" data-dismiss="modal" class="btn btn-success">Aceptar</a>
+						</div>
+						<!-- // Modal footer END -->
+
+					</div>
+				</div>
+
+			</div>
+			<!-- // Modal END -->
+			
+			<br><br>
+
+			<!-- Min -->
+			<div class="form-group col-md-4">
+				<label>Detalle del cupón:</label>
+				<div class="input-group" style="border: 1px solid #dbd7d7;">
+				{{ form.detalles_cupon.errors }}
+				{{ form.detalles_cupon }}
+				</div>
+			</div>
+			<!-- // Min END -->
+
+			<!-- Min -->
+			<div class="form-group col-md-4">
+				<label>Detalle de validez:</label>
+				<div class="input-group" style="border: 1px solid #dbd7d7;">
+				{{ form.detalles_validez.errors }}
+				{{ form.detalles_validez }}
+				</div>
+			</div>
+			<!-- // Min END -->
+
+			<div class="clearfix"><br /></div></div>
+
+			<!-- footer -->
+			<!-- With selected actions -->
+			<div class="pull-left">
+				<a href="#modal-cupon-preview" data-toggle="modal"><button class="btn btn-success"><i class="fa fa-eye"></i> Vista previa de ejemplo</button></a>
+				&nbsp;&nbsp;
+				<a href="#modal-cupon-save" data-toggle="modal"><button class="btn btn-success"><i class="fa fa-save"></i> Guardar cupón</button></a>
+			</div>
+			<!-- // With selected actions END -->
+			<div class="clearfix"></div>
+			<!-- // footer END -->
+
+
+
+			<div class="clearfix"><br /></div>
+</form>
+</div>
+
+			<!-- Modal -->
+			<div class="modal fade" id="modal-cupon-preview">
+
+				<div class="modal-dialog">
+					<div class="modal-content">
+
+						<!-- Modal heading -->
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h3 class="modal-title">Vista previa de ejemplo</h3>
+						</div>
+						<!-- // Modal heading END -->
+
+						<!-- Modal body -->
+						<div class="modal-body">
+							<p><i class="fa fa-eye"></i> Esta es la manera en que los usuarios verán el cupón generado por el sistema.</p>
+							<p align="center"><img src="{{ STATIC_URL }}images/cupon01.jpg" alt="Cupon" />
+						</div>
+						<!-- // Modal body END -->
+
+						<!-- Modal footer -->
+						<div class="modal-footer">
+
+							<a href="#" data-dismiss="modal" class="btn btn-success">Aceptar</a>
+						</div>
+						<!-- // Modal footer END -->
+
+					</div>
+				</div>
+
+			</div>
+			<!-- // Modal END -->
+
+			<!-- Modal -->
+			<div class="modal fade" id="modal-cupon-save">
+
+				<div class="modal-dialog">
+					<div class="modal-content">
+
+						<!-- Modal heading -->
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h3 class="modal-title">Confirmación de solicitud</h3>
+						</div>
+						<!-- // Modal heading END -->
+						<div class="modal-body">
+						{% if not form.instance or not form.instance.pk %}
+						<!-- Modal body -->
+						<!--
+							<p><i class="fa fa-exclamation-circle"></i> El sistema de cupones ha recibido la orden de publicación a partir de la fecha 01-31-2014 hasta el 15-02-2014.
+							</p>
+							<p>
+							El costo de esta campaña es de <strong>$ 357,oo USD</strong> incluido el IVA. </p>
+							<p>El método de  pago disponible es <button class="btn btn-success">Contrafactura</button></p>
+						-->
+						{% else %}
+							<p>¿Desea guardar los cambios?</p>
+						{% endif %}
+						</div>
+						<!-- // Modal body END -->
+
+						<!-- Modal footer -->
+						<div class="modal-footer">
+							<a href="#" data-dismiss="modal" class="btn btn-danger">Continuar editando</a>
+							<a href="#" id="btnCrearCupon" data-dismiss="modal" class="btn btn-success">
+								{% if not form.instance or not form.instance.pk %}Crear{% else %}Guardar{% endif %}
+							</a>
+						</div>
+						<!-- // Modal footer END -->
+
+					</div>
+				</div>
+
+			</div>
+    </div>
+			<!-- // Modal END -->
+{% endblock %}
+
+{% block bottom_javascripts %}
+
+<!-- Global -->
+<script data-id="App.Config">
+var App = {};	var basePath = '',
+commonPath = '{{ STATIC_URL }}',
+rootPath = '../',
+DEV = false,
+componentsPath = '{{ STATIC_URL }}components/';
+
+var primaryColor = '#3695d5',
+dangerColor = '#b55151',
+successColor = '#609450',
+infoColor = '#4a8bc2',
+warningColor = '#ab7a4b',
+inverseColor = '#45484d';
+
+var themerPrimaryColor = primaryColor;
+</script>
+
+<script src="{{ STATIC_URL }}components/library/bootstrap/js/bootstrap.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script>$.fn.bootstrapBtn = $.fn.button.noConflict();</script>
+<script src="{{ STATIC_URL }}components/library/jquery-ui/js/jquery-ui-1.10.3.custom.min.js"></script>
+
+<script src="{{ STATIC_URL }}components/plugins/nicescroll/jquery.nicescroll.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/breakpoints/breakpoints.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/preload/pace/pace.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/preload/pace/preload.pace.init.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/core/js/animations.init.js?v=v1.0.2"></script>
+
+<script src="{{ STATIC_URL }}components/core/js/sidebar.main.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/core/js/sidebar.discover.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/core/js/core.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/common/forms/validator/assets/lib/jquery-validation/dist/jquery.validate.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/common/forms/validator/assets/custom/form-validator.init.js?v=v1.0.2&sv=v0.0.1"></script>
+
+<script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/bootbox.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/modals.init.js?v=v1.0.2&sv=v0.0.1"></script>
+
+<script src="{{ STATIC_URL }}components/core/modules/commons.js"></script>
+<script src="{{ STATIC_URL }}components/core/modules/productos.js"></script>
+
+{% endblock %}

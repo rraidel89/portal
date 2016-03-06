@@ -1,0 +1,61 @@
+<form id="filtro_recibidos_form" class="margin-none form-inline" method="POST" action="" onsubmit="filter_recibidos_form();return false;">
+    <!-- Filters -->
+    <div class="filter-bar">
+        {% csrf_token %}
+        <div class="form-group col-md-4">
+            <label>Inicio:</label>
+            <div class="input-group date" id="datepicker01">
+                {{ frm_filtro_recibido.fecha_desdeR }} {{ frm_filtro_recibido.fecha_desdeR.errors }}
+                <span class="input-group-addon"><i class="fa fa-th"></i></span>
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <label>Fin:</label>
+            <div class="input-group date" id="datepicker02">
+                {{ frm_filtro_recibido.fecha_hastaR }} {{ frm_filtro_recibido.fecha_hastaR.errors }}
+                <span class="input-group-addon"><i class="fa fa-th"></i></span>
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <label>Número:</label>
+            <div class="input-group">
+                {{ frm_filtro_recibido.numeroR }} {{ frm_filtro_recibido.numeroR.errors }}
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <label>Documento:</label>
+            <div class="row">
+                {{ frm_filtro_recibido.tipo_documentoR }} {{ frm_filtro_recibido.tipo_documentoR.errors }}
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <label>Emisor:</label>
+            <div class="input-group">
+                {{ frm_filtro_recibido.emisorR }} {{ frm_filtro_recibido.emisorR.errors }}
+
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <label>Aprobado por:</label>
+            <div class="input-group">
+                {{ frm_filtro_recibido.aprobado_porR }} {{ frm_filtro_recibido.aprobado_porR.errors }}
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <label>Fuente:</label>
+            <div class="row">
+                {{ frm_filtro_recibido.fuenteR }} {{ frm_filtro_recibido.fuenteR.errors }}
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <button id="filter_recibidos_button" type="button" onclick="filter_recibidos_form();" class="btn btn-primary btn-sm">
+                <span class="glyphicon glyphicon-search"></span>&nbsp;Buscar
+            </button>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    
+    <div class="separator bottom">Total Comprobantes: <span id="cantidad-recibidos">{{ cant_doc_rec }}</span>
+    <span class="pull-right"><label class="strong">Organizados por:</label> {{ frm_filtro_recibido.filas_recibidos }}</span>
+    </div>
+</form>

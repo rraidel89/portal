@@ -1,0 +1,387 @@
+{% extends 'emisores/baseEmisor.html' %}
+{% block titulo_page %}Editar Perfil{% endblock %}
+{% block body %}
+
+
+    <!-- First grid -->
+    <h4 class="margin-none pull-left pestana">Editar el perfil</h4>
+    <div class="clearfix"></div>
+    <div class="tablaBCK">
+
+    <h4>Datos generales del usuario</h4>
+
+    <div class="separator-h"></div>
+
+    <form class="margin-none form-inline" method="POST" action="">
+
+    {% csrf_token %}
+    <!-- Filters -->
+    <div class="filter-bar">
+
+        <!-- Min -->
+        <div class="form-group col-md-4">
+            <label>Nombres completos:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.nombres }}
+            </div>
+        </div>
+        <!-- // Min END -->
+
+        <!-- Min -->
+        <div class="form-group col-md-4">
+            <label>Apellidos completos:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.apellidos }}
+            </div>
+        </div>
+        <!-- // Min END -->
+
+        <!-- Min -->
+        <div class="form-group col-md-4">
+            <label>Tipo Identificación:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.tipo_identificacion }}
+            </div>
+        </div>
+        <!-- // Min END -->
+
+        <!-- Min -->
+        <div class="form-group col-md-4">
+            <label>Identificación:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.identificacion }}
+            </div>
+        </div>
+        <!-- // Min END -->
+        <!-- Min -->
+        <div class="form-group col-md-4">
+            <label>Email InnoBee:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.email_principal }}
+            </div>
+        </div>
+        <!-- // Min END -->
+
+        <!-- Min -->
+        <div class="form-group col-md-4">
+            <label>Número telefónico:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.telefono_principal }}
+            </div>
+        </div>
+        <!-- // Min END -->
+
+        <!-- Min -->
+        <div class="form-group col-md-4">
+            <label>Número celular:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.telefono_secundario }}
+            </div>
+        </div>
+        <!-- // Min END -->
+        <!-- Min -->
+        <div class="form-group col-md-4">
+            <label>Correo Electrónico:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.email_secundario }}
+            </div>
+        </div>
+        <!-- // Min END -->
+
+        <div class="clearfix"></div>
+
+    </div>
+
+    <h4>Datos profesionales</h4>
+
+    <div class="separator-h"></div>
+    <!-- Filters -->
+    <div class="filter-bar">
+        {% if perfil_empresa %}
+            {% for e in perfil_empresa %}
+                <!-- Min -->
+                <div class="form-group col-md-4">
+                    <label>Nombre de la empresa:</label>
+
+                    <div class="input-group">
+                        <input class="form-control" type="text" value="{{ e.razon_social }}"
+                               readonly/>
+                    </div>
+                </div>
+                <!-- // Min END -->
+
+                <!-- Min -->
+                <div class="form-group col-md-4">
+                    <label>Dirección (Calle principal):</label>
+
+                    <div class="input-group">
+                        <input class="form-control" type="text"
+                               value="{{ e.calle_principal }}" readonly/>
+
+                    </div>
+                </div>
+                <!-- // Min END -->
+
+                <!-- Min -->
+                <div class="form-group col-md-4">
+                    <label>Dirección (Calle secundaria):</label>
+
+                    <div class="input-group">
+                        <input class="form-control" type="text"
+                               value="{{ e.calle_secundaria }}" readonly/>
+                    </div>
+                </div>
+                <!-- // Min END -->
+
+                <br><br>
+
+                <!-- Select -->
+                <div class="form-group col-md-4">
+                    <label>País:</label>
+
+                    <div class="input-group">
+                        <input class="form-control" type="text" value="{{ e.pais }}"
+                               readonly/>
+                    </div>
+                </div>
+                <!-- // Select END -->
+
+                <!-- Select -->
+                <div class="form-group col-md-4">
+                    <label>Provincia:</label>
+
+                    <div class="input-group">
+                        <input class="form-control" type="text" value="{{ e.provincia }}"
+                               readonly/>
+                    </div>
+                </div>
+                <!-- // Select END -->
+
+                <!-- Select -->
+                <div class="form-group col-md-4">
+                    <label>Ciudad:</label>
+
+                    <div class="input-group">
+                        <input class="form-control" type="text" value="{{ e.ciudad }}"
+                               readonly/>
+                    </div>
+                </div>
+                <!-- // Select END -->
+            {% endfor %}
+
+        {% endif %}
+        <!-- Min -->
+        <div class="form-group col-md-4">
+            <label>Título profesional:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.titulo_profesional }}
+            </div>
+        </div>
+        <!-- // Min END -->
+
+
+        <!-- Min -->
+        <div class="form-group col-md-4">
+            <label>Area de trabajo:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.area_trabajo }}
+            </div>
+        </div>
+        <!-- // Min END -->
+
+        <!-- Min -->
+        <div class="form-group col-md-4">
+            <label>Carrera que estudia:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.carrera }}
+            </div>
+        </div>
+        <!-- // Min END -->
+
+        <!-- Min -->
+        <div class="form-group col-md-4">
+            <label>Lugar donde estudia:</label>
+
+            <div class="input-group">
+                {{ frm_perfil_persona.lugar_estudio }}
+            </div>
+        </div>
+        <!-- // Min END -->
+        <div class="clearfix"><br/></div>
+    </div>
+
+
+    <h4>Datos sociales del emisor</h4>
+
+    <div class="separator-h"></div>
+    <!-- Filters -->
+    <div class="filter-bar">
+        <!-- Min -->
+        <div class="form-group col-md-3">
+            <label style="width: 100%">Perfil en Facebook:</label>
+
+            <div style="width: 100%" class="input-group">
+                {{ frm_perfil_persona.perfil_facebook.errors }}
+                {{ frm_perfil_persona.perfil_facebook }}
+            </div>
+        </div>
+        <!-- // Min END -->
+
+        <!-- Min -->
+        <div class="form-group col-md-3">
+            <label style="width: 100%">Perfil en Twitter:</label>
+
+            <div style="width: 100%" class="input-group">
+                {{ frm_perfil_persona.perfil_twitter.errors }}
+                {{ frm_perfil_persona.perfil_twitter }}
+            </div>
+        </div>
+        <!-- // Min END -->
+
+        <!-- Min -->
+        <div class="form-group col-md-3">
+            <label style="width: 100%">Perfil en LinkedIn:</label>
+
+            <div style="width: 100%" class="input-group">
+                {{ frm_perfil_persona.perfil_linkedid.errors }}
+                {{ frm_perfil_persona.perfil_linkedid }}
+            </div>
+        </div>
+        <!-- // Min END -->
+
+        <!-- Min -->
+        <div class="form-group col-md-3">
+            <label style="width: 100%">Perfil en Google+:</label>
+
+            <div style="width: 100%" class="input-group">
+                {{ frm_perfil_persona.perfil_googleplus.errors }}
+                {{ frm_perfil_persona.perfil_googleplus }}
+
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+    
+    <h4>Preguntas de Seguridad</h4>
+
+    <div class="separator-h"></div>
+    
+    <!-- Filters -->
+    <div class="filter-bar">
+        <!-- Min -->
+        <div class="form-group col-md-3">
+            <label style="width: 100%">Pregunta 1:</label>
+
+            <div style="width: 100%" class="input-group">
+                {{ frm_perfil_persona.pregunta_1.errors }}
+                {{ frm_perfil_persona.pregunta_1 }}
+            </div>
+        </div>
+        <!-- // Min END -->
+
+        <!-- Min -->
+        <div class="form-group col-md-3">
+            <label style="width: 100%">Respuesta 1:</label>
+
+            <div style="width: 100%" class="input-group">
+                {{ frm_perfil_persona.respuesta_1.errors }}
+                {{ frm_perfil_persona.respuesta_1 }}
+            </div>
+        </div>
+        <!-- // Min END -->
+
+        <!-- Min -->
+        <div class="form-group col-md-3">
+            <label style="width: 100%">Pregunta 2:</label>
+
+            <div style="width: 100%" class="input-group">
+                {{ frm_perfil_persona.pregunta_2.errors }}
+                {{ frm_perfil_persona.pregunta_2 }}
+            </div>
+        </div>
+        <!-- // Min END -->
+
+        <!-- Min -->
+        <div class="form-group col-md-3">
+            <label style="width: 100%">Respuesta 2:</label>
+
+            <div style="width: 100%" class="input-group">
+                {{ frm_perfil_persona.respuesta_2.errors }}
+                {{ frm_perfil_persona.respuesta_2 }}
+
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+    
+    <!-- With selected actions -->
+    <div class="pull-left">
+        <button class="btn btn-success"><i class="fa fa-save"></i> Guardar</button>
+    </div>
+    <!-- // With selected actions END -->
+    <div class="clearfix"></div>
+    <!-- // footer END -->
+
+    </form>
+
+</div>
+
+{% endblock %}
+{% block bottom_javascripts %}
+    <!-- Global -->
+    <script data-id="App.Config">
+        var App = {};
+        var basePath = '',
+                commonPath = '{{ STATIC_URL }}',
+                rootPath = '../',
+                DEV = false,
+                componentsPath = '{{ STATIC_URL }}components/';
+
+        var primaryColor = '#3695d5',
+                dangerColor = '#b55151',
+                successColor = '#609450',
+                infoColor = '#4a8bc2',
+                warningColor = '#ab7a4b',
+                inverseColor = '#45484d';
+
+        var themerPrimaryColor = primaryColor;
+
+
+    </script>
+
+    <script src="{{ STATIC_URL }}components/library/bootstrap/js/bootstrap.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/nicescroll/jquery.nicescroll.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/breakpoints/breakpoints.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/preload/pace/pace.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/preload/pace/preload.pace.init.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/core/js/animations.init.js?v=v1.0.2"></script>
+
+    <script src="{{ STATIC_URL }}components/core/js/sidebar.main.init.js?v=v1.0.2"></script>
+    <script src="{{ STATIC_URL }}components/core/js/sidebar.discover.init.js?v=v1.0.2"></script>
+    <script src="{{ STATIC_URL }}components/core/js/core.init.js?v=v1.0.2"></script>
+
+    <script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-select/assets/lib/js/bootstrap-select.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-select/assets/custom/js/bootstrap-select.init.js?v=v1.0.2&sv=v0.0.1"></script>
+
+    <script src="{{ STATIC_URL }}components/common/forms/validator/assets/lib/jquery-validation/dist/jquery.validate.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/common/forms/validator/assets/custom/form-validator.init.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/common/forms/elements/fuelux-checkbox/fuelux-checkbox.js?v=v1.0.2&sv=v0.0.1"></script>
+
+    <script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/bootbox.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/modals.init.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/modules/admin/notifications/gritter/assets/lib/js/jquery.gritter.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/modules/admin/notifications/gritter/assets/custom/js/gritter.init.js?v=v1.0.2&sv=v0.0.1"></script>
+{% endblock %}

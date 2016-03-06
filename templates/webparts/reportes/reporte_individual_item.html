@@ -1,0 +1,14 @@
+<tr class="selectable">
+   <td class="center lightblue">{{ razon_social_receptor|default_if_none:"---" }}</td>
+   <td class="center">$ {{ suma_facturas_innobee|default_if_none:"---" }} USD</td>
+   <td class="center">{{ fecha_inicio}}</td>
+   <td class="center lightblue">{{fecha_fin }}</td>
+   <td class="center">INNOBEE</td>
+</tr>
+<tr class="selectable">
+   <td class="center lightblue">{{ razon_social_receptor|default_if_none:"---" }}</td>
+   <td class="center">$ {{ suma_facturas_buzon|default_if_none:"---" }} USD</td>
+   <td class="center">{{ fecha_inicio }}</td>
+   <td class="center lightblue">{{fecha_fin }}</td>
+   <td class="center">BUZON</td>
+</tr>

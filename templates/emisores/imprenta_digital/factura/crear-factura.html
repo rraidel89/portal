@@ -1,0 +1,313 @@
+
+{% extends 'emisores/baseEmisor.html' %}
+{% block titulo_page %}{% if not form.instance or not form.instance.pk %}Nuevo Comprobante{% else %}Editar Comprobante{% endif %}{% endblock %}
+{% load selectable_tags %}
+{% load static from staticfiles %}
+{% block top_javascripts %}
+<script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/js/bootstrap-datepicker.js"
+   xmlns="http://www.w3.org/1999/html"></script>
+<script src="{{ STATIC_URL }}components/core/modules/formsets.js"></script>
+<link rel="stylesheet/less"
+   href="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/less/datepicker.less"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/admin/datepicker/datepicker.css"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/admin/forms.css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}css/admin/print.css" />
+{% endblock %}
+{% block body %}
+{% with form.instance as main_instance %}
+
+<ul id="crear_factura_error_list" class="custom_error_list"></ul>
+<div id="nuevo_comprobante" class="printable">
+   <div class="clearfix"></div>
+   <div class="filter-bar">
+      <div class="col-md-6">
+         <div class="widget widget-body-white panel panel-success visible-print-block" style="height: auto;">
+            {% include "emisores/imprenta_digital/info-empresa.html" %}
+         </div>
+      </div>
+      <div class="col-md-6">
+         <div class="widget widget-body-white" style="height: auto;">
+            <div class="widget-head">
+               <h4>Datos Factura</h4>
+            </div>
+            <div class="widget-body">
+               {% include "emisores/imprenta_digital/configuracion.html" %}
+            </div>
+         </div>
+         <div class="widget widget-body-white" style="height: auto;">
+            <div class="widget-head">
+               <h4>Cliente</h4>
+            </div>
+            <div class="widget-body">
+               {% include "emisores/imprenta_digital/cliente.html" %}
+            </div>
+         </div>
+      </div>
+      <div class="clearfix"></div>
+   </div>
+   <div class="clearfix"></div>
+   <form id="form_factura" action="." method="post">
+      <ul id="comprobanteTabs" class="nav nav-tabs">
+           <li class="active">
+              <a href="#first-screen" data-toggle="tab">
+                 <h4>Datos de Factura</h4>
+              </a>
+           </li>
+           {% if empresa.es_exportador %}
+           <li>
+              <a href="#second-screen" data-toggle="tab">
+                 <h4>Datos de Exportaci&oacute;n</h4>
+              </a>
+           </li>
+           {% endif %}
+           {% if empresa.reembolsos %}
+           <li>
+              <a href="#third-screen" data-toggle="tab">
+                 <h4>Reembolsos</h4>
+              </a>
+           </li>
+           <li>
+              <a href="#fourth-screen" data-toggle="tab">
+                 <h4>Pagos</h4>
+              </a>
+           </li>
+           {% endif %}
+      </ul>
+      <div class="tab-content">
+          <!-- FIRST TAB -->
+          <div id="first-screen" class="tab-pane fade in active">
+              {% csrf_token %}
+              <div class="filter-bar">
+                 <div class="widget widget-body-white" style="height: auto;">
+                    <div class="widget-head">
+                          <div class="pull-right">
+                             {% for field in form.visible_fields %}
+                             {% if field.name != 'propina' and field.field.widget.attrs.screen != '1' and field.field.widget.attrs.screen != '2' %}
+                             <p class="inline_sub_form">
+                                {{field.label}}
+                                {% if forloop.first %}
+                                {% for hidden in form.hidden_fields %}
+                                {{ hidden }}
+                                {% endfor %}
+                                {% endif %}
+                                {{ field.errors.as_ul }}
+                                {{ field }}
+                             </p>
+                             {% endif %}
+                             {% endfor %}
+                          </div>
+                    </div>
+                    <div class="widget-body">
+                        {% include "emisores/imprenta_digital/factura/items-factura.html" %}
+                    </div>
+                 </div>
+              </div>
+              <div class="filter-bar">
+                 <div class="col-md-7">
+                    {% include "emisores/imprenta_digital/info-adicional.html" %}
+                    <a id="buton-crear-prod" href="#modal-crear-producto" data-toggle="modal"></a>
+                 </div>
+                 <div class="col-md-5">
+                    <div class="widget widget-body-white" style="height: auto;">
+                       <div class="widget-head">
+                          <h4><i class="heading fa fa-arrow-circle-right"></i> Totales</h4>
+                       </div>
+                       {% include "emisores/imprenta_digital/factura/totales-factura.html" %}
+                       <div class="modal-footer">
+                          <a href="/imprenta-digital/facturas/" class="btn btn-danger">Cancelar</a>
+                          {% if form.instance.pk %}
+                          <a href="/imprenta-digital/facturas/{{form.instance.pk}}/preview/" target="blank" class="btn btn-info btn-sm"><i class="fa fa-eye"></i>&nbsp;Vista Previa</a>
+                          {% endif %}
+                          {% if not form.instance.pk %}
+                          <a href="javascript:void(0)" onclick="save_factura()" class="submit btn btn-success">Guardar</a>
+                          {% else %}
+                          <a href="javascript:void(0)" onclick="update_factura()" class="submit btn btn-success">Actualizar</a>
+                          {% endif %}
+                       </div>
+                    </div>
+                 </div>
+                 <div class="clearfix"></div>
+              </div>
+              <input id="ruc_empresa" name="ruc_empresa" type="hidden" value="{{empresa.ruc}}">
+          </div>
+          <!-- SECOND TAB -->
+          {% if empresa.es_exportador %}
+          <div id="second-screen" class="tab-pane fade">
+             <div class="filter-bar">
+                <div class="widget widget-body-white" style="height: auto;">
+                    <div class="widget-body">
+                         {% for field in form.visible_fields %}
+                             {% if field.field.widget.attrs.screen == '1' %}
+                             <p class="inline_sub_form">
+                                {{field.label}}
+                                {% if forloop.first %}
+                                    {% for hidden in form.hidden_fields %}
+                                        {{ hidden }}
+                                    {% endfor %}
+                                {% endif %}
+                                {{ field.errors.as_ul }}
+                                {{ field }}
+                             </p>
+                             {% endif %}
+                         {% endfor %}
+                    </div>
+                </div>
+             </div>
+          </div>
+          {% endif %}
+          {% if empresa.reembolsos %}
+          <div id="third-screen" class="tab-pane fade">
+             <div class="filter-bar">
+                <div class="widget widget-body-white" style="height: auto;">
+                    <div class="widget-body">
+                         {% for field in form.visible_fields %}
+                             {% if field.field.widget.attrs.screen == '2' %}
+                             <p class="inline_sub_form">
+                                {{field.label}}
+                                {% if forloop.first %}
+                                {% for hidden in form.hidden_fields %}
+                                {{ hidden }}
+                                {% endfor %}
+                                {% endif %}
+                                {{ field.errors.as_ul }}
+                                {{ field }}
+                             </p>
+                             {% endif %}
+                         {% endfor %}
+                         <hr>
+                         {% include "emisores/imprenta_digital/factura/reembolsos-factura.html" %}
+                         <button id="button-modal-imp-reem" type="button" data-target="#modal-crear-impuestos-reembolso"
+                                data-toggle="modal"></button>
+                    </div>
+                </div>
+
+             </div>
+          </div>
+           <div id="fourth-screen" class="tab-pane fade">
+             <div class="filter-bar">
+                <div class="widget widget-body-white" style="height: auto;">
+                    <div class="widget-body">
+                         {% include "emisores/imprenta_digital/factura/pagos-factura.html" %}
+                    </div>
+                </div>
+             </div>
+          </div>
+          {% endif %}
+      </div>
+   </form>
+</div>
+
+
+{% include "emisores/imprenta_digital/producto-modal.html" %}
+{% include "emisores/imprenta_digital/factura/impuestos-reembolso-modal.html" %}
+
+{% endwith %}
+{% endblock %}
+{% block bottom_javascripts %}
+<!-- Global -->
+<script data-id="App.Config">
+   var App = {};
+   var basePath = '',
+           commonPath = '{{ STATIC_URL }}',
+           rootPath = '../',
+           DEV = false,
+           componentsPath = '{{ STATIC_URL }}components/';
+   
+   var primaryColor = '#3695d5',
+           dangerColor = '#b55151',
+           successColor = '#609450',
+           infoColor = '#4a8bc2',
+           warningColor = '#ab7a4b',
+           inverseColor = '#45484d';
+   
+   var themerPrimaryColor = primaryColor;
+   
+</script>
+<script src="{{ STATIC_URL }}components/library/bootstrap/js/bootstrap.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/nicescroll/jquery.nicescroll.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/breakpoints/breakpoints.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/preload/pace/pace.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/preload/pace/preload.pace.init.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/core/js/animations.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/core/js/sidebar.main.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/core/js/sidebar.discover.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/core/js/core.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/bootbox.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/modals.init.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/core/modules/commons.js"></script>
+<script src="{{ STATIC_URL }}components/core/modules/imprentadigital.js"></script>
+{% endblock %}
+{% block dajaxice_block %}
+<link rel="stylesheet" href="{{ STATIC_URL }}selectable/css/dj.selectable.css"/>
+<script src="{{ STATIC_URL }}dajaxicecore/dajaxice.core.js"></script>
+<script src="{{ STATIC_URL }}dajax/jquery.dajax.core.js" type="text/javascript"></script>
+<!--{% include_jquery_libs '1.4.4' '1.8.13' %}-->
+<script src="{{ STATIC_URL }}selectable/js/jquery/jquery.min.js"></script>
+<script src="{{ STATIC_URL }}selectable/js/jquery/jquery-ui.js"></script>
+<script src="{{ STATIC_URL }}selectable/js/jquery.dj.selectable.js"></script>
+<script>
+   $('#add_more').click(function() {
+       cloneMore('tr.item:last', '{{ item_factura_form.prefix }}', true);
+       setTimeout(function(){
+           deleteLastForm('tr.item:last', '{{ item_factura_form.prefix }}', 'item', false);
+           setTimeout(function(){
+               cloneMore('tr.item:last', '{{ item_factura_form.prefix }}', true);
+           },5);
+       },5);
+   });
+   
+   $('#add_more_info_adi').click(function() {
+       cloneMore('tr.item-info-adi:last', '{{ info_adicional_form.prefix }}');
+   });
+
+   $('#add_more_reemb').click(function() {
+       cloneMore('tr.item-reembolso:last', '{{ reembolso_factura_form.prefix }}');
+   });
+
+    $('#add_more_pago').click(function() {
+       cloneMore('tr.item-pago:last', '{{ pago_factura_form.prefix }}');
+   });
+          
+   function after_selectable_do(item, input) {
+       select_producto(item.id, input);
+   };
+   
+   function after_remove_form(prefix) {
+       recalc_factura();
+   };
+   
+   function recalc(input_id) {
+       recalc_factura();
+   };
+
+   function pregunta(this_for, info_adicional_form_prefix, item, item_info, form_ia_instance_id){
+        var formCount = parseInt($('#id_' + info_adicional_form_prefix + '-TOTAL_FORMS').val());
+        //console.log("CUENTA "+formCount+", "+form_ia_instance_id);
+        if (formCount>1) {
+            if (form_ia_instance_id=="None" || !form_ia_instance_id) {
+                //console.log("AQUI!!");
+                deleteForm(this_for,info_adicional_form_prefix ,item);
+            }
+            else{
+                if (confirm('¿Estas seguro de Eliminar?')){
+                   deleteForm(this_for,info_adicional_form_prefix ,item);
+                   delete_entity(item_info,form_ia_instance_id);
+
+                }
+             }
+        }
+   };
+   
+</script>
+{% if form.instance %}
+<script>
+   $(document).ready(function () {
+       $('.datepicker').datepicker({
+           format: "yyyy-mm-dd"
+       });
+       recalc_factura();
+   });
+</script>
+{% endif %}
+{% endblock%}
+

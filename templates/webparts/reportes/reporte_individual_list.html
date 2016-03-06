@@ -1,0 +1,15 @@
+{% load emisoreceptor %}
+<table class="table table-condensed table-striped table-primary table-vertical-center checkboxs">
+    <thead>
+        <tr>
+            <th class="center">Razón Social</th>
+            <th class="center">Monto</th>
+            <th class="center">Fecha Inicio</th>
+            <th class="center">Fecha Fin</th>
+            <th class="center">Indicador</th>
+        </tr>
+    </thead>
+    <tbody id="reporte_individual_content">
+        {% include "webparts/reportes/reporte_individual_item.html" %}
+    </tbody>
+</table>

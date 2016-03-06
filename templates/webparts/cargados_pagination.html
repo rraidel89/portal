@@ -1,0 +1,12 @@
+<div class="pagination margin-none pull-right">
+    {% if documentos.has_previous %}
+       <a href="?page_docs={{ documentos.previous_page_number }}">Anterior</a>
+    {% endif %}
+    <span class="disabled">
+        Pág. {{ documentos.number }} de {{ documentos.paginator.num_pages }}.
+    </span>
+    {% if documentos.has_next %}
+        <a href="?page_docs={{ documentos.next_page_number }}">Siguiente</a>
+    {% endif %}
+</div>
+<div class="clearfix"></div>

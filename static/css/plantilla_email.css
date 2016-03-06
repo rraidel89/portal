@@ -1,0 +1,28 @@
+/* sizes */
+#main-wrap > div {
+    min-height: 450px;
+}
+
+#main-wrap {
+    overflow: hidden;
+}
+
+#sidebar {
+    float: left;
+    width: 50%;
+}
+
+#content-wrap {
+    float: right;
+    width: 50%;
+}
+
+#header, #content-wrap, #sidebar, #footer {
+    font-family: "Helvetica";
+    word-spacing: Normal;
+    text-align: center;
+    letter-spacing: 1px;
+    font-size: 12px;
+    font-style: normal;
+    color: #3a3b3a;
+}

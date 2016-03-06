@@ -1,0 +1,150 @@
+{% extends 'receptores/baseReceptor.html' %}
+{% block titulo_page %}Preguntas{% endblock%}
+{% block body %}
+
+<h3>Frequently Asked Questions</h3>
+<div class="separator-h"></div>
+
+	<!-- Widget -->
+<div class="widget widget-tabs widget-tabs-double-2">
+
+
+	
+	<div class="widget-body">
+		<div class="tab-content">
+		
+			<!-- Tab content -->
+			<div id="tabAll" class="tab-pane active">
+				<div class="panel-group accordion accordion-2" id="accordion">
+					
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title"><a class="accordion-toggle glyphicons font" data-toggle="collapse" data-parent="#accordion" href="#collapse-1">Que Hacemos?</a></h4>
+					    </div>
+					    <div id="collapse-1" class="panel-collapse collapse in">
+					      	<div class="panel-body">
+					        	 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+					      	</div>
+					    </div>
+				  	</div>
+				  	<div class="panel panel-default">
+					    <div class="panel-heading">
+					      	<h4 class="panel-title"><a class="accordion-toggle glyphicons circle_question_mark" data-toggle="collapse" data-parent="#accordion" href="#collapse-2">Por que lo hacemos?</a></h4>
+					    </div>
+					    <div id="collapse-2" class="panel-collapse collapse">
+					    	<div class="panel-body">
+					        	It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+					      	</div>
+					    </div>
+				  	</div>
+				  	<div class="panel panel-default">
+					    <div class="panel-heading">
+					      	<h4 class="panel-title"><a class="accordion-toggle glyphicons flag" data-toggle="collapse" data-parent="#accordion" href="#collapse-3">Hatsa cuando lo hacemos?</a></h4>
+					    </div>
+					    <div id="collapse-3" class="panel-collapse collapse">
+					    	<div class="panel-body">
+					        	<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
+								<p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>
+					      	</div>
+					    </div>
+				  	</div>
+				  	<div class="panel panel-default">
+					    <div class="panel-heading">
+					      	<h4 class="panel-title"><a class="accordion-toggle glyphicons download_alt" data-toggle="collapse" data-parent="#accordion" href="#collapse-4">Lo dejaremos de hacer?</a></h4>
+					    </div>
+					    <div id="collapse-4" class="panel-collapse collapse">
+					    	<div class="panel-body">
+					        	There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
+					      	</div>
+					    </div>
+				  	</div>
+				</div>
+			</div>
+			<!-- // Tab content END -->
+		</div>
+	</div>
+</div>
+<!-- // Widget END -->
+
+<h3>Contacto</h3>
+<div class="separator-h"></div>
+
+<div class="row">
+		<div class="col-md-7">
+			<form class="margin-none">
+				<div class="row">
+					<div class="col-md-6">
+						<input type="text" class="form-control" name="name" placeholder="Su Nombre">
+					</div>
+					<div class="col-md-6"> 
+						<input type="text" class="form-control" name="phone" placeholder="Teléfono">
+					</div>
+				</div>
+				<div class="innerT">
+					<textarea name="message" class="form-control" rows="5" placeholder="Mensaje"></textarea>
+					<div class="right innerT">
+						<button class="btn btn-success">Enviar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		
+	</div>
+
+{% endblock %}
+{% block bottom_javascripts %}  
+				<!-- Global -->
+				<script data-id="App.Config">
+				var App = {};	var basePath = '',
+					commonPath = '{{ STATIC_URL }}',
+					rootPath = '../',
+					DEV = false,
+					componentsPath = '{{ STATIC_URL }}components/';
+				
+				var primaryColor = '#3695d5',
+					dangerColor = '#b55151',
+					successColor = '#609450',
+					infoColor = '#4a8bc2',
+					warningColor = '#ab7a4b',
+					inverseColor = '#45484d';
+				
+				var themerPrimaryColor = primaryColor;
+			
+					</script>
+				
+			<script src="{{ STATIC_URL }}components/library/bootstrap/js/bootstrap.min.js?v=v1.0.2&sv=v0.0.1"></script>
+			<script src="{{ STATIC_URL }}components/plugins/nicescroll/jquery.nicescroll.min.js?v=v1.0.2&sv=v0.0.1"></script>
+			<script src="{{ STATIC_URL }}components/plugins/breakpoints/breakpoints.js?v=v1.0.2&sv=v0.0.1"></script>
+			<script src="{{ STATIC_URL }}components/plugins/preload/pace/pace.min.js?v=v1.0.2&sv=v0.0.1"></script>
+			<script src="{{ STATIC_URL }}components/plugins/preload/pace/preload.pace.init.js?v=v1.0.2&sv=v0.0.1"></script>
+			<script src="{{ STATIC_URL }}components/core/js/animations.init.js?v=v1.0.2"></script>
+			<script src="{{ STATIC_URL }}components/modules/admin/charts/flot/assets/lib/jquery.flot.js?v=v1.0.2&sv=v0.0.1"></script>
+			<script src="{{ STATIC_URL }}components/modules/admin/charts/flot/assets/lib/jquery.flot.resize.js?v=v1.0.2&sv=v0.0.1"></script>
+			<script src="{{ STATIC_URL }}components/modules/admin/charts/flot/assets/lib/plugins/jquery.flot.tooltip.min.js?v=v1.0.2&sv=v0.0.1"></script>
+			<script src="{{ STATIC_URL }}components/modules/admin/charts/flot/assets/custom/js/flotcharts.common.js?v=v1.0.2&sv=v0.0.1"></script>
+			<script src="{{ STATIC_URL }}components/modules/admin/charts/flot/assets/custom/js/flotchart-line-2.init.js?v=v1.0.2&sv=v0.0.1"></script>
+			<script src="{{ STATIC_URL }}components/modules/admin/charts/flot/assets/custom/js/flotchart-mixed-1.init.js?v=v1.0.2&sv=v0.0.1"></script>
+			<script src="{{ STATIC_URL }}components/modules/admin/charts/flot/assets/custom/js/flotchart-bars-horizontal.init.js?v=v1.0.2&sv=v0.0.1"></script>
+			<script src="{{ STATIC_URL }}components/modules/admin/charts/easy-pie/assets/lib/js/jquery.easy-pie-chart.js?v=v1.0.2&sv=v0.0.1"></script>
+			<script src="{{ STATIC_URL }}components/modules/admin/charts/easy-pie/assets/custom/easy-pie.init.js?v=v1.0.2&sv=v0.0.1"></script>
+			<script src="{{ STATIC_URL }}components/modules/admin/charts/sparkline/jquery.sparkline.min.js?v=v1.0.2&sv=v0.0.1"></script>
+			<script src="{{ STATIC_URL }}components/modules/admin/charts/sparkline/sparkline.init.js?v=v1.0.2&sv=v0.0.1"></script>
+			<script src="{{ STATIC_URL }}components/modules/admin/maps/vector/assets/lib/jquery-jvectormap-1.2.2.min.js?v=v1.0.2&sv=v0.0.1"></script>
+			<script src="{{ STATIC_URL }}components/modules/admin/maps/vector/assets/lib/maps/jquery-jvectormap-world-mill-en.js?v=v1.0.2&sv=v0.0.1"></script>
+			<script src="{{ STATIC_URL }}components/modules/admin/maps/vector/assets/custom/maps-vector.world-map-markers.init.js?v=v1.0.2&sv=v0.0.1"></script>
+			<script src="{{ STATIC_URL }}components/core/js/sidebar.main.init.js?v=v1.0.2"></script>
+			<script src="{{ STATIC_URL }}components/core/js/sidebar.discover.init.js?v=v1.0.2"></script>
+			<script src="{{ STATIC_URL }}components/core/js/core.init.js?v=v1.0.2"></script>	
+			
+			<script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-select/assets/lib/js/bootstrap-select.js?v=v1.0.2&sv=v0.0.1"></script>
+			<script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-select/assets/custom/js/bootstrap-select.init.js?v=v1.0.2&sv=v0.0.1"></script>
+			
+			<script src="{{ STATIC_URL }}components/common/forms/validator/assets/lib/jquery-validation/dist/jquery.validate.min.js?v=v1.0.2&sv=v0.0.1"></script>
+			<script src="{{ STATIC_URL }}components/common/forms/validator/assets/custom/form-validator.init.js?v=v1.0.2&sv=v0.0.1"></script>
+			<script src="{{ STATIC_URL }}components/common/forms/elements/fuelux-checkbox/fuelux-checkbox.js?v=v1.0.2&sv=v0.0.1"></script>
+			
+			<script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/bootbox.min.js?v=v1.0.2&sv=v0.0.1"></script>
+			<script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/modals.init.js?v=v1.0.2&sv=v0.0.1"></script>
+			<script src="{{ STATIC_URL }}components/modules/admin/notifications/gritter/assets/lib/js/jquery.gritter.min.js?v=v1.0.2&sv=v0.0.1"></script>
+			<script src="{{ STATIC_URL }}components/modules/admin/notifications/gritter/assets/custom/js/gritter.init.js?v=v1.0.2&sv=v0.0.1"></script>
+{% endblock %}

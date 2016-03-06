@@ -1,0 +1,355 @@
+{% extends 'emisores/baseEmisor.html' %}
+{% block titulo_page %}{% if not form.instance or not form.instance.pk %}Nuevo Producto{% else %}Editar Producto{% endif %}{% endblock%}
+{% load static from staticfiles %}
+{% block top_javascripts %}
+<script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="{% static  'util/util.js' %}"></script>
+<link rel="stylesheet/less"
+      href="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/less/datepicker.less"/>
+<link rel="stylesheet"
+      href="{{ STATIC_URL }}css/admin/datepicker/datepicker.css"/>
+<!--
+<link rel="stylesheet" href="{{ STATIC_URL }}css/admin/coupons.css"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/table/demo_table.css"/>-->
+
+
+{% endblock%}
+{% block body %}
+<script> utilidades(); </script>
+
+<!-- First grid -->
+<h4 class="margin-none pull-left pestana" xmlns="http://www.w3.org/1999/html">Producto</h4>
+<div class="clearfix"></div>	
+<div class="tablaBCK">
+
+	<div class="clearfix"></div>
+	<div class="separator-h"></div>
+	<h4>Datos generales del producto</h4>
+	<div class="separator-h"></div>
+	<!-- Filters -->
+    <form id="frmProducto" class="margin-none form-inline" method="post" enctype="multipart/form-data">
+	<div class="filter-bar">
+
+		{% csrf_token %}
+		<!-- Input -->
+		<div class="form-group col-md-4">
+			<label>Nombre:</label>
+			<div class="input-group ">
+				{{ form.titulo.errors }}
+				{{ form.titulo }}
+			</div>
+		</div>
+		<!-- // Input END -->
+		
+		<!-- Min -->
+		<div class="form-group col-md-4">
+			<label>Imagen:</label>
+			<div class="input-group">
+				{{ form.imagen.errors }}
+				{{ form.imagen}}
+			</div>
+		</div>
+		<!-- // Min END -->
+		
+		<!-- Min -->
+		<div class="form-group col-md-4">
+			<label>Logotipo:</label>
+			<div class="input-group ">
+			  	{{ form.logotipo.errors }}
+			  	{{ form.logotipo }}
+			</div>
+		</div>
+		<!-- // Min END -->
+		
+		<br><br>
+
+		<!-- Select -->
+			<div class="form-group col-md-4">
+				<label>Estado:</label>
+                <div class="input-group">
+                    {{ form.estado.errors }}
+                    {{ form.estado }}</div>
+			</div>
+		<!-- // Select END -->
+		
+		<!-- Calendar From -->
+		<div class="form-group col-md-4">
+			<label>Fecha publicación:</label>
+			<div class="input-group date" id="datepicker02">
+			    {{ form.fecha_publicacion.errors }}
+			    {{ form.fecha_publicacion }}
+                <span class="input-group-addon"><i class="fa fa-th"></i></span>
+			</div>
+		</div>
+		<!-- // Calendar From END -->
+		
+		<br>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="clearfix"></div>
+
+	
+	<div class="separator-h"></div>
+    <h4>Datos específicos del producto</h4>
+    <div class="separator-h"></div>
+    <!-- Filters -->
+    <div class="filter-bar">
+			
+        <!-- Input -->
+        <div class="form-group col-md-4">
+            <label>Código SKU:</label>
+            <div class="input-group col-md-7">
+                {{ form.codigo_sku.errors }}
+                {{ form.codigo_sku }}
+		{{ form.codigo_sku.help_text }}
+            </div>
+        </div>
+        <!-- // Input END -->
+
+        <!-- Select -->
+            <div class="form-group col-md-4">
+                <label>Categoría:</label>
+                <div class="row">
+                    {{ form.categoria.errors }}
+                    {{ form.categoria }}
+                </div>
+            </div>
+        <!-- // Select END -->
+
+        <!-- Select -->
+            <div class="form-group col-md-4">
+                <label>Subcategoría:</label>
+                <div class="row">
+                    {{ form.sub_categoria.errors }}
+                    {{ form.sub_categoria }}
+                </div>
+            </div>
+        <!-- // Select END -->
+        <br><br>
+        <!-- Min -->
+        <br><br>
+        <!-- Min -->
+        <div class="form-group col-md-6">
+            <label>Detalle del producto:</label>
+            <div class="input-group col-md-12" style="border: 1px solid #dbd7d7;">
+                {{ form.detalles_producto.errors }}
+                {{ form.detalles_producto }}
+            </div>
+        </div>
+        <!-- // Min END -->
+
+        <!-- Min -->
+        <div class="form-group col-md-6">
+            <label>URL de compra:</label>
+            <div class="input-group col-md-12" style="border: 1px solid #dbd7d7;">
+                {{ form.url_compra.errors }}
+                {{ form.url_compra }}
+            </div>
+        </div>
+        <!-- // Min END -->
+
+        <!-- Min -->
+        <div class="form-group col-md-12 moreinfo">
+            <label><i class="fa fa-eye"></i> Si desea obtener más información sobre el costo de este servicio,<a href="http://www.google.com" target="_blank" data-toggle="modal"> clic aquí</a></label>
+        </div>
+        <!-- // Min END -->
+
+        <br><br><br><br><br>
+
+        <!-- Min -->
+        <div class="col-md-12 emaildisclaimer">
+            <label><i class="fa fa-exclamation-circle"></i> NOTA:<br>
+            Si usted no dispone de un sistema de pago en línea para sus productos le sugerimos visite a nuestro partner
+            <br>
+             <button class="btn btn-success" type="button">Visitar plataforma de comercio electrónico</button>
+            </label>
+        </div>
+        <!-- // Min END -->
+
+			<!-- Modal -->
+			<div class="modal fade" id="modal-costos">
+				
+				<div class="modal-dialog">
+					<div class="modal-content">
+			
+						<!-- Modal heading -->
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h3 class="modal-title">Costos de publicación de productos</h3>
+						</div>
+						<!-- // Modal heading END -->
+						
+						<!-- Modal body -->
+						<div class="modal-body">
+							<p><i class="fa fa-eye"></i> Esta es una tabla de costos referenciales. El valor final de facturación será presentado el momento de crear la publicación.</p>
+							<p>
+							<table cellpadding="5" cellpadding="0" border="1">
+							<tr>
+							<td width="25%">Número de productos</td>
+							<td width="25%">Costo a ser facturado</td>
+							<td width="50%" rowspan="4">
+							<p>El costo presentado en la tabla corresponde al valor que se deberá facturar al finalizar los 30 días de creación de la campaña</p>
+							</td>
+							</tr>
+							<tr><td>1 - 1000</td><td>$100,oo USD</td></tr>
+							<tr><td>1 - 1000</td><td>$100,oo USD</td></tr>
+							<tr><td>1 - 1000</td><td>$100,oo USD</td></tr>
+							
+							</table>
+							</p>
+						</div>
+						<!-- // Modal body END -->
+						
+						<!-- Modal footer -->
+						<div class="modal-footer">
+							
+							<a href="#" data-dismiss="modal" class="btn btn-success">Aceptar</a>
+						</div>
+						<!-- // Modal footer END -->
+			
+					</div>
+				</div>
+				
+			</div>
+			<!-- // Modal END -->
+			
+	
+			<div class="clearfix"><br /></div></div>
+
+			
+			<!-- footer -->
+			<!-- With selected actions -->
+			<div class="pull-left">
+				<a href="#modal-cupon-preview" data-toggle="modal"><button class="btn btn-success"><i class="fa fa-eye"></i> Vista previa del producto</button></a>
+				&nbsp;&nbsp;
+				<a href="#modal-cupon-save" data-toggle="modal"><button class="btn btn-success"><i class="fa fa-save"></i> Guardar producto</button></a>
+			</div>
+			<!-- // With selected actions END -->
+			<div class="clearfix"></div>
+			<!-- // footer END -->
+        </form>
+</div>
+			
+			<div class="clearfix"><br /></div></div>
+			
+			<!-- Modal -->
+			<div class="modal fade" id="modal-cupon-preview">
+				
+				<div class="modal-dialog">
+					<div class="modal-content">
+			
+						<!-- Modal heading -->
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h3 class="modal-title">Vista previa del producto</h3>
+						</div>
+						<!-- // Modal heading END -->
+						
+						<!-- Modal body -->
+						<div class="modal-body">
+							<p><i class="fa fa-eye"></i> Esta es la manera en que los usuarios verán el prodcuto generado por el sistema.</p>
+							<p align="center"><img src="/media/{{ form.imagen.value }}" alt="Producto" />
+						</div>
+						<!-- // Modal body END -->
+						
+						<!-- Modal footer -->
+						<div class="modal-footer">
+							
+							<a href="#" data-dismiss="modal" class="btn btn-success">Aceptar</a>
+						</div>
+						<!-- // Modal footer END -->
+			
+					</div>
+				</div>
+				
+			</div>
+			<!-- // Modal END -->
+			
+			<!-- Modal -->
+			<div class="modal fade" id="modal-cupon-save">
+				
+				<div class="modal-dialog">
+					<div class="modal-content">
+			
+						<!-- Modal heading -->
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h3 class="modal-title">Confirmación de solicitud</h3>
+						</div>
+						<!-- // Modal heading END -->
+						<div class="modal-body">
+						{% if not form.instance or not form.instance.pk %}
+						<!-- Modal body -->
+						<!--
+							<p><i class="fa fa-exclamation-circle"></i> El sistema de prodcutos ha recibido la orden de publicación a partir de la fecha 01-31-2014 hasta el 15-02-2014.
+							</p>
+							<p>
+							El costo de esta campaña es de <strong>$ 357,oo USD</strong> incluido el IVA. </p>
+							<p>El método de  pago disponible es <button class="btn btn-success">Contrafactura</button></p>
+						-->
+						{% else %}
+							<p>¿Desea guardar los cambios?</p>
+						{% endif %}
+						</div>
+						<!-- // Modal body END -->
+						
+						<!-- Modal footer -->
+						<div class="modal-footer">
+							<a href="#" data-dismiss="modal" class="btn btn-danger">Continuar editando</a>
+							<a id="btnCrearProducto" href="#" data-dismiss="modal" class="btn btn-success">
+								{% if not form.instance or not form.instance.pk %}Crear{% else %}Guardar{% endif %}
+							</a>
+						</div>
+						<!-- // Modal footer END -->
+			
+					</div>
+				</div>
+				
+			</div>
+			<!-- // Modal END -->
+			
+{% endblock %}
+{% block bottom_javascripts %}
+
+	<!-- Global -->
+	<script data-id="App.Config">
+	var App = {};	var basePath = '',
+		commonPath = '{{ STATIC_URL }}',
+		rootPath = '../',
+		DEV = false,
+		componentsPath = '{{ STATIC_URL }}components/';
+	
+	var primaryColor = '#3695d5',
+		dangerColor = '#b55151',
+		successColor = '#609450',
+		infoColor = '#4a8bc2',
+		warningColor = '#ab7a4b',
+		inverseColor = '#45484d';
+	
+	var themerPrimaryColor = primaryColor;
+
+		</script>
+
+<script src="{{ STATIC_URL }}components/library/bootstrap/js/bootstrap.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/nicescroll/jquery.nicescroll.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/breakpoints/breakpoints.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/preload/pace/pace.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/preload/pace/preload.pace.init.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/core/js/animations.init.js?v=v1.0.2"></script>
+
+<script src="{{ STATIC_URL }}components/core/js/sidebar.main.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/core/js/sidebar.discover.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/core/js/core.init.js?v=v1.0.2"></script>
+
+<script src="{{ STATIC_URL }}components/common/forms/validator/assets/lib/jquery-validation/dist/jquery.validate.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/common/forms/validator/assets/custom/form-validator.init.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/common/forms/elements/fuelux-checkbox/fuelux-checkbox.js?v=v1.0.2&sv=v0.0.1"></script>
+
+<script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/bootbox.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/modals.init.js?v=v1.0.2&sv=v0.0.1"></script>
+
+<script src="{{ STATIC_URL }}components/core/modules/commons.js"></script>
+<script src="{{ STATIC_URL }}components/core/modules/productos.js"></script>
+
+{% endblock %}

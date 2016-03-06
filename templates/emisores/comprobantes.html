@@ -1,0 +1,73 @@
+{% extends 'emisores/baseEmisor.html' %}
+{% block titulo_page %}Comprobantes Cargados{% endblock%}
+{% load static from staticfiles %}
+{% block top_javascripts %}
+    <script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    {% load static from staticfiles %}
+    <script src="{% static  'util/util.js' %}"></script>
+    <link rel="stylesheet/less" href="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/less/datepicker.less" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/admin/datepicker/datepicker.css" />
+{% endblock%}
+{% block body %}
+<script> utilidades(); </script>
+<h3 class="margin-none pull-left pestana">Comprobantes cargados</h3>
+<div class="clearfix"></div>
+<div class="tablaBCK">
+   <div class="clearfix"></div>
+   <div class="separator-h"></div>
+   {% include "webparts/cargados_form.html" %}	
+   <div class="widget widget-body-white">
+      <div class="widget-head">
+         <h4><i class="heading fa fa-arrow-circle-right"></i> Resultado: $<span id="suma-cargados">{{ suma_documentos_cargados }}</span> </h4>
+      </div>
+      <div class="widget-body">{% include "webparts/cargados_list.html" %}</div>
+   </div>
+   {% include "webparts/leyenda_comprobantes.html" %}
+   {% include "webparts/cargados_pagination.html" %}
+   <div class="clearfix"></div>
+    {% if buzon %}
+    <div class="pull-left">
+        <a href="/cargar-comprobantes/"><button class="btn btn-success"><i class="fa fa-upload"></i>&nbsp;Cargar nuevo documento</button></a>
+    </div>
+    <div class="clearfix"></div>
+    {% endif %}
+</div>
+{% endblock %}
+{% block bottom_javascripts %}
+	<!-- Global -->
+
+	<script data-id="App.Config">
+        var App = {};	var basePath = '',
+            commonPath = '{{ STATIC_URL }}',
+            rootPath = '../',
+            DEV = false,
+            componentsPath = '{{ STATIC_URL }}components/';
+
+        var primaryColor = '#3695d5',
+            dangerColor = '#b55151',
+            successColor = '#609450',
+            infoColor = '#4a8bc2',
+            warningColor = '#ab7a4b',
+            inverseColor = '#45484d';
+
+        var themerPrimaryColor = primaryColor;
+
+	</script>
+	
+	<script src="{{ STATIC_URL }}components/library/bootstrap/js/bootstrap.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/nicescroll/jquery.nicescroll.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/breakpoints/breakpoints.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/preload/pace/pace.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/plugins/preload/pace/preload.pace.init.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/core/js/animations.init.js?v=v1.0.2"></script>
+
+    <script src="{{ STATIC_URL }}components/core/js/sidebar.main.init.js?v=v1.0.2"></script>
+    <script src="{{ STATIC_URL }}components/core/js/sidebar.discover.init.js?v=v1.0.2"></script>
+    <script src="{{ STATIC_URL }}components/core/js/core.init.js?v=v1.0.2"></script>
+
+    <script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/bootbox.min.js?v=v1.0.2&sv=v0.0.1"></script>
+    <script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/modals.init.js?v=v1.0.2&sv=v0.0.1"></script>
+    
+    <script src="{{ STATIC_URL }}components/core/modules/commons.js"></script>
+    <script src="{{ STATIC_URL }}components/core/modules/inicio.js"></script>
+{% endblock %}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <table class="table table-bordered">
+    <tr>
+        <th>Title</th>
+        <th>Type</th>
+        <th>Sent at</th>
+    </tr>
+
+    {% for campaign in campaigns %}
+    <tr>
+        <td><a href="/reports/{{ campaign.id }}">{{ campaign.title }}</a></td>
+        <td>{{ campaign.type }}</td>
+        <td>{{ campaign.send_time }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+</body>
+</html>

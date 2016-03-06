@@ -1,0 +1,150 @@
+.field_error {
+    background: #FCEBEC !important;
+}
+
+.custom_error_list {
+    display: inline;
+    list-style-type: none;
+}
+
+.custom_error_list li {
+    color:#AA0000;
+}
+
+.custom_form_table {
+    
+}
+
+.search_input {
+    width: 220px !important;
+}
+
+.form-custom {
+    margin: 2px;
+    padding: 5px;
+    width: 100%;
+}
+
+.form-custom .col1 {
+    background: #FFF8E0;
+    padding: 5px;
+    border-bottom: 1px dashed #CCC;
+}
+
+.form-custom .col2 {
+    background: #FFF;
+    border-left: 1px dashed #CCC;
+    border-right: 1px dashed #CCC;
+    border-bottom: 1px dashed #CCC;
+    padding: 5px;
+}
+
+.form-control {
+    width: 220px !important;
+}
+
+.number-field {
+    width:40% !important;
+    color:#006600 !important;
+}
+
+.small-code-field {
+    width:50% !important;
+    color:#331100 !important;
+}
+
+.date-field {
+    width:40% !important;
+    color:#000066 !important;
+}
+
+.big-date-field {
+    width:90% !important;
+    color:#000066 !important;
+}
+
+.normal-field {
+    color:#333 !important;
+    width:45% !important;
+}
+
+.big-field {
+    width:60% !important;
+    color:#333 !important;
+}
+
+.bigest-field {
+    width:70% !important;
+    color:#333 !important;
+}
+
+.very-big-field {
+    width:90% !important;
+    color:#333 !important;
+}
+
+.numeric-field {
+    width:40% !important;
+    color:#078320 !important;
+}
+
+.numeric-big-field {
+    width:90% !important;
+    color:#078320 !important;
+}
+
+
+.inline_sub_form {
+    width: 240px;
+    display: inline-block;
+}
+
+.inline_sub_form p {
+    width: 50%;
+    float: left;
+}
+
+.inline_sub_form p input {
+    margin-top: -5px !important;
+}
+
+.tooltip {
+    z-index: 1000 !important;
+}
+
+.input_hide {
+    display: none;
+}
+
+.inline_normal_form {
+    display: inline-block;
+}
+
+.inline_normal_form p {
+    width: 240px;
+    float: left;
+}
+
+.select_join {
+    width: 100px;
+    height: 28px;
+    overflow: hidden;
+    border: #FEFEFE 1px solid;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: inset 0px 0px 10px 1px #FEFEFE;
+    box-shadow: inset 0px 0px 10px 1px #FEFEFE;
+}
+.select_join select {
+   background: transparent;
+   width: 100px;
+   font-size:7pt;
+   color:grey;
+   border: 0;
+   border-radius: 0;
+   height: 28px;
+   -webkit-appearance: none;
+}
+.select_join select:focus {
+    outline: none;
+}

@@ -1,0 +1,226 @@
+{% extends 'emisores/baseEmisor.html' %}
+{% load emisoreceptor %}
+{% block titulo_page %}Inicio{% endblock %}
+{% load static from staticfiles %}
+{% block top_javascripts %}
+<script src="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="{% static  'util/util.js' %}"></script>
+<link rel="stylesheet/less"
+   href="{{ STATIC_URL }}components/common/forms/elements/bootstrap-datepicker/less/datepicker.less"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/admin/datepicker/datepicker.css"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/admin/coupons.css"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/table/demo_table.css"/>
+<script src="{{ STATIC_URL }}util/ZeroClipboard.js"></script>
+<style>
+   .image-cropper {
+   height: 60px;
+   overflow: hidden;
+   text-align: center;
+   width: 450px;
+   }
+   .image-cropper img {
+   position: relative; /* allows repositioning */
+   left: 100%; /* move the whole width of the image to the right */
+   margin-left: -200%; /* magic! */
+   width: 80%;
+   height: 60px;
+   z-index: 10001;
+   }
+   .image-cropper:hover {
+   width:450px;
+   height: auto !important;
+   z-index: 10000;
+   }
+   .see-more {
+   font-size: 0.8em; color:#333; font-weight: bold; font-style: italic
+   }
+   .see-more:hover {
+   color:#DD0000;
+   }
+</style>
+{% endblock %}
+{% block body %}
+<script> utilidades(); </script>
+<script type="text/javascript">
+   $(document).ready(function() {
+       var clip = new ZeroClipboard($('.btnCopiar'), { moviePath: "/media/ZeroClipboard.swf" });
+       clip.on('complete', function(client, args) {
+   	clip.setText(this.id);
+       });
+   });
+      
+</script>
+<div class="row">
+   {% if razon_social_empresa %}
+   <!-- Column -->
+   <div class="col-md-7">
+      <!-- Widget -->
+      <div class="widget widget-3">
+         <!-- Widget heading -->
+         <div class="widget-head">
+            <h4 class="heading"><span class="fa fa-user"><i></i> {{ razon_social_empresa }}</span></h4>
+         </div>
+         <!-- // Widget heading END -->
+      </div>
+      <!-- // Widget END -->
+   </div>
+   {% endif %}
+</div>
+
+<div>
+   <!-- Column -->
+   <div class="row">
+   {% if grupo == 'RECEPTORES' and banner and banner.pk %}
+      {% include "webparts/banners/top_banners.html" %}
+   {% endif %}
+   </div>
+</div>
+{% if perms.core.listar_doc_emit %}
+<!-- First grid -->
+<h3 class="margin-none pull-left pestana">Comprobantes emitidos</h3>
+<div class="clearfix"></div>
+<div class="tablaBCK">
+   <div class="clearfix"></div>
+   <div class="separator-h"></div>
+   {% include "webparts/emitidos_form.html" %}
+   <div class="widget widget-body-white" style="height: auto;">
+      <div class="widget-head">
+         <h4><i class="heading fa fa-arrow-circle-right"></i> Total Comprobantes Emitidos: $<span id="suma-emitidos">{{ suma_documentos_emitidos }}</span></h4>
+      </div>
+      <div class="widget-body">{% include "webparts/emitidos_list.html" %}</div>
+   </div>
+   {% include "webparts/leyenda_comprobantes.html" %}
+   {% include "webparts/emitidos_pagination.html" %}
+</div>
+{% endif %}
+<div><br></div>
+{% if perms.core.listar_doc_rec %}
+<h3 class="margin-none pull-left pestana">Comprobantes recibidos</h3>
+<div class="clearfix"></div>
+<div class="tablaBCK">
+   <div class="clearfix"></div>
+   <div class="separator-h"></div>
+   {% include "webparts/recibidos_form.html" %}
+   <div class="widget widget-body-white">
+      <div class="widget-head">
+         <h4><i class="heading fa fa-arrow-circle-right"></i> Total Comprobantes Recibidos: $<span id="suma-recibidos">{{ suma_documentos_recibidos }}</span></h4>
+      </div>
+      <div class="widget-body">{% include "webparts/recibidos_list.html" %}</div>
+   </div>
+   {% include "webparts/leyenda_comprobantes.html" %}
+   {% include "webparts/recibidos_pagination.html" %}
+</div>
+{% endif %}
+<div><br></div>
+{% if perms.core.listar_comp_cargados or grupo == 'RECEPTORES' %}
+<h3 class="margin-none pull-left pestana">Comprobantes cargados</h3>
+<div class="clearfix"></div>
+<div class="tablaBCK">
+   <div class="clearfix"></div>
+   <div class="separator-h"></div>
+   {% include "webparts/cargados_form.html" %}	
+   <div class="widget widget-body-white">
+      <div class="widget-head">
+         <h4><i class="heading fa fa-arrow-circle-right"></i> Resultado: $<span id="suma-cargados">{{ suma_documentos_cargados }}</span> </h4>
+      </div>
+      <div class="widget-body">{% include "webparts/cargados_list.html" %}</div>
+   </div>
+   {% include "webparts/leyenda_comprobantes.html" %}
+   {% include "webparts/cargados_pagination.html" %}
+</div>
+{% endif %}
+<div><br></div>
+<!-- Spacer -->
+{% if perms.core.listar_campania_email %}  
+<h3 class="margin-none pull-left pestana">Campañas publicitarias</h3>
+<div class="clearfix"></div>
+<div class="tablaBCK">
+   <div class="clearfix"></div>
+   <div class="separator-h"></div>
+   {% include "webparts/campanias/campanias_form.html" %}
+   <div class="widget widget-body-white" style="height: auto;">
+  |      <div class="widget-body">{% include "webparts/campanias/campanias_list.html" %}</div>
+   </div>
+   {% include "webparts/campanias/campanias_pagination.html" %}
+</div>
+{% endif %}
+<div><br></div>
+<!-- CUPONES -->
+{% if perms.core.listar_cupones and grupo == 'RECEPTORES' %}
+<h3 class="margin-none pull-left pestana">Cupones de descuento</h3>
+<div class="clearfix"></div>
+<div class="tablaBCK">
+  <div class="clearfix"></div>
+  <div class="separator-h"></div>
+  {% include "webparts/cupones/cupones_form.html" %}
+  {% include "webparts/cupones/cupones_list.html" %}
+</div>
+<div><br></div>
+<h3 class="margin-none pull-left pestana">Productos de interés</h3>
+<div class="clearfix"></div>
+<div class="tablaBCK">
+  <div class="clearfix"></div>
+  <div class="separator-h"></div>
+  {% include "webparts/productos/productos_form.html" %}
+  {% include "webparts/productos/productos_list.html" %}
+</div>
+<!-- First grid -->
+{% endif %}
+
+{% endblock %}
+{% block bottom_javascripts %}
+<!-- Global -->
+<script data-id="App.Config">
+   var App = {};
+   var basePath = '',
+   	commonPath = '{{ STATIC_URL }}',
+   	rootPath = '../',
+   	DEV = false,
+   	componentsPath = '{{ STATIC_URL }}components/';
+   
+   var primaryColor = '#3695d5',
+   	dangerColor = '#b55151',
+   	successColor = '#609450',
+   	infoColor = '#4a8bc2',
+   	warningColor = '#ab7a4b',
+   	inverseColor = '#45484d';
+   
+   var themerPrimaryColor = primaryColor;
+   
+      
+</script>
+<script>
+$(window).resize(function() {
+    /*
+    var cnumber = '#E-'+'{{de.tipo_comprobante}}'+'-'+'{{de.id}} .cnumber';
+    var cdate = '#E-'+'{{de.tipo_comprobante}}'+'-'+'{{de.id}} .cdate';
+    var cidentity = '#E-'+'{{de.tipo_comprobante}}'+'-'+'{{de.id}} .cidentity';
+    //$(name).html('');
+    if($(window).width() < 1200) {
+        $(cnumber).html('<div class="cliente" title="Establecimiento-Punto de Emision-Secuencial">{{ de.establecimiento|get_value }}<hr>{{ de.pto_emision|get_value }}<hr>{{ de.secuencial|get_value }}</div>');
+        $(cdate).html('{{ de.fecha_emision|date:'Y' }}<hr>{{ de.fecha_emision|date:'m' }}<hr>{{ de.fecha_emision|date:'d' }}');
+        $(cidentity).html('<div class="cliente" title="{{ de.identificacion_receptor }}">{{ de.identificacion_receptor|truncatechars:5 }}</div>');
+    }
+    else {
+        $(cnumber).html('{{ de.establecimiento|get_value }}-{{ de.pto_emision|get_value }}-{{ de.secuencial|get_value }}');
+        $(cdate).html('{{ de.fecha_emision|date:'Y-m-d' }}');
+        $(cidentity).html('{{ de.identificacion_receptor|get_value }}');
+    }
+    */
+});
+</script>
+<script src="{{ STATIC_URL }}components/library/bootstrap/js/bootstrap.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/nicescroll/jquery.nicescroll.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/breakpoints/breakpoints.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/preload/pace/pace.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/plugins/preload/pace/preload.pace.init.js?v=v1.0.2&sv=v0.0.1"></script>    
+<script src="{{ STATIC_URL }}components/core/js/animations.init.js?v=v1.0.2"></script>   
+<script src="{{ STATIC_URL }}components/core/js/sidebar.main.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/core/js/sidebar.discover.init.js?v=v1.0.2"></script>
+<script src="{{ STATIC_URL }}components/core/js/core.init.js?v=v1.0.2"></script>   
+<script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/bootbox.min.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/modules/admin/modals/assets/js/modals.init.js?v=v1.0.2&sv=v0.0.1"></script>
+<script src="{{ STATIC_URL }}components/core/modules/commons.js"></script>
+<script src="{{ STATIC_URL }}components/core/modules/inicio.js"></script>
+<script src="{{ STATIC_URL }}components/core/modules/productos.js"></script>
+{% endblock %}

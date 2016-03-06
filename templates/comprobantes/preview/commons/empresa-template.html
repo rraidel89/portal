@@ -1,0 +1,33 @@
+<div class="widget widget-body-white" style="height: auto;">
+        <div class="widget-head visible-print-block">
+                <h3>{{entity.ruc_empresa.nombre_comercial}}</h3>
+        </div>
+        <div class="widget-body">
+                {% if entity.ruc_empresa.logotipo.url %}
+                <div style="text-align: center"><img height="auto" width="50%" src="{{ entity.ruc_empresa.logotipo.url }}"/></div>
+                {% endif %}
+                <br>
+                <table width="100%" cellpadding="2" cellspacing="2">
+                    <tr>
+                        <th>Raz&oacute;n Social:</th><td>{{entity.ruc_empresa.razon_social}}</td>
+                    </tr>
+                    <tr>
+                        <th>RUC:</th><td>{{entity.ruc_empresa.ruc}}</td>
+                    </tr>
+                    <tr>
+                        <th>Direcci&oacute;n Matriz:</th><td>{{entity.ruc_empresa.direccion_matriz}}</td>
+                    </tr>
+                    <tr>
+                        <th>Tel&eacute;fono:</th><td>{{entity.ruc_empresa.telefono_principal}}</td>
+                    </tr>
+                    <tr>
+                        <th>Obligado a llevar contabilidad:</th><td>{{entity.ruc_empresa.obligado_contabilidad}}</td>
+                    </tr>
+                    {% if entity.ruc_empresa.codigo_contribuyente_especial %}
+                    <tr>
+                        <th>Contribuyente especial:</th><td>{{entity.ruc_empresa.codigo_contribuyente_especial}}</td>
+                    </tr>
+                    {% endif %}
+                </table>
+        </div>
+</div>
